@@ -13,7 +13,7 @@ import com.iescamas.liftup.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText editUsuario;
+    private EditText editUsuarioo;
     private EditText editContrasena;
     private Button btnInicioSesion;
     private TextView txtRegistrarse;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        editUsuario = findViewById(R.id.edit_usuario);
+        editUsuarioo = findViewById(R.id.edit_usuario);
         editContrasena = findViewById(R.id.edit_contrasena);
         btnInicioSesion = findViewById(R.id.btnInicioSesion);
         txtRegistrarse = findViewById(R.id.txtregistro);
