@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Borde del cuadrado -->
+    <stroke
+        android:color="#0059BD"
+    android:width="2dp"/>
+
+    <solid android:color="@android:color/transparent"/>
+    <corners android:radius="5dp"/>
+
+
+
+    <size
+        android:width="100dp"
+    android:height="100dp"/>
+</shape>

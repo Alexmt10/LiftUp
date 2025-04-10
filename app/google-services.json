@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "864905472570",
+    "project_id": "liftup-eb6c9",
+    "storage_bucket": "liftup-eb6c9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864905472570:android:183b5dae347fea9f61a303",
+        "android_client_info": {
+          "package_name": "com.iescamas.liftup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP63kieiE79NUl8vhTCZVepzfmnI4m6sQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

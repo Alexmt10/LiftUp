@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">LiftUp</string>
+    <string name="liftup">LiftUp</string>
+    <string name="Usuario_login">Usuario o correo electronico</string>
+    <string name="usuario_input">Usuario</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="btn_inicio_sesion">Iniciar sesión</string>
+    <string name="txt_crear_nuevo_perfil">¿Crear nuevo perfil?</string>
+    <string name="txt_registrarse">¡Regístrate!</string>
+    <string name="he_olvidado_mi_contrasena">He olvidado mi contraseña</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="btn_crear_cuenta">Crear Cuenta</string>
+</resources>

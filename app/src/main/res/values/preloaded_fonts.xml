@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/aclonica</item>
+        <item>@font/agbalumo</item>
+        <item>@font/audiowide</item>
+        <item>@font/bagel_fat_one</item>
+        <item>@font/berkshire_swash</item>
+        <item>@font/chokokutai</item>
+        <item>@font/diplomata</item>
+        <item>@font/handjet</item>
+        <item>@font/mclaren</item>
+        <item>@font/uncial_antiqua</item>
+    </array>
+</resources>

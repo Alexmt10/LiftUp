@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_degradado"
+    tools:context=".registro_inicio.MainActivity">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/liftup_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:text="@string/liftup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputusuario"
+        style="@style/input_layout"
+        android:layout_marginTop="108dp"
+        android:hint="@string/usuario_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:startIconDrawable="@drawable/user">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_usuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Usuario_login"
+            android:padding="12dp"
+            android:paddingStart="40dp"
+            tools:ignore="RtlSymmetry" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputcontrasena"
+        style="@style/input_layout"
+        android:layout_marginTop="28dp"
+        android:hint="@string/contrasena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputusuario"
+        app:startIconDrawable="@drawable/candado">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_contrasena"
+            style="@style/input_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contrasena"
+            android:inputType="textPassword"
+            android:paddingStart="40dp"
+            tools:ignore="RtlSymmetry" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnInicioSesion"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="276dp"
+        android:backgroundTint="@color/botones"
+        android:text="@string/btn_inicio_sesion"
+        android:textSize="18sp"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="96dp"
+        android:text="@string/txt_crear_nuevo_perfil"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtregistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="96dp"
+        android:text="@string/txt_registrarse"
+        android:textColor="@color/txt_registrarse"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/txtOlvidoContrasena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/he_olvidado_mi_contrasena"
+        android:textColor="@color/txt_registrarse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputcontrasena" />
+
+    <View
+        android:id="@+id/lineaid"
+
+        android:layout_width="340dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="196dp"
+        android:background="#CCCCCC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_degradado"
+    tools:context=".registro_inicio.RegistrarteActivity">
+
+<!--    <View-->
+<!--        android:layout_width="362dp"-->
+<!--        android:layout_height="417dp"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_marginTop="156dp"-->
+<!--        android:background="@drawable/rectangulo"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.489"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/liftup_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:fontFamily="@font/aclonica"
+        android:text="@string/liftup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputUsuarioRegistro"
+        style="@style/input_layout"
+        android:layout_marginTop="152dp"
+        android:hint="@string/usuario_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:startIconDrawable="@drawable/user">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editUsuarioRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/usuario_input"
+            android:padding="12dp"
+            android:paddingStart="40dp"
+            tools:ignore="RtlSymmetry"
+            android:inputType="textEmailAddress"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputCorreoRegistro"
+        style="@style/input_layout"
+        android:layout_marginTop="64dp"
+        android:hint="@string/correo_electronico"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:startIconDrawable="@drawable/email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editCorreoRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/correo_electronico"
+            android:padding="12dp"
+            android:paddingStart="40dp"
+            tools:ignore="RtlSymmetry" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputContrasenaRegistro"
+        style="@style/input_layout"
+        android:layout_marginTop="248dp"
+        android:hint="@string/contrasena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:startIconDrawable="@drawable/candado">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editContrasenaRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contrasena"
+            android:padding="12dp"
+            android:paddingStart="40dp"
+            tools:ignore="RtlSymmetry"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputReptContrasenaRegistro"
+        style="@style/input_layout"
+        android:layout_marginTop="344dp"
+        android:hint="@string/contrasena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:startIconDrawable="@drawable/candado">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editReptContrasenaRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contrasena"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:paddingStart="40dp"
+            tools:ignore="RtlSymmetry"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnCrearCuenta"
+        android:layout_marginBottom="48dp"
+        android:text="@string/btn_crear_cuenta"
+        style="@style/boton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
