@@ -5,17 +5,69 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_degradado"
     tools:context=".registro_inicio.OlvidoContrasenaActivity">
 
 
     <TextView
         android:id="@+id/textView3"
+        style="@style/liftup_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/aclonica"
-        android:text="LiftUp"
-        android:textColor="@color/txt_registrarse"
+        android:text="@string/liftup"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="121dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputCorreoRecuperarContrasena"
+        style="@style/input_layout"
+        android:layout_marginTop="228dp"
+        android:hint="@string/correo_electronico"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/main"
+        app:startIconDrawable="@drawable/user">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editCorreoRecuperarContrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/correo_electronico"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:paddingStart="40dp"
+            tools:ignore="RtlSymmetry" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtinforecuperarContrasena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:textSize="16sp"
+        android:text="@string/introduce_tu_correo_para_poder_recuperar_tu_contrase_a"
+        app:layout_constraintBottom_toTopOf="@+id/inputCorreoRecuperarContrasena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.441"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnrecuperar"
+        style="@style/boton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="@string/recuperar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputCorreoRecuperarContrasena" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

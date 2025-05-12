@@ -4,8 +4,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="fondo_pantalla">#BFF4FF</color>
     <color name="texto_inicio">#081249</color>
-    <color name="botones">#46A2F8</color>
+    <color name="botones">#3A93ED</color>
     <color name="txt_registrarse">#2196F3</color>
     <color name="fondo_posible">#EAF3F6</color>
+    <color name="mensaje_info_contrasena">#979797</color>
 
 </resources>

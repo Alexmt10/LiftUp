@@ -8,7 +8,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Handler;
 
-import com.iescamas.liftup.registro_inicio.MainActivity;
+import com.iescamas.liftup.registro_inicio.LoginActivity;
 
 public class SplashScream extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class SplashScream extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScream.this, MainActivity.class);
+                Intent intent = new Intent(SplashScream.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

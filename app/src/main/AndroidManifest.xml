@@ -15,6 +15,9 @@
         android:theme="@style/Theme.LiftUp"
         tools:targetApi="31">
         <activity
+            android:name=".tipos.Inicio"
+            android:exported="false" />
+        <activity
             android:name=".registro_inicio.OlvidoContrasenaActivity"
             android:exported="false" />
         <activity
@@ -30,9 +33,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".registro_inicio.MainActivity"
-            android:exported="true">
-        </activity>
+            android:name=".registro_inicio.LoginActivity"
+            android:exported="true"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
