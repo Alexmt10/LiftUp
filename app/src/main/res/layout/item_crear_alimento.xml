@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="8dp"
+    android:padding="8dp"> <!-- Agrega un fondo personalizado si lo deseas -->
+
+    <!-- Fila 1: Alimento y Gramos -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/CrearAlimentoNombreId"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:hint="Alimento"
+            android:textSize="16sp"
+            android:background="@android:drawable/edit_text" />
+
+        <EditText
+            android:id="@+id/CrearAlimentoGramosId"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Gramos"
+            android:inputType="numberDecimal"
+            android:layout_marginStart="8dp"
+            android:textSize="16sp"
+            android:background="@android:drawable/edit_text" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center">
+
+        <!-- Calorías -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calor_as"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/CrearAlimentoCaloriasId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="kcal"
+                android:inputType="numberDecimal"
+                android:gravity="center"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prote_nas"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/CrearAlimentoProteinasId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="g"
+                android:inputType="numberDecimal"
+                android:gravity="center"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <!-- Grasas -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/grasas"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/CrearAlimentoGrasasId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="g"
+                android:inputType="numberDecimal"
+                android:gravity="center"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <!-- Carbohidratos -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carbs"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/CrearAlimentoCarbohidratosId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="g"
+                android:inputType="numberDecimal"
+                android:gravity="center"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

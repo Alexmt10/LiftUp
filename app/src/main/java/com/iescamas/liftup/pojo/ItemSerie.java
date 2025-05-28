@@ -1,6 +1,8 @@
 package com.iescamas.liftup.pojo;
 
-public class ItemSerie {
+import java.io.Serializable;
+
+public class ItemSerie implements Serializable {
 
     public int repeticiones;
     public int peso;

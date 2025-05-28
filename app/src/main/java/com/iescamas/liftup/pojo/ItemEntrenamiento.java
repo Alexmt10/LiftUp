@@ -1,8 +1,9 @@
 package com.iescamas.liftup.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ItemEntrenamiento {
+public class ItemEntrenamiento implements Serializable {
 
     private String id;
     private String nombreEntrenamiento;
