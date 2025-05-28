@@ -3,6 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.OPEN_DOCUMENT" />
+
+            <data android:mimeType="image/*" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -15,8 +25,28 @@
         android:theme="@style/Theme.LiftUp"
         tools:targetApi="31">
         <activity
-            android:name=".tipos.Inicio"
+            android:name=".tipos.ConversacionActivity"
             android:exported="false" />
+        <activity
+            android:name=".tipos.CrearPlanComida"
+            android:exported="false" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".tipos.CrearEntrenamiento"
+            android:exported="false" />
+        <activity
+            android:name=".tipos.ListaPlanComida"
+            android:exported="false" />
+        <activity
+            android:name=".tipos.ListaEntrenamiento"
+            android:exported="false" />
+        <activity
+            android:name=".tipos.Inicio"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".registro_inicio.OlvidoContrasenaActivity"
             android:exported="false" />
@@ -27,14 +57,17 @@
             android:name=".SplashScream"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:windowSoftInputMode="adjustResize" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".registro_inicio.LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="preloaded_fonts"

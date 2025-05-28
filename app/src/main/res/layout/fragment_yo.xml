@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="124dp"
             android:layout_marginTop="72dp"
-            android:text="TextView"
+            android:text="@string/seguidoresYo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
             android:id="@+id/txtNumeroSeguidoresYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="124dp"
+            android:layout_marginStart="132dp"
             android:text="TextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtSeguidoresYoid" />
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="72dp"
-            android:text="TextView"
+            android:text="@string/seguidosYo"
             app:layout_constraintStart_toEndOf="@+id/txtSeguidoresYoid"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,7 +66,7 @@
             android:id="@+id/txtNumeroSeguidosYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="24dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/txtNumeroSeguidoresYoId"
             app:layout_constraintTop_toBottomOf="@+id/txtSeguidosYoid" />
@@ -75,9 +75,9 @@
             android:id="@+id/txtPublicacionesYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="72dp"
-            android:text="TextView"
+            android:text="@string/publicaciones"
             app:layout_constraintStart_toEndOf="@+id/txtSeguidosYoid"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,7 +85,7 @@
             android:id="@+id/txtNumeroPublicaiconesYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="40dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/txtNumeroSeguidosYoId"
             app:layout_constraintTop_toBottomOf="@+id/txtPublicacionesYoId" />
@@ -109,29 +109,29 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/flobtnCrearEntrenamientoYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="30dp"
             android:clickable="true"
             android:src="@drawable/icon_mancuerna"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton2"
+            android:id="@+id/flobtnCrearComidaYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="30dp"
             android:clickable="true"
             android:src="@drawable/icon_cubiertos"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayoutYo"
+            android:id="@+id/tabLayoutYoid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -140,23 +140,15 @@
 
         <androidx.viewpager2.widget.ViewPager2
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/viewPagerYo"
+            android:id="@+id/viewPagerYoid"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayoutYo" />
+            app:layout_constraintTop_toBottomOf="@+id/tabLayoutYoid" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerPerfilYoId"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayoutYo"
-            tools:listitem="@layout/item_perfil" />
+
 
 
 

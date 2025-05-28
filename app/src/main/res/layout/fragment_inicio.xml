@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:paddingTop="10dp"
             android:id="@+id/textView5"
             style="@style/liftup_titulo"
             android:layout_width="wrap_content"
@@ -24,25 +25,23 @@
             android:id="@+id/imageView2"
             android:layout_width="37dp"
             android:layout_height="37dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:paddingTop="0dp"
             android:src="@drawable/icon_mensajes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerPostId"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="70dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:layout_constraintVertical_bias="1.0"
-            tools:listitem="@layout/item_post"/>
+            tools:listitem="@layout/item_post" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,4 +10,15 @@
     <string name="he_olvidado_mi_contrasena">He olvidado mi contraseña</string>
     <string name="correo_electronico">Correo electrónico</string>
     <string name="btn_crear_cuenta">Crear Cuenta</string>
+    <string name="introduce_tu_correo_para_poder_recuperar_tu_contrase_a">Introduce tu correo para poder recuperar tu contraseña</string>
+    <string name="recuperar">recuperar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="seguidoresYo">Seguidores</string>
+    <string name="seguidosYo">Seguidos</string>
+    <string name="publicaciones">Publicaciones</string>
+    <string name="calor_as">Calorías</string>
+    <string name="prote_nas">Proteínas</string>
+    <string name="grasas">Grasas</string>
+    <string name="a_adir_descripci_n">Añadir Descripción</string>
 </resources>

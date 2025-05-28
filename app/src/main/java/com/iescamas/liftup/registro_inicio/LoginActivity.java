@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+        checkCurrentUser();
 
         txtRegistrarse.setOnClickListener(v -> {
             Intent intent = new Intent(this, RegistrarteActivity.class);
@@ -66,7 +67,9 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
                                 Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(this, Inicio.class));
+
+
+                                redirectToMainActivity();
 
                             }
                         } else {
@@ -76,6 +79,28 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Verificar nuevamente por si el usuario cerró sesión mientras la actividad estaba en pausa
+        checkCurrentUser();
+    }
+
+    private void checkCurrentUser() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            // Usuario ya está autenticado, redirigir
+            redirectToMainActivity();
+        }
+        // Si no hay usuario, permanecer en LoginActivity
+    }
+
+    private void redirectToMainActivity() {
+        Intent intent = new Intent(this, Inicio.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish(); // Finalizar LoginActivity para que no pueda volver atrás
     }
 
     }
