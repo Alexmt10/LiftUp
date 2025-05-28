@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MiVistaPersonalizada">
+        <attr name="iconoFinalModo" format="reference"/>
+    </declare-styleable>
+
+        <declare-styleable name="MiVistaPersonalizada2">
+            <attr name="iconoFinalDrawable" format="reference"/>
+        </declare-styleable>
+</resources>

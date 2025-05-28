@@ -10,17 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imgAnadirFotoid"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:padding="80dp"
-            android:scaleType="centerCrop"
+            android:layout_height="450dp"
+            android:layout_marginTop="40dp"
+            android:scaleType="fitCenter"
             android:background="@android:color/transparent"
             android:src="@drawable/icon_camera"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/entrenamientoContainer"
@@ -32,21 +36,26 @@
 
             <ImageButton
                 android:id="@+id/imgAnadirEntrenoId"
+                style="@style/boton_Check"
                 android:layout_width="0dp"
-                android:layout_height="158dp"
+                android:layout_height="60dp"
+                android:layout_margin="4dp"
+                android:layout_marginTop="40dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_mancuerna"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txtEntrenoElegidoMostrarId"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:background="@drawable/borde_gris"
                 android:text=""
                 android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgAnadirEntrenoId" />
@@ -64,7 +73,9 @@
             <ImageButton
                 android:id="@+id/imganadirComidaid"
                 android:layout_width="0dp"
-                android:layout_height="158dp"
+                android:layout_height="60dp"
+                android:layout_margin="4dp"
+                style="@style/boton_Check"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_cubiertos"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,9 +86,10 @@
                 android:id="@+id/txtComidaElegidaMostrarId"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:background="@drawable/borde_gris"
                 android:text=""
                 android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imganadirComidaid" />
@@ -96,7 +108,7 @@
             style="@style/input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="116dp"
+            android:layout_marginBottom="4dp"
             android:hint="@string/a_adir_descripci_n"
             android:paddingHorizontal="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -109,7 +121,7 @@
             style="@style/boton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="88dp"
+            android:layout_marginTop="24dp"
             android:text="Añadir publicación"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

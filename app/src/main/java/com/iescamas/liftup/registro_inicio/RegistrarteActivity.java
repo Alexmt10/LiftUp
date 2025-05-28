@@ -59,14 +59,14 @@ public class RegistrarteActivity extends AppCompatActivity {
             if (usuario.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || reptContrasena.isEmpty()) {
                 Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
                 return;
-
             }
-            if(!contrasena.equals(reptContrasena)){
+
+            if (!contrasena.equals(reptContrasena)) {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                 editReptContrasenaRegistro.setText("");
                 return;
-
             }
+
             if (!isValidPassword(contrasena)) {
                 txtInfocontrasena.setVisibility(View.VISIBLE);
                 editContrasenaRegistro.setText("");
@@ -74,32 +74,47 @@ public class RegistrarteActivity extends AppCompatActivity {
                 return;
             }
 
-            mAuth.createUserWithEmailAndPassword(correo,contrasena).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null) {
-                            String uid = user.getUid();
+            // Verificar si el nombre de usuario ya existe en Firestore
+            db.collection("usuarios")
+                    .whereEqualTo("usuario", usuario)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            Toast.makeText(this, "Ese nombre de usuario ya existe", Toast.LENGTH_SHORT).show();
+                        } else {
+                            mAuth.createUserWithEmailAndPassword(correo, contrasena)
+                                    .addOnCompleteListener(task -> {
+                                        if (task.isSuccessful()) {
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            if (user != null) {
+                                                String uid = user.getUid();
 
-                            Map<String, Object> datosUsuario = new HashMap<>();
-                            datosUsuario.put("usuario", usuario);
-                            datosUsuario.put("correo", correo);
+                                                Map<String, Object> datosUsuario = new HashMap<>();
+                                                datosUsuario.put("usuario", usuario);
+                                                datosUsuario.put("correo", correo);
 
-                            db.collection("usuarios").document(uid).set(datosUsuario)
-                                    .addOnSuccessListener(aVoid -> {
-                                        Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(this, Inicio.class));
-                                        finish();
-                                    })
-                                    .addOnFailureListener(e -> Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show());
-
+                                                db.collection("usuarios").document(uid).set(datosUsuario)
+                                                        .addOnSuccessListener(aVoid -> {
+                                                            Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                                                            startActivity(new Intent(this, Inicio.class));
+                                                            finish();
+                                                        })
+                                                        .addOnFailureListener(e ->
+                                                                Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show()
+                                                        );
+                                            }
+                                        } else {
+                                            String errorMsg = task.getException().getMessage();
+                                            Toast.makeText(this, "Error: " + errorMsg, Toast.LENGTH_LONG).show();
+                                            Log.e("FIREBASE_REGISTRO", "Error al registrar usuario: " + errorMsg, task.getException());
+                                        }
+                                    });
                         }
-                    } else {
-                        String errorMsg = task.getException().getMessage();
-                        Toast.makeText(this, "Error: " + errorMsg, Toast.LENGTH_LONG).show();
-                        Log.e("FIREBASE_REGISTRO", "Error al registrar usuario: " + errorMsg, task.getException());
-                    }
-                });
-
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Error al verificar usuario", Toast.LENGTH_SHORT).show();
+                        Log.e("FIRESTORE_CHECK", "Error al buscar usuario: ", e);
+                    });
         });
 
         editReptContrasenaRegistro.setOnFocusChangeListener((v, hasFocus) -> {

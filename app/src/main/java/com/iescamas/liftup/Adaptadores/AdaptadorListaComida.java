@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -50,6 +51,7 @@ public class AdaptadorListaComida extends RecyclerView.Adapter<AdaptadorListaCom
                 intent.putExtra("plan_comida", plan);
                 ((Activity) context).setResult(Activity.RESULT_OK, intent);
                 ((Activity) context).finish();
+                Toast.makeText(context, "Plan de comida seleccionado", Toast.LENGTH_SHORT).show();
             }
             return false;
         });

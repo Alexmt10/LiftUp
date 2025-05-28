@@ -77,8 +77,7 @@ public class AdapterCrearEntrenamiento extends RecyclerView.Adapter<AdapterCrear
 
         holder.itemView.setOnLongClickListener(v -> {
             Intent resultado = new Intent();
-            resultado.putExtra("id_entreno", item.getId());
-            resultado.putExtra("titulo_entreno", item.getNombreEntrenamiento());
+            resultado.putExtra("plan_entrenamiento", item);
 
             ((Activity) context).setResult(Activity.RESULT_OK, resultado);
             ((Activity) context).finish();
