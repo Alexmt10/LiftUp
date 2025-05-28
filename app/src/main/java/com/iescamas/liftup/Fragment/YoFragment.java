@@ -1,62 +1,103 @@
 package com.iescamas.liftup.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.iescamas.liftup.Adaptadores.AdaptadorYo;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.iescamas.liftup.Fragment.FragmentSecundarios.PubliGuardadasYoFragment;
+import com.iescamas.liftup.Fragment.FragmentSecundarios.PublicacionesYoFragment;
 import com.iescamas.liftup.R;
-import com.iescamas.liftup.pojo.ItemYoPerfil;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.iescamas.liftup.tipos.ListaEntrenamiento;
+import com.iescamas.liftup.tipos.ListaPlanComida;
 
 
 public class YoFragment extends Fragment {
 
-    RecyclerView recyclerPerfilId;
-    AdaptadorYo adaptadorYo;
-    List<ItemYoPerfil> lista_perfil;
+    FloatingActionButton crearComida;
+    FloatingActionButton crearEntrenamiento;
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_yo, container, false);
 
-        recyclerPerfilId = view.findViewById(R.id.recyclerPerfilYoId);
+        crearComida = view.findViewById(R.id.flobtnCrearComidaYoId);
+        crearEntrenamiento = view.findViewById(R.id.flobtnCrearEntrenamientoYoId);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        ViewPager2 paginator = view.findViewById(R.id.viewPagerYoid);
+        FragmentStateAdapter pageadapter = new deslizador(this);
+        paginator.setAdapter(pageadapter);
 
-        recyclerPerfilId.setLayoutManager(gridLayoutManager);
+        TabLayout tabla = view.findViewById(R.id.tabLayoutYoid);
 
-        lista_perfil = cargarYoItem();
+        new TabLayoutMediator(tabla,paginator,(tab, position) -> {
 
-        adaptadorYo = new AdaptadorYo(lista_perfil, getContext());
+            switch (position) {
+                case 0 :
+                    tab.setText("Publicaciones");
+                    break;
+                case 1:
+                    tab.setText("Guardadas");
+                    break;
+            }
+        }).attach();
 
-        recyclerPerfilId.setAdapter(adaptadorYo);
+
+
+        crearEntrenamiento.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ListaEntrenamiento.class);
+            startActivity(intent);
+
+        });
+        crearComida.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ListaPlanComida.class);
+            startActivity(intent);
+        });
 
 
         return view;
     }
 
-    private List<ItemYoPerfil> cargarYoItem() {
-        List<ItemYoPerfil> lista = new ArrayList<>();
+    private class deslizador extends FragmentStateAdapter {
+        public deslizador(YoFragment fa) {
+            super(fa);
+        }
 
-        lista.add(new ItemYoPerfil(R.drawable.candado));
-        lista.add(new ItemYoPerfil(R.drawable.email));
-        lista.add(new ItemYoPerfil(R.drawable.icon_mensajes));
-        lista.add(new ItemYoPerfil(R.drawable.icon_comentario));
-        lista.add(new ItemYoPerfil(R.drawable.candado));
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            Fragment fragment;
+            switch (position){
+                case 0 :
+                    fragment = new PublicacionesYoFragment();
+                    break;
+                case 1 :
+                    fragment = new PubliGuardadasYoFragment();
+                    break;
+                default:
+                    fragment = null;
+                    break;
+            }
+            return fragment;
+        }
 
-
-
-
-        return lista;
+        @Override
+        public int getItemCount() {
+            return 2;
+        }
     }
 }
