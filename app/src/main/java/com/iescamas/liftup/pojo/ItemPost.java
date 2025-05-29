@@ -3,6 +3,8 @@ package com.iescamas.liftup.pojo;
 import java.io.Serializable;
 
 public class ItemPost implements Serializable {
+    private String uidUsuario;
+
 
     private String idUsuario;
     private String nombreUsuario;
@@ -24,15 +26,19 @@ public class ItemPost implements Serializable {
     }
 
 
+
     public ItemPost(String nombreUsuario, String descripcion, String uidUsuario, String imagenPostUrl, ItemEntrenamiento entrenamiento, PlanComida comida) {
         this.nombreUsuario = nombreUsuario;
         this.descripcion = descripcion;
-        this.idUsuario = uidUsuario;
+        this.uidUsuario = uidUsuario;
         this.imagenPostUrl = imagenPostUrl;
         this.entrenamiento = entrenamiento;
         this.comida = comida;
     }
 
+    public ItemPost(int imagenPost, ItemEntrenamiento entrenamiento, PlanComida comida) {
+
+    }
 
     public ItemPost(String nombreUsuario, int imagenUsuario, int imagenPost, int likes, int comentarios, String descripcion) {
         this.nombreUsuario = nombreUsuario;
@@ -70,6 +76,13 @@ public class ItemPost implements Serializable {
 
     public int getImagenUsuario() {
         return imagenUsuario;
+    }
+    public String getUidUsuario() {
+        return uidUsuario;
+    }
+
+    public void setUidUsuario(String uidUsuario) {
+        this.uidUsuario = uidUsuario;
     }
 
     public void setImagenUsuario(int imagenUsuario) {

@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="181dp"
         app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 

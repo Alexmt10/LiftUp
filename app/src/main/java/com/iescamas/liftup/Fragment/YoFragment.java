@@ -27,9 +27,6 @@ public class YoFragment extends Fragment {
     FloatingActionButton crearComida;
     FloatingActionButton crearEntrenamiento;
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
 

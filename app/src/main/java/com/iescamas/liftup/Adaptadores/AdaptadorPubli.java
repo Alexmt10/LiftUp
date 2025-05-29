@@ -18,11 +18,18 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.ItemAlimento;
 import com.iescamas.liftup.pojo.ItemEntrenoCompleto;
 import com.iescamas.liftup.pojo.ItemPost;
 import com.iescamas.liftup.pojo.ItemSerie;
+import com.iescamas.liftup.pojo.Usuario;
 
 import java.util.List;
 
@@ -48,14 +55,36 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         ItemPost itemPost = listaPost.get(position);
         Log.d("AdaptadorPubli", "onBindViewHolder: Cargando post en posición " + position);
 
-        // Comprobar nombre de usuario
-        if (itemPost.getNombreUsuario() != null) {
-            Log.d("AdaptadorPubli", "Nombre de usuario: " + itemPost.getNombreUsuario());
-            holder.NombreUsuarioPostId.setText(itemPost.getNombreUsuario());
+        // Primero seteamos un texto temporal mientras cargamos el nombre real
+        holder.NombreUsuarioPostId.setText("Cargando...");
+
+        if (itemPost.getUidUsuario() != null && !itemPost.getUidUsuario().isEmpty()) {
+            FirebaseFirestore.getInstance()
+                    .collection("usuarios")
+                    .document(itemPost.getUidUsuario()) // o getIdUsuario(), según el campo correcto
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String nombreUsuario = documentSnapshot.getString("Username");
+
+                            if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
+                                holder.NombreUsuarioPostId.setText(nombreUsuario);
+                            } else {
+                                holder.NombreUsuarioPostId.setText("Usuario desconocido");
+                            }
+                        } else {
+                            holder.NombreUsuarioPostId.setText("Usuario no encontrado");
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        holder.NombreUsuarioPostId.setText("Error al cargar");
+                        Log.e("AdaptadorPubli", "Error al leer Firestore", e);
+                    });
+
         } else {
-            Log.w("AdaptadorPubli", "Nombre de usuario es null en el post " + position);
-            holder.NombreUsuarioPostId.setText("Usuario desconocido");
+            holder.NombreUsuarioPostId.setText("UID no válido");
         }
+
 
         // Descripción
         if (itemPost.getDescripcion() != null) {
@@ -110,6 +139,8 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         holder.MensajesPostId.setImageResource(R.drawable.icon_comentario);
         holder.RutinaPostId.setImageResource(R.drawable.icon_mancuerna);
         holder.ComidaPostId.setImageResource(R.drawable.icon_cubiertoo);
+
+
 
         // Mostrar rutina
         holder.RutinaPostId.setOnClickListener(v -> {

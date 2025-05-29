@@ -60,7 +60,7 @@ public class InicioFragment extends Fragment {
 
         cargarPublicacionesDesdeFirebase();
 
-        cargarPublicacionesDesdeFirebase();
+
 
         return view;
     }

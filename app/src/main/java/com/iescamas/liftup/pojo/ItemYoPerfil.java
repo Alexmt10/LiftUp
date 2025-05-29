@@ -2,20 +2,40 @@ package com.iescamas.liftup.pojo;
 
 public class ItemYoPerfil {
 
-    private int imagenPerfil;
-  //  private String nombreUsuario; cambair por entrenamiento y plande comida
- //   private String descripcion;
+    private String imagenPerfil;
+    private ItemEntrenamiento entrenamiento;
+    private PlanComida comida;
 
 
-    public ItemYoPerfil(int imagenPerfil) {
-        this.imagenPerfil = imagenPerfil;
+    public ItemYoPerfil() {
     }
 
-    public int getImagenPerfil() {
+    public ItemYoPerfil(int imagenPerfil, ItemEntrenamiento entrenamiento, PlanComida comida) {
+
+    }
+
+
+    public ItemEntrenamiento getEntrenamiento() {
+        return entrenamiento;
+    }
+
+    public void setEntrenamiento(ItemEntrenamiento entrenamiento) {
+        this.entrenamiento = entrenamiento;
+    }
+
+    public PlanComida getComida() {
+        return comida;
+    }
+
+    public void setComida(PlanComida comida) {
+        this.comida = comida;
+    }
+
+    public String getImagenPerfil() {
         return imagenPerfil;
     }
 
-    public void setImagenPerfil(int imagenPerfil) {
+    public void setImagenPerfil(String imagenPerfil) {
         this.imagenPerfil = imagenPerfil;
     }
 }

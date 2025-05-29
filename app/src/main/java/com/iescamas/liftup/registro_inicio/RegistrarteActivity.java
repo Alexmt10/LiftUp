@@ -75,7 +75,7 @@ public class RegistrarteActivity extends AppCompatActivity {
             }
 
             // Verificar si el nombre de usuario ya existe en Firestore
-            db.collection("usuarios")
+            db.collection("Usuarios")
                     .whereEqualTo("usuario", usuario)
                     .get()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -93,7 +93,7 @@ public class RegistrarteActivity extends AppCompatActivity {
                                                 datosUsuario.put("usuario", usuario);
                                                 datosUsuario.put("correo", correo);
 
-                                                db.collection("usuarios").document(uid).set(datosUsuario)
+                                                db.collection("Usuarios").document(uid).set(datosUsuario)
                                                         .addOnSuccessListener(aVoid -> {
                                                             Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
                                                             startActivity(new Intent(this, Inicio.class));

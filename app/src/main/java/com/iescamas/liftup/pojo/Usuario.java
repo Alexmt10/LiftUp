@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Usuario {
     private String idUsuario;
-    private String username;
+    private static String username;
     private String nombreCompleto;
     private String imagenPerfil;
     private List<String> seguidores;
     private List<String> siguiendo;
-    private String nombre;
+    private static String nombre;
     private String apellidos;
     private String usuario;
     private String correo;
@@ -48,7 +48,8 @@ public class Usuario {
         this.siguiendo = new ArrayList<>();
     }
 
-    public String getNombre() {
+
+    public static String getNombre() {
         return nombre;
     }
 
@@ -128,7 +129,7 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
