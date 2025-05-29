@@ -115,5 +115,10 @@
         <item>Press cerrado</item>
         <item>Extensión con barra Z</item>
     </string-array>
+    <string-array name="sexo_array">
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Otros</item>
+    </string-array>
 
 </resources>

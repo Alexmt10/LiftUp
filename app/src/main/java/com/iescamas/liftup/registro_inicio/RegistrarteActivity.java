@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.R;
+import com.iescamas.liftup.tipos.InformacionAdicional;
 import com.iescamas.liftup.tipos.Inicio;
 
 import java.util.HashMap;
@@ -25,13 +26,13 @@ import java.util.regex.Pattern;
 public class RegistrarteActivity extends AppCompatActivity {
 
     EditText editUsuarioRegistro, editCorreoRegistro, editContrasenaRegistro, editReptContrasenaRegistro;
-
     Button btnregistrarse;
-
     TextView txtInfocontrasena;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+
+    private static final String TAG = "RegistroUsuario";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +50,23 @@ public class RegistrarteActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-
         btnregistrarse.setOnClickListener(v -> {
             String usuario = editUsuarioRegistro.getText().toString().trim();
             String correo = editCorreoRegistro.getText().toString().trim();
             String contrasena = editContrasenaRegistro.getText().toString().trim();
             String reptContrasena = editReptContrasenaRegistro.getText().toString().trim();
 
+            Log.d(TAG, "Intentando registrar usuario: " + usuario);
+
             if (usuario.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || reptContrasena.isEmpty()) {
                 Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "Campos incompletos");
                 return;
             }
 
             if (!contrasena.equals(reptContrasena)) {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "Contraseñas no coinciden");
                 editReptContrasenaRegistro.setText("");
                 return;
             }
@@ -71,17 +75,22 @@ public class RegistrarteActivity extends AppCompatActivity {
                 txtInfocontrasena.setVisibility(View.VISIBLE);
                 editContrasenaRegistro.setText("");
                 editReptContrasenaRegistro.setText("");
+                Toast.makeText(this, "Contraseña no válida. Debe tener al menos 8 caracteres, una mayúscula y un número", Toast.LENGTH_LONG).show();
+                Log.w(TAG, "Contraseña inválida según regex");
                 return;
             }
 
-            // Verificar si el nombre de usuario ya existe en Firestore
+            Log.d(TAG, "Verificando si el usuario ya existe en Firestore...");
+
             db.collection("Usuarios")
-                    .whereEqualTo("usuario", usuario)
+                    .whereEqualTo("username", usuario)
                     .get()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
                         if (!queryDocumentSnapshots.isEmpty()) {
                             Toast.makeText(this, "Ese nombre de usuario ya existe", Toast.LENGTH_SHORT).show();
+                            Log.w(TAG, "Usuario ya existe en Firestore: " + usuario);
                         } else {
+                            Log.d(TAG, "Usuario no existe. Creando cuenta Firebase...");
                             mAuth.createUserWithEmailAndPassword(correo, contrasena)
                                     .addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
@@ -90,44 +99,49 @@ public class RegistrarteActivity extends AppCompatActivity {
                                                 String uid = user.getUid();
 
                                                 Map<String, Object> datosUsuario = new HashMap<>();
-                                                datosUsuario.put("usuario", usuario);
+                                                datosUsuario.put("username", usuario);
                                                 datosUsuario.put("correo", correo);
 
+                                                Log.d(TAG, "Guardando datos usuario en Firestore con UID: " + uid);
                                                 db.collection("Usuarios").document(uid).set(datosUsuario)
                                                         .addOnSuccessListener(aVoid -> {
                                                             Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                                                            startActivity(new Intent(this, Inicio.class));
-                                                            finish();
+                                                            Log.i(TAG, "Datos guardados correctamente en Firestore");
+                                                            Intent intent = new Intent(this, InformacionAdicional.class);
+                                                            startActivity(intent);
                                                         })
-                                                        .addOnFailureListener(e ->
-                                                                Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show()
-                                                        );
+                                                        .addOnFailureListener(e -> {
+                                                            Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+                                                            Log.e(TAG, "Error guardando datos en Firestore", e);
+                                                        });
                                             }
                                         } else {
-                                            String errorMsg = task.getException().getMessage();
+                                            String errorMsg = task.getException() != null ? task.getException().getMessage() : "Error desconocido";
                                             Toast.makeText(this, "Error: " + errorMsg, Toast.LENGTH_LONG).show();
-                                            Log.e("FIREBASE_REGISTRO", "Error al registrar usuario: " + errorMsg, task.getException());
+                                            Log.e(TAG, "Error al registrar usuario en Firebase Auth: " + errorMsg, task.getException());
                                         }
                                     });
                         }
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Error al verificar usuario", Toast.LENGTH_SHORT).show();
-                        Log.e("FIRESTORE_CHECK", "Error al buscar usuario: ", e);
+                        Log.e(TAG, "Error al buscar usuario en Firestore", e);
                     });
+
         });
 
         editReptContrasenaRegistro.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 txtInfocontrasena.setVisibility(View.GONE);
+                Log.d(TAG, "Ocultando info de contraseña");
             }
         });
-
-
     }
 
     private boolean isValidPassword(String password) {
         String regex = "^(?=.*[A-Z])(?=.*\\d).{8,}$";
-        return Pattern.matches(regex, password);
+        boolean valido = Pattern.matches(regex, password);
+        Log.d(TAG, "Validación contraseña: " + valido);
+        return valido;
     }
 }

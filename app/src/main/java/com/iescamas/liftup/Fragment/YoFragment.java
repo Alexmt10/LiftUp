@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -18,6 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.iescamas.liftup.Fragment.FragmentSecundarios.PubliGuardadasYoFragment;
 import com.iescamas.liftup.Fragment.FragmentSecundarios.PublicacionesYoFragment;
 import com.iescamas.liftup.R;
+import com.iescamas.liftup.tipos.Configuraciones;
 import com.iescamas.liftup.tipos.ListaEntrenamiento;
 import com.iescamas.liftup.tipos.ListaPlanComida;
 
@@ -26,6 +28,7 @@ public class YoFragment extends Fragment {
 
     FloatingActionButton crearComida;
     FloatingActionButton crearEntrenamiento;
+    ImageView iconMenu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class YoFragment extends Fragment {
 
         crearComida = view.findViewById(R.id.flobtnCrearComidaYoId);
         crearEntrenamiento = view.findViewById(R.id.flobtnCrearEntrenamientoYoId);
+        iconMenu = view.findViewById(R.id.IconMenuYoid);
 
         ViewPager2 paginator = view.findViewById(R.id.viewPagerYoid);
         FragmentStateAdapter pageadapter = new deslizador(this);
@@ -62,6 +66,12 @@ public class YoFragment extends Fragment {
         });
         crearComida.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ListaPlanComida.class);
+            startActivity(intent);
+        });
+
+
+        iconMenu.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), Configuraciones.class);
             startActivity(intent);
         });
 

@@ -68,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                             if (user != null) {
                                 Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
 
-
                                 redirectToMainActivity();
 
                             }
