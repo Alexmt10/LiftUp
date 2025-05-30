@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Usuario {
     private String idUsuario;
-    private static String username;
+    private  String username;
     private String nombreCompleto;
     private String imagenPerfil;
     private List<String> seguidores;
@@ -17,8 +17,9 @@ public class Usuario {
     private String contrasena;
     private String fechaNacimiento;
     private String sexo;
-    private String altura;
-    private String peso;
+    private Long altura;
+    private Long peso;
+    private String descripcion;
 
     public Usuario(String contrasena, String usuario) {
         this.contrasena = contrasena;
@@ -26,7 +27,7 @@ public class Usuario {
     }
 
     public Usuario(String nombre, String apellidos, String usuario, String correo,
-                   String contrasena, String fechaNacimiento, String sexo, String altura, String peso) {
+                   String contrasena, String fechaNacimiento, String sexo, Long altura, Long peso) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.usuario = usuario;
@@ -48,6 +49,13 @@ public class Usuario {
         this.siguiendo = new ArrayList<>();
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public static String getNombre() {
         return nombre;
@@ -105,21 +113,9 @@ public class Usuario {
         this.sexo = sexo;
     }
 
-    public String getAltura() {
-        return altura;
-    }
 
-    public void setAltura(String altura) {
-        this.altura = altura;
-    }
 
-    public String getPeso() {
-        return peso;
-    }
 
-    public void setPeso(String peso) {
-        this.peso = peso;
-    }
 
     public String getIdUsuario() {
         return idUsuario;
@@ -129,7 +125,7 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public static String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -139,6 +135,14 @@ public class Usuario {
 
     public String getNombreCompleto() {
         return nombreCompleto;
+    }
+
+    public Long getAltura() {
+        return altura;
+    }
+
+    public void setAltura(Long altura) {
+        this.altura = altura;
     }
 
     public void setNombreCompleto(String nombreCompleto) {
@@ -167,6 +171,15 @@ public class Usuario {
 
     public void setSiguiendo(List<String> siguiendo) {
         this.siguiendo = siguiendo;
+    }
+
+
+    public void setPeso(Long peso) {
+        this.peso = peso;
+    }
+
+    public Long getPeso() {
+        return peso;
     }
 
     @Override

@@ -25,6 +25,18 @@
         android:theme="@style/Theme.LiftUp"
         tools:targetApi="31">
         <activity
+            android:name=".tipos.PerfilUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".tipos.InformacionAdicional"
+            android:exported="false" />
+        <activity
+            android:name=".tipos.Configuraciones"
+            android:exported="false" />
+        <activity
+            android:name=".SplashSubirFoto"
+            android:exported="false" />
+        <activity
             android:name=".tipos.ConversacionActivity"
             android:exported="false" />
         <activity

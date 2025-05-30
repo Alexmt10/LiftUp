@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imgPerfil"
@@ -40,41 +41,28 @@
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputApellidos"
-            style="@style/input_layout"
-            android:hint="Apellidos"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/inputNombreCompleto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editApellidos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <TextView
             android:id="@+id/labelSexo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sexo"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:text="Gym"
             android:textSize="16sp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/inputApellidos"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputNombreCompleto" />
 
         <Spinner
             android:id="@+id/spinnerSexo"
             android:layout_width="0dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_height="wrap_content"
             android:entries="@array/sexo_array"
             app:layout_constraintTop_toBottomOf="@id/labelSexo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="4dp" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputAltura"
@@ -126,17 +114,59 @@
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnRegistrarUsuario"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Registrar"
-            style="@style/boton"
-            android:layout_marginTop="24dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputDescripcion"
+            style="@style/input_layout"
+            android:hint="Descripción"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/inputFechaNacimiento"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:gravity="top|start"
+                android:scrollbars="vertical" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnRegistrarUsuario"
+            style="@style/boton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="188dp"
+            android:text="Registrar"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="24dp" />
+            app:layout_constraintHorizontal_bias="0.516"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputFechaNacimiento" />
+
+        <Spinner
+            android:id="@+id/spngimnasioid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="52dp"
+
+            android:entries="@array/gimnasios_sevilla"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputDescripcion" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputDescripcion" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

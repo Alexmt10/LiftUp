@@ -13,10 +13,10 @@
 
         <ImageView
             android:id="@+id/IconPerfilYoid"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="69dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="24dp"
             android:src="@drawable/icon_me"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,10 +25,10 @@
             android:id="@+id/txtNombreUsuarioYoid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/IconPerfilYoid"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,9 +37,11 @@
             android:id="@+id/txtSeguidoresYoid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="104dp"
             android:text="@string/seguidoresYo"
+            android:textStyle="bold"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,8 +49,10 @@
             android:id="@+id/txtNumeroSeguidoresYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="105dp"
+            android:layout_marginStart="52dp"
             android:text="TextView"
+            android:textStyle="bold"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtSeguidoresYoid" />
 
@@ -56,9 +60,11 @@
             android:id="@+id/txtSeguidosYoid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="104dp"
             android:text="@string/seguidosYo"
+            android:textStyle="bold"
+
             app:layout_constraintStart_toEndOf="@+id/txtSeguidoresYoid"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,8 +72,10 @@
             android:id="@+id/txtNumeroSeguidosYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="45dp"
             android:text="TextView"
+            android:textStyle="bold"
+
             app:layout_constraintStart_toEndOf="@+id/txtNumeroSeguidoresYoId"
             app:layout_constraintTop_toBottomOf="@+id/txtSeguidosYoid" />
 
@@ -75,9 +83,11 @@
             android:id="@+id/txtPublicacionesYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="104dp"
             android:text="@string/publicaciones"
+            android:textStyle="bold"
+
             app:layout_constraintStart_toEndOf="@+id/txtSeguidosYoid"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,18 +95,20 @@
             android:id="@+id/txtNumeroPublicaiconesYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="55dp"
             android:text="TextView"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/txtNumeroSeguidosYoId"
             app:layout_constraintTop_toBottomOf="@+id/txtPublicacionesYoId" />
 
         <TextView
             android:id="@+id/txtDescripcionYoId"
-            android:layout_width="356dp"
-            android:layout_height="67dp"
-            android:layout_marginTop="32dp"
-            android:text="TextView"
+            android:layout_width="354dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="20dp"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtNumeroSeguidosYoId" />
 
@@ -104,7 +116,7 @@
             android:id="@+id/materialDivider4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="108dp"
+            android:layout_marginTop="60dp"
             app:layout_constraintTop_toTopOf="@+id/txtDescripcionYoId"
             tools:layout_editor_absoluteX="0dp" />
 
@@ -139,17 +151,26 @@
             app:layout_constraintTop_toBottomOf="@+id/materialDivider4"/>
 
         <androidx.viewpager2.widget.ViewPager2
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/viewPagerYoid"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayoutYoid" />
+            app:layout_constraintTop_toBottomOf="@+id/tabLayoutYoid"
+            app:layout_constraintVertical_bias="0.0" />
 
-
-
+        <ImageView
+            android:id="@+id/IconMenuYoid"
+            android:layout_width="36dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="28dp"
+            android:src="@drawable/icon_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

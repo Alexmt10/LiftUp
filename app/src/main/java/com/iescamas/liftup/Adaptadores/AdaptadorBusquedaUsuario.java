@@ -1,6 +1,7 @@
 package com.iescamas.liftup.Adaptadores;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.Usuario;
+import com.iescamas.liftup.tipos.PerfilUsuario;
 
 import java.util.List;
 
@@ -75,12 +77,17 @@ public class AdaptadorBusquedaUsuario extends RecyclerView.Adapter<AdaptadorBusq
         holder.botonSeguir.setOnClickListener(v -> {
             alternarSeguimiento(usuario, holder.botonSeguir);
         });
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(contexto, PerfilUsuario.class);
+            intent.putExtra("uidUsuario", usuario.getIdUsuario());
+            contexto.startActivity(intent);
+        });
     }
 
     private void verificarEstadoSeguimiento(Usuario usuario, Button botonSeguir) {
         Log.d("SEGUIMIENTO", "Verificando seguimiento para: " + usuario.getUsername());
 
-        db.collection("Usuarios") // cambiado a minúscula
+        db.collection("Usuarios")
                 .document(autenticacion.getCurrentUser().getUid())
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {

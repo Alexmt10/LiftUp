@@ -18,6 +18,7 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,12 +61,12 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
 
         if (itemPost.getUidUsuario() != null && !itemPost.getUidUsuario().isEmpty()) {
             FirebaseFirestore.getInstance()
-                    .collection("usuarios")
+                    .collection("Usuarios")
                     .document(itemPost.getUidUsuario()) // o getIdUsuario(), según el campo correcto
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
-                            String nombreUsuario = documentSnapshot.getString("Username");
+                            String nombreUsuario = documentSnapshot.getString("username");
 
                             if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
                                 holder.NombreUsuarioPostId.setText(nombreUsuario);
@@ -98,21 +99,40 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         holder.NumeroMegustaPostId.setText("0");
 
         // Imagen redonda del usuario
-        try {
-            int imgRes = itemPost.getImagenUsuario();
-            Log.d("AdaptadorPubli", "ID imagen usuario: " + imgRes);
-            Bitmap bitmap = BitmapFactory.decodeResource(holder.itemView.getContext().getResources(), imgRes);
-            if (bitmap != null) {
-                RoundedBitmapDrawable redondeado = RoundedBitmapDrawableFactory.create(holder.itemView.getContext().getResources(), bitmap);
-                redondeado.setCircular(true);
-                holder.IconoPostId.setImageDrawable(redondeado);
-                Log.d("AdaptadorPubli", "Imagen de usuario redondeada cargada correctamente");
-            } else {
-                Log.e("AdaptadorPubli", "Bitmap de imagen usuario es null");
-            }
-        } catch (Exception e) {
-            Log.e("AdaptadorPubli", "Error al cargar imagen de usuario", e);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String uidUsuario = itemPost.getUidUsuario();
+
+        if (uidUsuario != null && !uidUsuario.isEmpty()) {
+            db.collection("Usuarios").document(uidUsuario)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String imagenUrl = documentSnapshot.getString("imagenPerfilUrl");
+
+                            if (imagenUrl != null && !imagenUrl.isEmpty()) {
+                                Glide.with(holder.itemView.getContext())
+                                        .load(imagenUrl)
+                                        .transform(new CircleCrop())
+                                        .placeholder(R.drawable.messi)
+                                        .error(R.drawable.cristiano)
+                                        .into(holder.IconoPostId);
+
+                                Log.d("AdaptadorPubli", "Imagen de usuario cargada correctamente con Glide");
+                            } else {
+                                Log.w("AdaptadorPubli", "URL de imagen vacía o null");
+                            }
+                        } else {
+                            Log.w("AdaptadorPubli", "No existe el documento del usuario en Firestore");
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("AdaptadorPubli", "Error al obtener imagen del usuario desde Firestore", e);
+                    });
+        } else {
+            Log.e("AdaptadorPubli", "El UID del usuario en itemPost es null o vacío");
         }
+
+
 
         // Imagen de la publicación
         try {
