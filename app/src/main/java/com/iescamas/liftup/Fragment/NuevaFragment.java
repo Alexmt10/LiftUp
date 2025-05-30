@@ -74,7 +74,6 @@ public class NuevaFragment extends Fragment {
             }
     );
 
-    // Lanza la galería y luego inicia UCrop
     private final ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -82,25 +81,21 @@ public class NuevaFragment extends Fragment {
                     Uri selectedImageUri = result.getData().getData();
                     if (selectedImageUri != null) {
 
-                        // ⚠️ Creamos un archivo de destino único para evitar errores de sobrescritura
+
                         String fileName = "recorte_" + System.currentTimeMillis() + ".jpg";
-                        File destino = new File(requireContext().getExternalFilesDir(null), fileName); // Más seguro que cacheDir
+                        File destino = new File(requireContext().getExternalFilesDir(null), fileName);
                         cropDestinationUri = Uri.fromFile(destino);
 
-                        // Opciones de recorte
                         UCrop.Options options = new UCrop.Options();
-                        options.setCompressionQuality(100); // Calidad del JPG recortado
-                        options.setFreeStyleCropEnabled(true); // El usuario puede mover y redimensionar libremente
-                        options.setHideBottomControls(true); // Muestra los controles de recorte
+                        options.setCompressionQuality(100);
+                        options.setFreeStyleCropEnabled(true);
+                        options.setHideBottomControls(true);
 
-                        // Creamos el intent de recorte SIN forzar aspecto ni tamaño
                         Intent cropIntent = UCrop.of(selectedImageUri, cropDestinationUri)
-                                //.withAspectRatio(1, 1)
                                 .withOptions(options)
                                 .withMaxResultSize(2000, 2000)
                                 .getIntent(requireContext());
 
-                        // Lanzamos UCrop
                         ucropLauncher.launch(cropIntent);
                     } else {
                         Toast.makeText(getContext(), "No se seleccionó ninguna imagen", Toast.LENGTH_SHORT).show();

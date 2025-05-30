@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.Usuario;
+import com.iescamas.liftup.tipos.ConversacionUser;
 import com.iescamas.liftup.tipos.PerfilUsuario;
 
 import java.util.List;
@@ -72,15 +73,19 @@ public class AdaptadorBusquedaUsuario extends RecyclerView.Adapter<AdaptadorBusq
                 })
                 .addOnFailureListener(e -> Log.e("FIREBASE", "Error obteniendo datos de usuario", e));
 
-        verificarEstadoSeguimiento(usuario, holder.botonSeguir);
 
-        holder.botonSeguir.setOnClickListener(v -> {
-            alternarSeguimiento(usuario, holder.botonSeguir);
-        });
+
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(contexto, PerfilUsuario.class);
             intent.putExtra("uidUsuario", usuario.getIdUsuario());
             contexto.startActivity(intent);
+        });
+        holder.itemView.setOnLongClickListener(v -> {
+            Intent intent = new Intent(contexto, ConversacionUser.class);
+            intent.putExtra("idUsuarioDestino", usuario.getIdUsuario());
+            intent.putExtra("usernameDestino", usuario.getUsername());
+            contexto.startActivity(intent);
+            return true;
         });
     }
 
@@ -162,13 +167,13 @@ public class AdaptadorBusquedaUsuario extends RecyclerView.Adapter<AdaptadorBusq
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
         ImageView imagenPerfil;
         TextView textoUsuario;
-        Button botonSeguir;
+
 
         public UsuarioViewHolder(@NonNull View vista) {
             super(vista);
             imagenPerfil = vista.findViewById(R.id.imagen_perfil);
             textoUsuario = vista.findViewById(R.id.texto_usuario);
-            botonSeguir = vista.findViewById(R.id.boton_seguir);
+
         }
     }
 }

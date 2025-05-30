@@ -28,7 +28,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:text=""
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/IconPerfilYoid"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,10 +47,10 @@
 
         <TextView
             android:id="@+id/txtNumeroSeguidoresYoId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="52dp"
-            android:text="TextView"
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="76dp"
+            android:text="1"
             android:textStyle="bold"
 
             app:layout_constraintStart_toStartOf="parent"
@@ -72,8 +72,8 @@
             android:id="@+id/txtNumeroSeguidosYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="45dp"
-            android:text="TextView"
+            android:layout_marginStart="100dp"
+            android:text="1"
             android:textStyle="bold"
 
             app:layout_constraintStart_toEndOf="@+id/txtNumeroSeguidoresYoId"
@@ -95,20 +95,19 @@
             android:id="@+id/txtNumeroPublicaiconesYoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
-            android:text="TextView"
+            android:layout_marginStart="104dp"
+            android:text="1"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/txtNumeroSeguidosYoId"
             app:layout_constraintTop_toBottomOf="@+id/txtPublicacionesYoId" />
 
         <TextView
             android:id="@+id/txtDescripcionYoId"
-            android:layout_width="354dp"
+            android:layout_width="wrap_content"
             android:layout_height="39dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="20dp"
-            android:text=""
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
+            android:text="sdfsadfsfasdfasdfasdf"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtNumeroSeguidosYoId" />
 
