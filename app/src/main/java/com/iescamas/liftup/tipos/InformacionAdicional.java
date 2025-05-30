@@ -35,8 +35,8 @@ public class InformacionAdicional extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
 
     private ImageView imgPerfil;
-    private TextInputEditText editNombreCompleto, editApellidos, editAltura, editPeso, editFechaNacimiento;
-    private Spinner editSexo;
+    private TextInputEditText editNombreCompleto, editApellidos, editAltura, editPeso, editFechaNacimiento, editDescripcion;
+    private Spinner editSexo, editgym;
     private Uri imagenPerfilUri;
 
     private FirebaseAuth mAuth;
@@ -54,17 +54,23 @@ public class InformacionAdicional extends AppCompatActivity {
 
         imgPerfil = findViewById(R.id.imgPerfil);
         editNombreCompleto = findViewById(R.id.editNombreCompleto);
-        editApellidos = findViewById(R.id.editApellidos);
         editSexo = findViewById(R.id.spinnerSexo);
         editAltura = findViewById(R.id.editAltura);
         editPeso = findViewById(R.id.editPeso);
         editFechaNacimiento = findViewById(R.id.editFechaNacimiento);
+        editDescripcion = findViewById(R.id.editDescripcion);
+        editgym = findViewById(R.id.spngimnasioid);
         Button btnRegistrar = findViewById(R.id.btnRegistrarUsuario);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sexo_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editSexo.setAdapter(adapter);
+
+        ArrayAdapter<CharSequence> adaptergym = ArrayAdapter.createFromResource(this,
+                R.array.gimnasios_sevilla, android.R.layout.simple_spinner_item);
+        adaptergym.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editgym.setAdapter(adaptergym);
 
         imgPerfil.setOnClickListener(v -> openImageChooser());
 
@@ -110,13 +116,14 @@ public class InformacionAdicional extends AppCompatActivity {
 
     private void registrarUsuario() {
         String nombre = editNombreCompleto.getText() != null ? editNombreCompleto.getText().toString().trim() : "";
-        String apellidos = editApellidos.getText() != null ? editApellidos.getText().toString().trim() : "";
+        String gym = editgym.getSelectedItem().toString().trim();
         String sexo = editSexo.getSelectedItem().toString().trim();
-        String altura = editAltura.getText() != null ? editAltura.getText().toString().trim() : "";
-        String peso = editPeso.getText() != null ? editPeso.getText().toString().trim() : "";
+        Long altura = editAltura.getText() != null ? Long.parseLong(editAltura.getText().toString().trim()) : null;
+        Long peso = editPeso.getText() != null ? Long.parseLong(editPeso.getText().toString().trim()) : null;
         String fechaNacimiento = editFechaNacimiento.getText() != null ? editFechaNacimiento.getText().toString().trim() : "";
+        String descripcion = editDescripcion.getText() != null ? editDescripcion.getText().toString().trim() : "";
 
-        if (nombre.isEmpty() || apellidos.isEmpty() || sexo.isEmpty() || altura.isEmpty() || peso.isEmpty() || fechaNacimiento.isEmpty()) {
+        if (nombre.isEmpty() || gym.isEmpty() || sexo.isEmpty() || altura == null || peso == null || fechaNacimiento.isEmpty()) {
             Toast.makeText(this, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -131,11 +138,12 @@ public class InformacionAdicional extends AppCompatActivity {
 
         Map<String, Object> datosUsuario = new HashMap<>();
         datosUsuario.put("nombre", nombre);
-        datosUsuario.put("apellidos", apellidos);
+        datosUsuario.put("gym", gym);
         datosUsuario.put("sexo", sexo);
         datosUsuario.put("altura", altura);
         datosUsuario.put("peso", peso);
         datosUsuario.put("fechaNacimiento", fechaNacimiento);
+        datosUsuario.put("descripcion", descripcion);
 
         if (imagenPerfilUri != null) {
             // Subir la imagen a Firebase Storage
