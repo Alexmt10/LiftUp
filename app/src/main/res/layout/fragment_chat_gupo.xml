@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <TextView
             android:id="@+id/textView8"
             style="@style/liftup_titulo"
@@ -22,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_usuarios_chatsId"
+            android:id="@+id/recycler_grupos_chatsId"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingTop="20dp"
@@ -30,17 +29,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/item_busqueda" />
+            tools:listitem="@layout/item_grupo_chat" />
 
-        <ImageView
-            android:id="@+id/imglistadoGruposId"
-            android:layout_width="43dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="28dp"
-            android:src="@drawable/icon_grupo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingAnadirNuevoGrupoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="52dp"
+            android:layout_marginBottom="56dp"
+            android:clickable="true"
+            android:src="@drawable/icon_nueva"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.iescamas.liftup.Fragment.FragmentSecundarios;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -18,6 +20,7 @@ import com.iescamas.liftup.Adaptadores.AdaptadorMensajes;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.Usuario;
 import com.iescamas.liftup.pojo.UsuarioChat;
+import com.iescamas.liftup.Fragment.FragmentSecundarios.ChatFragmentGupo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,6 +34,7 @@ public class ChatFragment extends Fragment {
     private List<Usuario> listaUsuariosSeguidos;
     private FirebaseFirestore db;
     private FirebaseAuth auth;
+    private ImageView grupo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +46,18 @@ public class ChatFragment extends Fragment {
 
         recyclerConversaciones = view.findViewById(R.id.recycler_usuarios_chatsId);
         listaUsuariosSeguidos = new ArrayList<>();
+
+        grupo = view.findViewById(R.id.imglistadoGruposId);
+
+        grupo.setOnClickListener(v -> {
+            ChatFragmentGupo chatFragmentGrupo = new ChatFragmentGupo();
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.frameid, chatFragmentGrupo)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+
 
 
         String usuarioActualId = auth.getCurrentUser().getUid();
