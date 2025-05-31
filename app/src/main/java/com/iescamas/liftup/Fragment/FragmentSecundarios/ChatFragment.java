@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.iescamas.liftup.pojo.Usuario;
 import com.iescamas.liftup.pojo.UsuarioChat;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -26,7 +28,7 @@ public class ChatFragment extends Fragment {
 
     private RecyclerView recyclerConversaciones;
     private AdaptadorConversaciones adaptador;
-    private List<UsuarioChat> listaUsuariosSeguidos;
+    private List<Usuario> listaUsuariosSeguidos;
     private FirebaseFirestore db;
     private FirebaseAuth auth;
 
@@ -37,6 +39,8 @@ public class ChatFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+
+        recyclerConversaciones = view.findViewById(R.id.recycler_usuarios_chatsId);
         listaUsuariosSeguidos = new ArrayList<>();
 
 
@@ -46,38 +50,82 @@ public class ChatFragment extends Fragment {
         recyclerConversaciones.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerConversaciones.setAdapter(adaptador);
 
-        cargarUsuariosSeguidos();
+        cargarConversaciones();
+
+
 
         return view;
     }
 
-    private void cargarUsuariosSeguidos() {
-        String usuarioActualId = auth.getCurrentUser().getUid();
+    private static final String TAG = "ChatFragment";
 
-        db.collection("usuarios")
-                .document(usuarioActualId)
+    private void cargarConversaciones() {
+        String miId = auth.getCurrentUser().getUid();
+        Log.d(TAG, "Mi ID actual: " + miId);
+
+        db.collection("chats")
+                .whereEqualTo("emisor", miId)
                 .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    Usuario usuarioActual = documentSnapshot.toObject(Usuario.class);
-                    if (usuarioActual != null && usuarioActual.getSiguiendo() != null) {
-                        for (String usuarioId : usuarioActual.getSiguiendo()) {
-                            obtenerDetallesUsuario(usuarioId);
-                        }
-                    }
-                });
+                .addOnSuccessListener(snapshotEmisor -> {
+                    Log.d(TAG, "Mensajes enviados encontrados: " + snapshotEmisor.size());
+
+                    db.collection("chats")
+                            .whereEqualTo("receptor", miId)
+                            .get()
+                            .addOnSuccessListener(snapshotReceptor -> {
+                                Log.d(TAG, "Mensajes recibidos encontrados: " + snapshotReceptor.size());
+
+                                HashSet<String> idsConversados = new HashSet<>();
+
+                                for (com.google.firebase.firestore.QueryDocumentSnapshot doc : snapshotEmisor) {
+                                    String receptorId = doc.getString("receptor");
+                                    Log.d(TAG, "Mensaje enviado a: " + receptorId);
+                                    if (receptorId != null && !receptorId.equals(miId)) {
+                                        idsConversados.add(receptorId);
+                                    }
+                                }
+
+                                for (com.google.firebase.firestore.QueryDocumentSnapshot doc : snapshotReceptor) {
+                                    String emisorId = doc.getString("emisor");
+                                    Log.d(TAG, "Mensaje recibido de: " + emisorId);
+                                    if (emisorId != null && !emisorId.equals(miId)) {
+                                        idsConversados.add(emisorId);
+                                    }
+                                }
+
+                                Log.d(TAG, "Usuarios únicos con los que he hablado: " + idsConversados.size());
+
+                                listaUsuariosSeguidos.clear();
+
+                                for (String idUsuario : idsConversados) {
+                                    Log.d(TAG, "Obteniendo usuario: " + idUsuario);
+
+                                    db.collection("Usuarios")
+                                            .document(idUsuario)
+                                            .get()
+                                            .addOnSuccessListener(documentSnapshot -> {
+                                                Log.d(TAG, "Datos del documento bruto: " + documentSnapshot.getData());
+
+                                                Usuario usuario = documentSnapshot.toObject(Usuario.class);
+                                                if (usuario != null) {
+                                                    usuario.setIdUsuario(documentSnapshot.getId());
+                                                    listaUsuariosSeguidos.add(usuario);
+                                                    adaptador.notifyDataSetChanged();
+                                                    Log.d(TAG, "Usuario añadido al RecyclerView: " + usuario.getNombre());
+                                                } else {
+                                                    Log.d(TAG, "Usuario no encontrado o null para ID: " + idUsuario);
+                                                }
+                                            })
+                                            .addOnFailureListener(e -> Log.e(TAG, "Error al obtener usuario: " + idUsuario, e));
+                                }
+                            })
+                            .addOnFailureListener(e -> Log.e(TAG, "Error al obtener mensajes recibidos", e));
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error al obtener mensajes enviados", e));
     }
 
-    private void obtenerDetallesUsuario(String usuarioId) {
-        db.collection("usuarios")
-                .document(usuarioId)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    UsuarioChat usuario = documentSnapshot.toObject(UsuarioChat.class);
-                    if (usuario != null) {
-                        usuario.setId(documentSnapshot.getId());
-                        listaUsuariosSeguidos.add(usuario);
-                        adaptador.notifyDataSetChanged();
-                    }
-                });
-    }
+
+
+
+
 }

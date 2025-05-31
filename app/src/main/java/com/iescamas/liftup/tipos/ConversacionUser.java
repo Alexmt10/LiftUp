@@ -1,6 +1,7 @@
 package com.iescamas.liftup.tipos;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,6 +45,9 @@ public class ConversacionUser extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversacion_user);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
 
         idUsuarioDestino = getIntent().getStringExtra("idUsuarioDestino");
         idUsuarioActual = FirebaseAuth.getInstance().getCurrentUser().getUid();

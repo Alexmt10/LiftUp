@@ -10,7 +10,7 @@ public class Usuario {
     private String imagenPerfil;
     private List<String> seguidores;
     private List<String> siguiendo;
-    private static String nombre;
+    private  String nombre;
     private String apellidos;
     private String usuario;
     private String correo;
@@ -57,7 +57,7 @@ public class Usuario {
         this.descripcion = descripcion;
     }
 
-    public static String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 

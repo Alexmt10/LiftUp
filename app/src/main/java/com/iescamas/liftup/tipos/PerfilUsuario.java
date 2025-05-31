@@ -19,18 +19,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 import com.iescamas.liftup.Adaptadores.AdapterOtroPerfil;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.ItemPost;
 import com.iescamas.liftup.pojo.Usuario;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -50,6 +53,9 @@ public class PerfilUsuario extends AppCompatActivity {
     private ListenerRegistration seguidoresListener;
     private ListenerRegistration seguidosListener;
 
+    private String uidUsuarioActual;
+    private boolean siguiendoUsuario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +66,9 @@ public class PerfilUsuario extends AppCompatActivity {
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance();
 
-        // Views
+        btnSeguir = findViewById(R.id.btnseguirOtroUsuario);
+
+
         iconPerfil = findViewById(R.id.IconPerfilOtroid);
         txtNombreUsuario = findViewById(R.id.txtNombreUsuarioOtroid);
         txtSeguidores = findViewById(R.id.txtNumeroSeguidoresOtroId);
@@ -77,6 +85,7 @@ public class PerfilUsuario extends AppCompatActivity {
 
         // Obtener UID del usuario a mostrar
         uidUsuario = getIntent().getStringExtra("uidUsuario");
+        uidUsuarioActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("PerfilUsuario", "UID recibido en intent: " + uidUsuario);
         if (uidUsuario == null) {
             uidUsuario = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -87,7 +96,91 @@ public class PerfilUsuario extends AppCompatActivity {
         cargarDatosUsuario();
         cargarSeguidores();
         cargarSeguidos();
+        comprobarSiSigueUsuario();
 
+
+        btnSeguir.setOnClickListener(v -> {
+            if (siguiendoUsuario) {
+                dejarDeSeguirUsuario();
+            } else {
+                seguirUsuario();
+            }
+        });
+
+    }
+
+    private void comprobarSiSigueUsuario() {
+        DocumentReference docRef = db.collection("seguidos").document(uidUsuarioActual)
+                .collection("usuarios").document(uidUsuario);
+
+        docRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                siguiendoUsuario = true;
+                btnSeguir.setText("Dejar de seguir");
+            } else {
+                siguiendoUsuario = false;
+                btnSeguir.setText("Seguir");
+            }
+        }).addOnFailureListener(e -> {
+            siguiendoUsuario = false;
+            btnSeguir.setText("Seguir");
+        });
+    }
+
+    private void seguirUsuario() {
+        // Añadir a "seguidos" del usuario actual
+        DocumentReference seguidosRef = db.collection("seguidos").document(uidUsuarioActual)
+                .collection("usuarios").document(uidUsuario);
+
+        // Añadir a "seguidores" del usuario perfil
+        DocumentReference seguidoresRef = db.collection("seguidores").document(uidUsuario)
+                .collection("usuarios").document(uidUsuarioActual);
+
+        // Usamos batch para que las dos operaciones sean atómicas
+        WriteBatch batch = db.batch();
+
+        batch.set(seguidosRef, new HashMap<>());
+        batch.set(seguidoresRef, new HashMap<>());
+
+        batch.commit().addOnSuccessListener(aVoid -> {
+            siguiendoUsuario = true;
+            btnSeguir.setText("Dejar de seguir");
+
+        }).addOnFailureListener(e -> {
+            // Manejo error si quieres
+        });
+    }
+
+    private void dejarDeSeguirUsuario() {
+        // Referencias para borrar
+        DocumentReference seguidosRef = db.collection("seguidos").document(uidUsuarioActual)
+                .collection("usuarios").document(uidUsuario);
+
+        DocumentReference seguidoresRef = db.collection("seguidores").document(uidUsuario)
+                .collection("usuarios").document(uidUsuarioActual);
+
+        WriteBatch batch = db.batch();
+
+        batch.delete(seguidosRef);
+        batch.delete(seguidoresRef);
+
+        batch.commit().addOnSuccessListener(aVoid -> {
+            siguiendoUsuario = false;
+            btnSeguir.setText("Seguir");
+
+        }).addOnFailureListener(e -> {
+            // Manejo error si quieres
+        });
+    }
+
+    private void actualizarContadoresSeguidoresSeguidos(int cambio) {
+        // Actualizamos txtSeguidores (usuario perfil)
+        int seguidoresActual = Integer.parseInt(txtSeguidores.getText().toString());
+        txtSeguidores.setText(String.valueOf(seguidoresActual + cambio));
+
+        // Actualizamos txtSeguidos (usuario actual)
+        int seguidosActual = Integer.parseInt(txtSeguidos.getText().toString());
+        txtSeguidos.setText(String.valueOf(seguidosActual + cambio));
     }
 
     private void cargarDatosUsuario() {

@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -35,7 +37,6 @@ import com.iescamas.liftup.tipos.Configuraciones;
 import com.iescamas.liftup.tipos.ListaEntrenamiento;
 import com.iescamas.liftup.tipos.ListaPlanComida;
 
-
 public class YoFragment extends Fragment {
 
     FloatingActionButton crearComida;
@@ -49,7 +50,7 @@ public class YoFragment extends Fragment {
     private String uidUsuario;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_yo, container, false);
 
         mAuth = FirebaseAuth.getInstance();
@@ -67,43 +68,55 @@ public class YoFragment extends Fragment {
         seguidos = view.findViewById(R.id.txtNumeroSeguidosYoId);
         publicaciones = view.findViewById(R.id.txtNumeroPublicaiconesYoId);
 
-        uidUsuario = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseUser user = mAuth.getCurrentUser();
 
-        ViewPager2 paginator = view.findViewById(R.id.viewPagerYoid);
-        FragmentStateAdapter pageadapter = new deslizador(this);
-        paginator.setAdapter(pageadapter);
+        if (user != null) {
+            uidUsuario = user.getUid();
 
-        TabLayout tabla = view.findViewById(R.id.tabLayoutYoid);
-        new TabLayoutMediator(tabla, paginator, (tab, position) -> {
-            switch (position) {
-                case 0: tab.setText("Publicaciones"); break;
-                case 1: tab.setText("Guardadas"); break;
-            }
-        }).attach();
+            ViewPager2 paginator = view.findViewById(R.id.viewPagerYoid);
+            FragmentStateAdapter pageadapter = new deslizador(this);
+            paginator.setAdapter(pageadapter);
 
-        crearEntrenamiento.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), ListaEntrenamiento.class));
-        });
+            TabLayout tabla = view.findViewById(R.id.tabLayoutYoid);
+            new TabLayoutMediator(tabla, paginator, (tab, position) -> {
+                switch (position) {
+                    case 0: tab.setText("Publicaciones"); break;
+                    case 1: tab.setText("Guardadas"); break;
+                }
+            }).attach();
 
-        crearComida.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), ListaPlanComida.class));
-        });
+            crearEntrenamiento.setOnClickListener(v -> {
+                startActivity(new Intent(getActivity(), ListaEntrenamiento.class));
+            });
 
-        iconMenu.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), Configuraciones.class));
-        });
+            crearComida.setOnClickListener(v -> {
+                startActivity(new Intent(getActivity(), ListaPlanComida.class));
+            });
 
-        cargarDatosUsuario();
-        cargarSeguidores();
-        cargarSeguidos();
-        cargarPublicaciones();
+            iconMenu.setOnClickListener(v -> {
+                startActivity(new Intent(getActivity(), Configuraciones.class));
+            });
+
+            // Cargar datos del usuario
+            cargarDatosUsuario();
+            cargarSeguidores();
+            cargarSeguidos();
+            cargarPublicaciones();
+
+        } else {
+            Log.e("YoFragment", "Usuario no autenticado");
+            Toast.makeText(getContext(), "Por favor, inicia sesión", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), Configuraciones.class); // O LoginActivity si la tienes
+            startActivity(intent);
+            requireActivity().finish();
+        }
 
         return view;
     }
 
     private class deslizador extends FragmentStateAdapter {
-        public deslizador(YoFragment fa) {
-            super(fa);
+        public deslizador(@NonNull Fragment fragment) {
+            super(fragment);
         }
 
         @NonNull
@@ -124,7 +137,7 @@ public class YoFragment extends Fragment {
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        String nombre = documentSnapshot.getString("nombre");
+                        String nombre = documentSnapshot.getString("username");
                         String descripcionUsuario = documentSnapshot.getString("descripcion");
                         String imagenUrl = documentSnapshot.getString("imagenPerfilUrl");
 
