@@ -35,7 +35,6 @@ public class CrearPlanComida extends AppCompatActivity {
         btnAddAlimento = findViewById(R.id.btnAddAlimento);
         btnGuardarAlimento = findViewById(R.id.btnGuardar);
 
-        // Añadir primer alimento por defecto
         agregarNuevoAlimento();
 
         btnAddAlimento.setOnClickListener(v -> agregarNuevoAlimento());
