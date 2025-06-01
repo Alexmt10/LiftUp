@@ -25,6 +25,16 @@
         android:theme="@style/Theme.LiftUp"
         tools:targetApi="31">
         <activity
+            android:name=".tipos.EstadisticasGrupo"
+            android:exported="false" />
+        <activity
+            android:name=".tipos.ConversacionGrupo"
+            android:exported="false" />
+        <activity
+            android:name=".tipos.ConversacionUser"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".tipos.PerfilUsuario"
             android:exported="false" />
         <activity
@@ -35,9 +45,6 @@
             android:exported="false" />
         <activity
             android:name=".SplashSubirFoto"
-            android:exported="false" />
-        <activity
-            android:name=".tipos.ConversacionActivity"
             android:exported="false" />
         <activity
             android:name=".tipos.CrearPlanComida"
