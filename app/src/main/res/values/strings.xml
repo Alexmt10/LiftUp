@@ -22,4 +22,13 @@
     <string name="grasas">Grasas</string>
     <string name="a_adir_descripci_n">Añadir Descripción</string>
     <string name="seguir">Seguir</string>
+    <string name="desc_foto_perfil">Foto de perfil del usuario</string>
+    <string name="desc_imagen_publicacion">Imagen de la publicación</string>
+    <string name="desc_icono_megusta">Icono me gusta</string>
+    <string name="desc_icono_mensaje">Icono mensajes</string>
+    <string name="desc_icono_comida">Icono comida</string>
+    <string name="desc_icono_rutina">Icono rutina</string>
+    <string name="guardar_cambios">Guardar cambios</string>
+    <string name="salir_del_perfil">Salir del perfil</string>
+    <string name="seleccionar_gimnasio">Seleccionar gimnasio</string>
 </resources>

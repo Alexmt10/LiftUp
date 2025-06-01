@@ -26,6 +26,7 @@
         <item name="android:textSize">18sp</item>
         <item name="cornerRadius">35dp</item>
     </style>
+
     <style name="textoNormal">
     </style>
     <!-- Músculos -->
@@ -120,28 +121,5 @@
         <item>Femenino</item>
         <item>Otros</item>
     </string-array>
-    <string-array name="gimnasios_sevilla">
-        <item>Viding Sevilla</item>
-        <item>YO10 Sport Club</item>
-        <item>Synergym Sevilla Nervión</item>
-        <item>VivaGym Los Remedios</item>
-        <item>Basic-Fit Sevilla Nervión</item>
-        <item>O2 Centro Wellness</item>
-        <item>McFIT Sevilla</item>
-        <item>Metropolitan Sevilla</item>
-        <item>AltaFit Sevilla Centro</item>
-        <item>Anytime Fitness Sevilla</item>
-        <item>Dreamfit Sevilla</item>
-        <item>GO fit Sevilla</item>
-        <item>Century Fitness Experience</item>
-        <item>Crossfight Los Remedios</item>
-        <item>MasMusculoFit Sevilla</item>
-        <item>Lowfit Sevilla Este</item>
-        <item>Brooklyn Fitboxing Sevilla - Nervión</item>
-        <item>VivaGym Sevilla Este</item>
-        <item>VivaGym Alcalá Plaza</item>
-        <item>VivaGym Camas</item>
-        <item>VivaGym Dos Hermanas</item>
-        <item>Otro</item>
-    </string-array>
+
 </resources>

@@ -238,7 +238,7 @@ public class NuevaFragment extends Fragment {
             String textoEntreno = txtEntrenoElegidoMostrar.getText().toString().trim();
 
             if (!textoEntreno.isEmpty()) {
-                imgAnadirEntreno.setBackgroundColor(getResources().getColor(R.color.botones_check)); // Asegúrate de tener un color azul en colors.xml
+                imgAnadirEntreno.setBackgroundColor(getResources().getColor(R.color.botones_check));
             } else {
                 imgAnadirEntreno.setBackgroundColor(getResources().getColor(android.R.color.transparent));
             }

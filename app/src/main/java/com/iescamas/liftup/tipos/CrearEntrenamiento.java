@@ -115,8 +115,8 @@ public class CrearEntrenamiento extends AppCompatActivity {
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("entrenamientos");
 
             String id = ref.push().getKey();
-            String nombreEntreno = tituloentrenamiento.getText().toString().trim(); // Usar el texto del EditText
-            int imagenPorDefecto = R.drawable.icon_mancuerna; // Usa tu recurso de imagen
+            String nombreEntreno = tituloentrenamiento.getText().toString().trim();
+            int imagenPorDefecto = R.drawable.icon_mancuerna;
 
             ItemEntrenamiento entrenamientoCompleto = new ItemEntrenamiento(
                     id,

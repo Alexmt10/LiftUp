@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal"
-        android:background="?attr/colorPrimary"
+        android:background="@color/fondo_pantalla"
         android:padding="8dp"
         android:gravity="center_vertical">
 
@@ -29,7 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Usuario"
-            android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"/>
     </LinearLayout>

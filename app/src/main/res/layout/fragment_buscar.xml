@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/fondo_pantalla"
     tools:context=".Fragment.BuscarFragment">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -30,7 +31,7 @@
         android:id="@+id/recycler_usuarios"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:visibility="visible"
         tools:listitem="@layout/item_busqueda"/>
 

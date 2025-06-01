@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:padding="8dp"
     android:layout_marginBottom="8dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/txtSerieNumero"
@@ -13,26 +16,43 @@
         android:layout_height="wrap_content"
         android:text="1"
         android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_marginEnd="12dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_marginEnd="8dp"
-        android:textSize="16sp" />
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp">
 
-    <EditText
-        android:id="@+id/editRepeticionesid"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:hint="repeticiones"
-        android:inputType="number"
-        android:background="@android:drawable/edit_text" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editRepeticionesid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Repeticiones"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/editPesoid"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:hint="peso"
-        android:inputType="numberDecimal"
-        android:layout_marginStart="8dp"
-        android:background="@android:drawable/edit_text" />
+        android:layout_weight="1"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editPesoid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Peso (kg)"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

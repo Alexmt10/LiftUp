@@ -19,15 +19,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.iescamas.liftup.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InformacionAdicional extends AppCompatActivity {
@@ -42,6 +44,9 @@ public class InformacionAdicional extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
+
+    private List<String> listaGimnasios;
+    private ArrayAdapter<String> adapterGym;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +67,41 @@ public class InformacionAdicional extends AppCompatActivity {
         editgym = findViewById(R.id.spngimnasioid);
         Button btnRegistrar = findViewById(R.id.btnRegistrarUsuario);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        // Adaptador para el spinner de sexo (local)
+        ArrayAdapter<CharSequence> adapterSexo = ArrayAdapter.createFromResource(this,
                 R.array.sexo_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        editSexo.setAdapter(adapter);
+        adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editSexo.setAdapter(adapterSexo);
 
-        ArrayAdapter<CharSequence> adaptergym = ArrayAdapter.createFromResource(this,
-                R.array.gimnasios_sevilla, android.R.layout.simple_spinner_item);
-        adaptergym.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        editgym.setAdapter(adaptergym);
+
+        listaGimnasios = new ArrayList<>();
+        adapterGym = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listaGimnasios);
+        adapterGym.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        editgym.setAdapter(adapterGym);
+
+        cargarGimnasiosDesdeFirestore();
 
         imgPerfil.setOnClickListener(v -> openImageChooser());
-
         editFechaNacimiento.setOnClickListener(v -> showDatePickerDialog());
-
         btnRegistrar.setOnClickListener(v -> registrarUsuario());
+    }
+
+    private void cargarGimnasiosDesdeFirestore() {
+        db.collection("gimnasios")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    listaGimnasios.clear();
+                    for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                        String nombreGym = doc.getString("nombre");
+                        if (nombreGym != null) {
+                            listaGimnasios.add(nombreGym);
+                        }
+                    }
+                    adapterGym.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error al cargar gimnasios", Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void openImageChooser() {
@@ -116,8 +141,8 @@ public class InformacionAdicional extends AppCompatActivity {
 
     private void registrarUsuario() {
         String nombre = editNombreCompleto.getText() != null ? editNombreCompleto.getText().toString().trim() : "";
-        String gym = editgym.getSelectedItem().toString().trim();
-        String sexo = editSexo.getSelectedItem().toString().trim();
+        String gym = editgym.getSelectedItem() != null ? editgym.getSelectedItem().toString().trim() : "";
+        String sexo = editSexo.getSelectedItem() != null ? editSexo.getSelectedItem().toString().trim() : "";
         Long altura = editAltura.getText() != null ? Long.parseLong(editAltura.getText().toString().trim()) : null;
         Long peso = editPeso.getText() != null ? Long.parseLong(editPeso.getText().toString().trim()) : null;
         String fechaNacimiento = editFechaNacimiento.getText() != null ? editFechaNacimiento.getText().toString().trim() : "";
@@ -146,14 +171,11 @@ public class InformacionAdicional extends AppCompatActivity {
         datosUsuario.put("descripcion", descripcion);
 
         if (imagenPerfilUri != null) {
-            // Subir la imagen a Firebase Storage
             StorageReference storageRef = storage.getReference().child("fotos_perfil/" + uid + ".jpg");
             storageRef.putFile(imagenPerfilUri)
                     .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl()
                             .addOnSuccessListener(uri -> {
                                 datosUsuario.put("imagenPerfilUrl", uri.toString());
-
-                                // Guardar los datos en Firestore
                                 guardarDatosEnFirestore(uid, datosUsuario);
                             }))
                     .addOnFailureListener(e -> Toast.makeText(this, "Error al subir imagen", Toast.LENGTH_SHORT).show());

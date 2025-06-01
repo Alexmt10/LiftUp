@@ -56,13 +56,12 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         ItemPost itemPost = listaPost.get(position);
         Log.d("AdaptadorPubli", "onBindViewHolder: Cargando post en posición " + position);
 
-        // Primero seteamos un texto temporal mientras cargamos el nombre real
         holder.NombreUsuarioPostId.setText("Cargando...");
 
         if (itemPost.getUidUsuario() != null && !itemPost.getUidUsuario().isEmpty()) {
             FirebaseFirestore.getInstance()
                     .collection("Usuarios")
-                    .document(itemPost.getUidUsuario()) // o getIdUsuario(), según el campo correcto
+                    .document(itemPost.getUidUsuario())
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
@@ -87,7 +86,6 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         }
 
 
-        // Descripción
         if (itemPost.getDescripcion() != null) {
             Log.d("AdaptadorPubli", "Descripción: " + itemPost.getDescripcion());
             holder.DescripcionPostId.setText(itemPost.getDescripcion());
@@ -98,7 +96,6 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
 
         holder.NumeroMegustaPostId.setText("0");
 
-        // Imagen redonda del usuario
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String uidUsuario = itemPost.getUidUsuario();
 
@@ -154,7 +151,6 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
             Log.e("AdaptadorPubli", "Error al cargar imagen de publicación", e);
         }
 
-        // Íconos fijos
         holder.MegustaPostId.setImageResource(R.drawable.icon_match);
         holder.MensajesPostId.setImageResource(R.drawable.icon_comentario);
         holder.RutinaPostId.setImageResource(R.drawable.icon_mancuerna);
@@ -162,7 +158,6 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
 
 
 
-        // Mostrar rutina
         holder.RutinaPostId.setOnClickListener(v -> {
             if (itemPost.getEntrenamiento() != null && itemPost.getEntrenamiento().getEjercicios() != null) {
                 StringBuilder mensaje = new StringBuilder();

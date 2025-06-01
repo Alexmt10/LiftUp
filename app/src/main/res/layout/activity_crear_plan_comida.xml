@@ -41,8 +41,7 @@
         android:text="GUARDAR ALIMENTOS"
         android:textAllCaps="false"
         android:textSize="16sp"
-        android:backgroundTint="#4CAF50"
-        android:textColor="@android:color/white"
+        android:backgroundTint="@color/botones"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <LinearLayout

@@ -5,19 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_degradado"
+    android:background="@color/fondo_pantalla"
     tools:context=".registro_inicio.RegistrarteActivity">
 
-<!--    <View-->
-<!--        android:layout_width="362dp"-->
-<!--        android:layout_height="417dp"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:layout_marginTop="156dp"-->
-<!--        android:background="@drawable/rectangulo"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.489"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
 
     <TextView
         android:id="@+id/textView2"
