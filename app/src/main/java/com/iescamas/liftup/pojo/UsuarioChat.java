@@ -11,4 +11,7 @@ public class UsuarioChat extends Usuario{
     public void setId(String id) {
         this.id = id;
     }
+
+    public UsuarioChat() {
+    }
 }

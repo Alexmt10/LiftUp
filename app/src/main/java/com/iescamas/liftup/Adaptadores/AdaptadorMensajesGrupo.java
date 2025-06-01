@@ -87,7 +87,8 @@ public class AdaptadorMensajesGrupo extends RecyclerView.Adapter<RecyclerView.Vi
 
         void bind(ItemMensajesGrupo mensaje) {
             textoMensaje.setText(mensaje.getTexto());
-            textoRemitente.setText(mensaje.getEmisorId());
+            textoRemitente.setText(mensaje.getEmisorUsername());
+
         }
     }
 }

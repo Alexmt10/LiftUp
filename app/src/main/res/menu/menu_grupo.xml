@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_agregar_usuario"
+        android:title="Agregar usuario"
+       />
+
+    <item
+        android:id="@+id/menu_editar_nombre"
+        android:title="Editar nombre"
+      />
+
+    <item
+        android:id="@+id/menu_editar_foto"
+        android:title="Editar foto"
+      />
+    <item
+        android:id="@+id/menu_ver_participantes"
+        android:title="Ver participantes" />
+
+    <item android:id="@+id/menu_ver_estadisticas"
+        android:title="Ver estadísticas" />
+
+</menu>

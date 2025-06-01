@@ -61,10 +61,9 @@ public class AdaptadorGrupoChat extends RecyclerView.Adapter<AdaptadorGrupoChat.
         });
     }
 
-
     @Override
     public int getItemCount() {
-        return listaGrupos.size();
+        return listaGrupos != null ? listaGrupos.size() : 0;
     }
 
     public static class GrupoChatViewHolder extends RecyclerView.ViewHolder {
@@ -76,5 +75,10 @@ public class AdaptadorGrupoChat extends RecyclerView.Adapter<AdaptadorGrupoChat.
             imagenGrupo = itemView.findViewById(R.id.imagen_grupo);
             nombreGrupo = itemView.findViewById(R.id.nombre_grupo);
         }
+    }
+
+    public void actualizarLista(List<ItemGrupoChat> nuevosGrupos) {
+        this.listaGrupos = nuevosGrupos;
+        notifyDataSetChanged();
     }
 }

@@ -181,6 +181,15 @@ public class NuevaFragment extends Fragment {
                 return;
             }
 
+            Intent intent = new Intent(getContext(), SplashSubirFoto.class);
+            intent.putExtra("descripcion", descripcion);
+            intent.putExtra("imagenUri", cropDestinationUri.toString());
+
+            intent.putExtra("planEntreno", planEntrenamientoSeleccionado);
+            intent.putExtra("planComida", planComidaSeleccionado);
+
+            startActivity(intent);
+
             String userId = user.getUid();
             String userName = user.getDisplayName() != null ? user.getDisplayName() : "Anónimo";
             String fileName = "post_" + System.currentTimeMillis() + ".jpg";

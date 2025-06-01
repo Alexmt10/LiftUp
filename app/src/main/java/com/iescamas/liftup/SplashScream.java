@@ -25,7 +25,7 @@ public class SplashScream extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 5000);
 
     }
 }
