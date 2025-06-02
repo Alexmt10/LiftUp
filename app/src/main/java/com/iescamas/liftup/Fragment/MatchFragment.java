@@ -1,7 +1,7 @@
 package com.iescamas.liftup.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;  // <--- Importa Log
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,8 +24,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.ItemLike;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MatchFragment extends Fragment {
 
@@ -188,12 +196,13 @@ public class MatchFragment extends Fragment {
     private void enviarNotificacionLike(DocumentSnapshot likedUser) {
         String likedUserId = likedUser.getId();
         String likedUserToken = likedUser.getString("fcmToken");
+        String nombreRemitente = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
 
-        Log.d(TAG, "Preparando para enviar notificación a: " + likedUserId);
+        Log.d(TAG, "Intentando enviar notificación a usuario ID: " + likedUserId);
 
         if (likedUserToken == null || likedUserToken.isEmpty()) {
             Toast.makeText(getContext(), "El usuario no tiene token para notificaciones", Toast.LENGTH_SHORT).show();
-            Log.w(TAG, "Usuario sin token FCM");
+            Log.w(TAG, " Token FCM del usuario destino es nulo o vacío");
             return;
         }
 
@@ -201,13 +210,55 @@ public class MatchFragment extends Fragment {
                 .collection("likesReceived")
                 .document(currentUserId)
                 .set(new ItemLike(currentUserId, ""))
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "Like registrado en Firestore"))
+                .addOnSuccessListener(aVoid -> Log.d(TAG, " Like registrado en Firestore para: " + likedUserId))
                 .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error registrando like en Firestore", e);
-                    Toast.makeText(getContext(), "Error enviando notificación", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, " Error registrando like en Firestore", e);
+                    Toast.makeText(getContext(), "Error registrando like", Toast.LENGTH_SHORT).show();
                 });
 
-        Log.d(TAG, "Notificación enviada (simulada) a token: " + likedUserToken);
+        try {
+            JSONObject notification = new JSONObject();
+            notification.put("to", likedUserToken);
+
+            JSONObject data = new JSONObject();
+            data.put("title", "LIFTUP");
+            data.put("body", (nombreRemitente != null ? nombreRemitente : "Alguien") + " quiere ir al gym contigo ");
+            notification.put("notification", data);
+
+            Log.d(TAG, "Notificación JSON construida: " + notification.toString());
+
+            enviarFCM(notification);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error construyendo la notificación JSON", e);
+        }
     }
+
+    private void enviarFCM(JSONObject notification) {
+        String url = "https://fcm.googleapis.com/fcm/send";
+        Log.d(TAG, " Enviando notificación FCM a: " + url);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, notification,
+                response -> Log.d(TAG, " Notificación FCM enviada con éxito. Respuesta: " + response.toString()),
+                error -> Log.e(TAG, "Error al enviar notificación FCM", error)
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "key=AIzaSyCP63kieiE79NUl8vhTCZVepzfmnI4m6sQ");
+                headers.put("Content-Type", "application/json");
+                Log.d(TAG, "🛡 Headers preparados para FCM");
+                return headers;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(requireContext().getApplicationContext());
+        Log.d(TAG, " Añadiendo solicitud a la cola de Volley");
+        queue.add(request);
+    }
+
+
+
+
 
 }

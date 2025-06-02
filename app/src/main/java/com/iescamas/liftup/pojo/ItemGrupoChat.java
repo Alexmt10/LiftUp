@@ -22,7 +22,6 @@ public class ItemGrupoChat {
         this.miembros = miembros;
     }
 
-    // Getters y setters
     public String getIdGrupo() {
         return idGrupo;
     }
@@ -43,16 +42,6 @@ public class ItemGrupoChat {
         return imagenGrupoUrl;
     }
 
-    public void setImagenGrupoUrl(String imagenGrupoUrl) {
-        this.imagenGrupoUrl = imagenGrupoUrl;
-    }
 
-    public List<String> getMiembros() {
-        return miembros;
-    }
-
-    public void setMiembros(List<String> miembros) {
-        this.miembros = miembros;
-    }
 }
 

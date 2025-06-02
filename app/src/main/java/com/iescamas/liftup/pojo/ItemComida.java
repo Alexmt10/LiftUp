@@ -16,21 +16,6 @@ public class ItemComida implements Serializable {
     public ItemComida() {
     }
 
-    public List<ItemAlimento> getAlimentos() {
-        return alimentos;
-    }
-
-    public void setAlimentos(List<ItemAlimento> alimentos) {
-        this.alimentos = alimentos;
-    }
-
-    public String getNombreComida() {
-        return nombreComida;
-    }
-
-    public void setNombreComida(String nombreComida) {
-        this.nombreComida = nombreComida;
-    }
 
     public String getId() {
         return id;

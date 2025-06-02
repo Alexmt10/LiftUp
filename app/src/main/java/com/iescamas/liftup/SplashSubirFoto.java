@@ -24,9 +24,8 @@ public class SplashSubirFoto extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_subir_foto); // tu layout de splash
+        setContentView(R.layout.activity_splash_subir_foto);
 
-        // Recoger datos
         Intent intent = getIntent();
         String descripcion = intent.getStringExtra("descripcion");
         String imagenUriString = intent.getStringExtra("imagenUri");

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iescamas.liftup.Fragment.NuevaFragment;
+
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.ItemAlimento;
 import com.iescamas.liftup.pojo.PlanComida;
@@ -83,7 +83,7 @@ public class AdaptadorListaComida extends RecyclerView.Adapter<AdaptadorListaCom
     }
 
     public static class PlanComidaViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNombrePlan; TextView tvCantidadAlimentos;
+        TextView tvNombrePlan;
 
         public PlanComidaViewHolder(@NonNull View itemView) {
             super(itemView);

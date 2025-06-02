@@ -1,7 +1,9 @@
 package com.iescamas.liftup.tipos;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -32,7 +34,7 @@ public class Configuraciones extends AppCompatActivity {
 
     private TextInputEditText editNombreCompleto, editUsername, editPeso, editDescripcion, editAlturaid;
     private Spinner spinnerGym;
-    private Button btnGuardarCambios, btnSalir;
+    private Button btnGuardarCambios, btnSalir, btnanadirgym;
     private List<String> listaGimnasios;
     private ArrayAdapter<String> adapterGymConfi;
 
@@ -60,6 +62,7 @@ public class Configuraciones extends AppCompatActivity {
          editDescripcion = findViewById(R.id.editDescripcion);
          spinnerGym = findViewById(R.id.spinnerGym);
          btnGuardarCambios = findViewById(R.id.btnGuardarCambiosid);
+         btnanadirgym = findViewById(R.id.btnanadirgym);
 
 
         listaGimnasios = new ArrayList<>();
@@ -89,6 +92,29 @@ public class Configuraciones extends AppCompatActivity {
         btnGuardarCambios.setOnClickListener(view -> {
             guardarcambios();
         });
+
+        btnanadirgym.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String correoDestino = "liftupmt@gmail.com";
+                String asunto = "Solicitud para añadir nuevo gimnasio";
+                String cuerpo = "Hola, me gustaría que añadierais el gimnasio siguiente:\n\nNombre del gimnasio:\nDirección:\nCiudad:\n";
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{correoDestino});
+                intent.putExtra(Intent.EXTRA_SUBJECT, asunto);
+                intent.putExtra(Intent.EXTRA_TEXT, cuerpo);
+
+                try {
+                    startActivity(Intent.createChooser(intent, "Enviar correo con..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getApplicationContext(), "No se encontró ninguna app de correo instalada.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 
     private void guardarcambios(){

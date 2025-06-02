@@ -2,7 +2,7 @@ package com.iescamas.liftup.tipos;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
@@ -100,7 +100,6 @@ public class ConversacionGrupo extends AppCompatActivity {
 
         cargarInfoGrupoDesdeFirestore();
 
-        // Configurar mensajes
         listaMensajes = new ArrayList<>();
         adaptador = new AdaptadorMensajesGrupo(listaMensajes, usuarioActualId);
         recyclerMensajes.setLayoutManager(new LinearLayoutManager(this));
@@ -182,7 +181,6 @@ public class ConversacionGrupo extends AppCompatActivity {
             if (documentSnapshot.exists()) {
                 Map<String, Object> datos = documentSnapshot.getData();
                 if (datos != null && datos.containsKey("miembros")) {
-                    // Aquí cambiamos a List<String> porque "miembros" es un array en Firestore
                     List<String> miembros = (List<String>) datos.get("miembros");
 
                     if (miembros == null || miembros.isEmpty()) {
@@ -192,7 +190,6 @@ public class ConversacionGrupo extends AppCompatActivity {
 
                     List<String> nombres = new ArrayList<>();
 
-                    // Obtener usernames de cada uno
                     FirebaseFirestore.getInstance().collection("Usuarios")
                             .whereIn(FieldPath.documentId(), miembros)
                             .get()
@@ -204,7 +201,6 @@ public class ConversacionGrupo extends AppCompatActivity {
                                     }
                                 }
 
-                                // Mostrar los nombres en un AlertDialog
                                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                                 builder.setTitle("Participantes del grupo");
 
@@ -331,7 +327,6 @@ public class ConversacionGrupo extends AppCompatActivity {
                         .addOnSuccessListener(uri -> {
                             String urlFoto = uri.toString();
 
-                            // Actualizar campo foto en Firestore
                             db.collection("grupos").document(grupoId)
                                     .update("foto", urlFoto)
                                     .addOnSuccessListener(aVoid -> {
@@ -364,7 +359,6 @@ public class ConversacionGrupo extends AppCompatActivity {
                 return;
             }
 
-            // Actualizar nombre en Firestore
             db.collection("grupos").document(grupoId)
                     .update("nombre", nuevoNombre)
                     .addOnSuccessListener(aVoid -> {

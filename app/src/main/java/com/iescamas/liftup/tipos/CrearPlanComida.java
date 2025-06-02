@@ -69,7 +69,6 @@ public class CrearPlanComida extends AppCompatActivity {
             }
         }
 
-        // Obtener nombre del plan
         EditText etNombreComida = findViewById(R.id.CrearAlimentoTituloPlatoId);
         String nombrePlan = etNombreComida.getText().toString().trim();
         if (nombrePlan.isEmpty()) {
@@ -79,9 +78,8 @@ public class CrearPlanComida extends AppCompatActivity {
 
         PlanComida plan = new PlanComida(nombrePlan, listaAlimentos);
 
-        // Guardar en Realtime Database
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("planes_comida");
-        String id = dbRef.push().getKey(); // Genera ID único
+        String id = dbRef.push().getKey();
 
         if (id != null) {
             dbRef.child(id).setValue(plan)

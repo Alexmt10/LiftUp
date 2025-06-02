@@ -16,11 +16,9 @@ import android.widget.ImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.Adaptadores.AdaptadorConversaciones;
-import com.iescamas.liftup.Adaptadores.AdaptadorMensajes;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.Usuario;
-import com.iescamas.liftup.pojo.UsuarioChat;
-import com.iescamas.liftup.Fragment.FragmentSecundarios.ChatFragmentGupo;
+
 
 import java.util.ArrayList;
 import java.util.HashSet;

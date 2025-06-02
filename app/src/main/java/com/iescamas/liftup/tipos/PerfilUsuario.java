@@ -20,23 +20,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
 import com.google.firebase.firestore.WriteBatch;
 import com.iescamas.liftup.Adaptadores.AdapterOtroPerfil;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.ItemPost;
-import com.iescamas.liftup.pojo.Usuario;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.annotation.Nullable;
 
 public class PerfilUsuario extends AppCompatActivity {
     private RecyclerView recyclerOtroPerfil;
@@ -63,7 +59,6 @@ public class PerfilUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_perfil_usuario);
 
 
-        // Inicializar Firestore
         db = FirebaseFirestore.getInstance();
 
         btnSeguir = findViewById(R.id.btnseguirOtroUsuario);
@@ -76,14 +71,12 @@ public class PerfilUsuario extends AppCompatActivity {
         txtPublicaciones = findViewById(R.id.txtNumeroPublicaiconesOtroId);
         txtDescripcion = findViewById(R.id.txtDescripcionOtroId);
 
-        // RecyclerView
         recyclerOtroPerfil = findViewById(R.id.recyclerOtroPerfil);
         recyclerOtroPerfil.setLayoutManager(new GridLayoutManager(this, 2));
         listaPublicaciones = new ArrayList<>();
         adaptadorOtroPerfil = new AdapterOtroPerfil(listaPublicaciones, this);
         recyclerOtroPerfil.setAdapter(adaptadorOtroPerfil);
 
-        // Obtener UID del usuario a mostrar
         uidUsuario = getIntent().getStringExtra("uidUsuario");
         uidUsuarioActual = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d("PerfilUsuario", "UID recibido en intent: " + uidUsuario);
@@ -128,15 +121,12 @@ public class PerfilUsuario extends AppCompatActivity {
     }
 
     private void seguirUsuario() {
-        // Añadir a "seguidos" del usuario actual
         DocumentReference seguidosRef = db.collection("seguidos").document(uidUsuarioActual)
                 .collection("usuarios").document(uidUsuario);
 
-        // Añadir a "seguidores" del usuario perfil
         DocumentReference seguidoresRef = db.collection("seguidores").document(uidUsuario)
                 .collection("usuarios").document(uidUsuarioActual);
 
-        // Usamos batch para que las dos operaciones sean atómicas
         WriteBatch batch = db.batch();
 
         batch.set(seguidosRef, new HashMap<>());
@@ -147,12 +137,10 @@ public class PerfilUsuario extends AppCompatActivity {
             btnSeguir.setText("Dejar de seguir");
 
         }).addOnFailureListener(e -> {
-            // Manejo error si quieres
         });
     }
 
     private void dejarDeSeguirUsuario() {
-        // Referencias para borrar
         DocumentReference seguidosRef = db.collection("seguidos").document(uidUsuarioActual)
                 .collection("usuarios").document(uidUsuario);
 
@@ -174,11 +162,9 @@ public class PerfilUsuario extends AppCompatActivity {
     }
 
     private void actualizarContadoresSeguidoresSeguidos(int cambio) {
-        // Actualizamos txtSeguidores (usuario perfil)
         int seguidoresActual = Integer.parseInt(txtSeguidores.getText().toString());
         txtSeguidores.setText(String.valueOf(seguidoresActual + cambio));
 
-        // Actualizamos txtSeguidos (usuario actual)
         int seguidosActual = Integer.parseInt(txtSeguidos.getText().toString());
         txtSeguidos.setText(String.valueOf(seguidosActual + cambio));
     }
@@ -285,7 +271,6 @@ public class PerfilUsuario extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Desconectar listeners para evitar memory leaks
         if (seguidoresListener != null) seguidoresListener.remove();
         if (seguidosListener != null) seguidosListener.remove();
 

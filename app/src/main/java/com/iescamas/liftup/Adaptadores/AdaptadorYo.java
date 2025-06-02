@@ -58,7 +58,6 @@ public class AdaptadorYo extends RecyclerView.Adapter<AdaptadorYo.ViewHolder> {
             holder.PublicaionPostId.setImageResource(R.drawable.icon_match);
         }
 
-        // Mostrar rutina al pulsar
         holder.RutinaPostId.setOnClickListener(v -> {
             if (post.getEntrenamiento() != null && post.getEntrenamiento().getEjercicios() != null) {
                 Log.d("AdaptadorYo", "Rutina encontrada para el post");
@@ -82,7 +81,6 @@ public class AdaptadorYo extends RecyclerView.Adapter<AdaptadorYo.ViewHolder> {
             }
         });
 
-        // Mostrar comida al pulsar
         holder.ComidaPostId.setOnClickListener(v -> {
             if (post.getComida() != null && post.getComida().getAlimentos() != null) {
                 Log.d("AdaptadorYo", "Comida encontrada para el post");

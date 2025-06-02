@@ -13,24 +13,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.ItemAlimento;
 import com.iescamas.liftup.pojo.ItemEntrenoCompleto;
 import com.iescamas.liftup.pojo.ItemPost;
 import com.iescamas.liftup.pojo.ItemSerie;
-import com.iescamas.liftup.pojo.Usuario;
+
 
 import java.util.List;
 

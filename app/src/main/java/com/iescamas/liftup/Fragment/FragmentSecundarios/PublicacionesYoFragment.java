@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.iescamas.liftup.Adaptadores.AdaptadorYo;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.ItemPost;
-import com.iescamas.liftup.pojo.ItemYoPerfil;
+
 
 import java.util.ArrayList;
 import java.util.List;

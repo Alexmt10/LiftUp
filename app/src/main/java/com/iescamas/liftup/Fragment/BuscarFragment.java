@@ -46,23 +46,19 @@ public class BuscarFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_buscar, container, false);
 
-        // Inicializar Firebase
         db = FirebaseFirestore.getInstance();
         autenticacion = FirebaseAuth.getInstance();
 
-        // Inicializar vistas
         entradaBusqueda = vista.findViewById(R.id.entrada_busqueda);
         recyclerUsuarios = vista.findViewById(R.id.recycler_usuarios);
         indicadorCarga = vista.findViewById(R.id.indicador_carga);
         textoVacio = vista.findViewById(R.id.texto_vacio);
 
-        // Configurar RecyclerView
         listaUsuarios = new ArrayList<>();
         adaptadorUsuarios = new AdaptadorBusquedaUsuario(listaUsuarios, getContext());
         recyclerUsuarios.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerUsuarios.setAdapter(adaptadorUsuarios);
 
-        // Configurar búsqueda en tiempo real
         configurarListenerBusqueda();
 
         return vista;

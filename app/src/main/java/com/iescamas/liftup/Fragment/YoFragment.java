@@ -97,7 +97,6 @@ public class YoFragment extends Fragment {
                 startActivity(new Intent(getActivity(), Configuraciones.class));
             });
 
-            // Cargar datos del usuario
             cargarDatosUsuario();
             cargarSeguidores();
             cargarSeguidos();

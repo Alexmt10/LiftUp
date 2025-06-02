@@ -31,11 +31,5 @@ public class ItemYoPerfil {
         this.comida = comida;
     }
 
-    public String getImagenPerfil() {
-        return imagenPerfil;
-    }
 
-    public void setImagenPerfil(String imagenPerfil) {
-        this.imagenPerfil = imagenPerfil;
-    }
 }

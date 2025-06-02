@@ -1,4 +1,5 @@
 package com.iescamas.liftup.registro_inicio;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.iescamas.liftup.Mensajes.Token;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.tipos.InformacionAdicional;
 import com.iescamas.liftup.tipos.Inicio;
@@ -98,21 +100,33 @@ public class RegistrarteActivity extends AppCompatActivity {
                                             if (user != null) {
                                                 String uid = user.getUid();
 
-                                                Map<String, Object> datosUsuario = new HashMap<>();
-                                                datosUsuario.put("username", usuario);
-                                                datosUsuario.put("correo", correo);
+                                                FirebaseMessaging.getInstance().getToken()
+                                                        .addOnCompleteListener(tokenTask -> {
+                                                            if (!tokenTask.isSuccessful()) {
+                                                                Log.w(TAG, "Error al obtener el token FCM", tokenTask.getException());
+                                                                return;
+                                                            }
 
-                                                Log.d(TAG, "Guardando datos usuario en Firestore con UID: " + uid);
-                                                db.collection("Usuarios").document(uid).set(datosUsuario)
-                                                        .addOnSuccessListener(aVoid -> {
-                                                            Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                                                            Log.i(TAG, "Datos guardados correctamente en Firestore");
-                                                            Intent intent = new Intent(this, InformacionAdicional.class);
-                                                            startActivity(intent);
-                                                        })
-                                                        .addOnFailureListener(e -> {
-                                                            Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
-                                                            Log.e(TAG, "Error guardando datos en Firestore", e);
+                                                            String token = tokenTask.getResult();
+
+                                                            Map<String, Object> datosUsuario = new HashMap<>();
+                                                            datosUsuario.put("username", usuario);
+                                                            datosUsuario.put("correo", correo);
+                                                            datosUsuario.put("fcmToken", token);
+
+                                                            Log.d(TAG, "Guardando datos usuario en Firestore con UID: " + uid);
+                                                            Token.guardarTokenEnFirestore(uid);
+                                                            db.collection("Usuarios").document(uid).set(datosUsuario)
+                                                                    .addOnSuccessListener(aVoid -> {
+                                                                        Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                                                                        Log.i(TAG, "Datos guardados correctamente en Firestore con token FCM");
+                                                                        Intent intent = new Intent(this, InformacionAdicional.class);
+                                                                        startActivity(intent);
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+                                                                        Log.e(TAG, "Error guardando datos en Firestore", e);
+                                                                    });
                                                         });
                                             }
                                         } else {

@@ -66,68 +66,21 @@ public class ItemPost implements Serializable {
         this.imagenPost = imagenPost;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
-    public int getImagenUsuario() {
-        return imagenUsuario;
-    }
     public String getUidUsuario() {
         return uidUsuario;
     }
 
-    public void setUidUsuario(String uidUsuario) {
-        this.uidUsuario = uidUsuario;
-    }
-
-    public void setImagenUsuario(int imagenUsuario) {
-        this.imagenUsuario = imagenUsuario;
-    }
 
     public int getImagenPost() {
         return imagenPost;
     }
 
-    public void setImagenPost(int imagenPost) {
-        this.imagenPost = imagenPost;
-    }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public int getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(int comentarios) {
-        this.comentarios = comentarios;
-    }
-
-    public String getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
-    }
 
     public ItemEntrenamiento getEntrenamiento() {
         return entrenamiento;
     }
 
-    public void setEntrenamiento(ItemEntrenamiento entrenamiento) {
-        this.entrenamiento = entrenamiento;
-    }
 
     public PlanComida getComida() {
         return comida;
@@ -141,23 +94,9 @@ public class ItemPost implements Serializable {
         return imagenPostUrl;
     }
 
-    public void setImagenPostUrl(String imagenPostUrl) {
-        this.imagenPostUrl = imagenPostUrl;
-    }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getNumero_megusta() {
-        return numero_megusta;
-    }
-
-    public void setNumero_megusta(int numero_megusta) {
-        this.numero_megusta = numero_megusta;
-    }
 }

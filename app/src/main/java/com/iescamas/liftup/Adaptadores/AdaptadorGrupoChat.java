@@ -77,8 +77,5 @@ public class AdaptadorGrupoChat extends RecyclerView.Adapter<AdaptadorGrupoChat.
         }
     }
 
-    public void actualizarLista(List<ItemGrupoChat> nuevosGrupos) {
-        this.listaGrupos = nuevosGrupos;
-        notifyDataSetChanged();
-    }
+
 }

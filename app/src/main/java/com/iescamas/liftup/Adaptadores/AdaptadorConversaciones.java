@@ -2,7 +2,7 @@ package com.iescamas.liftup.Adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.Usuario;
-import com.iescamas.liftup.pojo.UsuarioChat;
+
 import com.iescamas.liftup.tipos.ConversacionUser;
 
 import java.util.List;
@@ -25,9 +25,9 @@ public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConve
 
     private Context context;
     private List<Usuario> listaUsuarios;
-    private String usuarioActualId; // Nuevo campo para identificar el usuario actual
+    private String usuarioActualId;
 
-    // Constructor modificado para incluir el ID del usuario actual
+
     public AdaptadorConversaciones(Context context, List<Usuario> listaUsuarios, String usuarioActualId) {
         this.context = context;
         this.listaUsuarios = listaUsuarios;

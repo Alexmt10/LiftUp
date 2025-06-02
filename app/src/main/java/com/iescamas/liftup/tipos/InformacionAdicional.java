@@ -67,7 +67,6 @@ public class InformacionAdicional extends AppCompatActivity {
         editgym = findViewById(R.id.spngimnasioid);
         Button btnRegistrar = findViewById(R.id.btnRegistrarUsuario);
 
-        // Adaptador para el spinner de sexo (local)
         ArrayAdapter<CharSequence> adapterSexo = ArrayAdapter.createFromResource(this,
                 R.array.sexo_array, android.R.layout.simple_spinner_item);
         adapterSexo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

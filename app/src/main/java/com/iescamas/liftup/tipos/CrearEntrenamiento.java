@@ -16,7 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.iescamas.liftup.Base_de_datos.DBHelper;
+
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.pojo.ItemEntrenamiento;
 import com.iescamas.liftup.pojo.ItemEntrenoCompleto;

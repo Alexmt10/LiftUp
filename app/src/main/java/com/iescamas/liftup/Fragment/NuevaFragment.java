@@ -53,17 +53,15 @@ public class NuevaFragment extends Fragment {
 
     private Uri cropDestinationUri;
 
-    // Lanza UCrop y recoge el resultado
     private final ActivityResultLauncher<Intent> ucropLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == getActivity().RESULT_OK && result.getData() != null) {
-                    // Obtenemos la URI de la imagen recortada
                     final Uri resultUri = UCrop.getOutput(result.getData());
                     if (resultUri != null) {
-                        imgAnadirFoto.setImageURI(resultUri); // Mostramos la imagen recortada
-                        imgAnadirFoto.setScaleType(ImageButton.ScaleType.CENTER_CROP); // Ajuste visual
-                        imgAnadirFoto.setPadding(0, 0, 0, 0); // Quitamos padding para que se vea bien
+                        imgAnadirFoto.setImageURI(resultUri);
+                        imgAnadirFoto.setScaleType(ImageButton.ScaleType.CENTER_CROP);
+                        imgAnadirFoto.setPadding(0, 0, 0, 0);
                     } else {
                         Toast.makeText(getContext(), "Error: la imagen recortada es nula", Toast.LENGTH_SHORT).show();
                     }

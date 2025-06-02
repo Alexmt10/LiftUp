@@ -32,25 +32,12 @@ public class ItemMensajesGrupo {
         return texto;
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
 
     public String getGrupoId() {
         return grupoId;
     }
 
-    public void setGrupoId(String grupoId) {
-        this.grupoId = grupoId;
-    }
 
     public String getEmisorUsername() {
         return emisorUsername;

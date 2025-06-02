@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.tipos.Inicio;
 
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_login);
 
         editUsuarioo = findViewById(R.id.edit_usuario);
@@ -53,53 +56,77 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         btnInicioSesion.setOnClickListener(v -> {
-            String email = editUsuarioo.getText().toString().trim();
+            String userInput = editUsuarioo.getText().toString().trim();
             String password = editContrasena.getText().toString().trim();
 
-            if (email.isEmpty() || password.isEmpty()) {
+            if (userInput.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            if (user != null) {
-                                Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-
-                                redirectToMainActivity();
-
-                            }
-                        } else {
-                            String errorMsg = task.getException().getMessage();
-                            Toast.makeText(this, "Error al iniciar sesión, Usuario o contraseña incorrectas", Toast.LENGTH_LONG).show();
-                            Log.e("LOGIN_FIREBASE", "Error al iniciar sesión", task.getException());
-                        }
-                    });
+            if (userInput.contains("@")) {
+                loginConEmail(userInput, password);
+            } else {
+                buscarEmailPorUsernameYLogin(userInput, password);
+            }
         });
+
+
     }
+
+    private void loginConEmail(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+                            redirectToMainActivity();
+                        }
+                    } else {
+                        Toast.makeText(this, "Error al iniciar sesión, usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                        Log.e("LOGIN_FIREBASE", "Error al iniciar sesión", task.getException());
+                    }
+                });
+    }
+
+    private void buscarEmailPorUsernameYLogin(String username, String password) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Usuarios")
+                .whereEqualTo("username", username)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        String email = queryDocumentSnapshots.getDocuments().get(0).getString("email");
+                        loginConEmail(email, password);
+                    } else {
+                        Toast.makeText(this, "Usuario no encontrado", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error al buscar usuario", Toast.LENGTH_SHORT).show();
+                    Log.e("FIRESTORE", "Error buscando email por username", e);
+                });
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        // Verificar nuevamente por si el usuario cerró sesión mientras la actividad estaba en pausa
         checkCurrentUser();
     }
 
     private void checkCurrentUser() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            // Usuario ya está autenticado, redirigir
             redirectToMainActivity();
         }
-        // Si no hay usuario, permanecer en LoginActivity
     }
 
     private void redirectToMainActivity() {
         Intent intent = new Intent(this, Inicio.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        finish(); // Finalizar LoginActivity para que no pueda volver atrás
+        finish();
     }
 
     }

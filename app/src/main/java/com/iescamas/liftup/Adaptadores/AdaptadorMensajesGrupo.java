@@ -7,8 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.iescamas.liftup.R;
-import com.iescamas.liftup.pojo.ItemMensajesGrupo;;
-import java.text.SimpleDateFormat;
+import com.iescamas.liftup.pojo.ItemMensajesGrupo;
 import java.util.List;
 
 public class AdaptadorMensajesGrupo extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -62,7 +61,7 @@ public class AdaptadorMensajesGrupo extends RecyclerView.Adapter<RecyclerView.Vi
 
 
     static class MensajePropioViewHolder extends RecyclerView.ViewHolder {
-        TextView textoMensaje, textoFecha;
+        TextView textoMensaje;
 
         public MensajePropioViewHolder(@NonNull View itemView) {
             super(itemView);
