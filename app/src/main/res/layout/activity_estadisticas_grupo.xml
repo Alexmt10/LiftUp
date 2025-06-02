@@ -16,7 +16,7 @@
         android:id="@+id/et_kilos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Peso máximo (1RM en kg)"
+        android:hint="@string/peso_m_ximo_1rm_en_kg"
         android:inputType="numberDecimal"
         android:layout_marginBottom="16dp" />
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         style="@style/boton"
         android:layout_height="wrap_content"
-        android:text="Guardar peso"
+        android:text="@string/guardar_peso"
         android:layout_marginBottom="24dp" />
 
     <com.github.mikephil.charting.charts.BarChart

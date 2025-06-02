@@ -19,7 +19,7 @@
             android:id="@+id/editTextNombreGrupoId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre del grupo"
+            android:hint="@string/nombre_del_grupo"
             android:inputType="text"
             android:background="@android:color/transparent"
             android:textSize="16sp"
@@ -39,7 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="5dp"
-            android:contentDescription="Icono del grupo"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_grupo" />
     </androidx.cardview.widget.CardView>

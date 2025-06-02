@@ -133,7 +133,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:visibility="invisible"
-        android:text="La contraseña debe tener mínimo  8 caracteres, al menos una mayúscula y un número"
         android:textColor="@color/mensaje_info_contrasena"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"

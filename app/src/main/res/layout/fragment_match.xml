@@ -38,7 +38,6 @@
                 android:id="@+id/txtNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre Apellido"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp" />
@@ -47,7 +46,6 @@
                 android:id="@+id/txtGym"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gimnasio: Gym Sevilla Centro"
                 android:textSize="16sp"
                 android:layout_marginTop="8dp" />
 
@@ -80,7 +78,7 @@
             android:id="@+id/btnLike"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="Sí"
+            android:text="@string/s"
             android:backgroundTint="#4CAF50"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />

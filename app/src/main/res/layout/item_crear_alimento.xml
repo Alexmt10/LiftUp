@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:hint="Alimento"
+            android:hint="@string/alimento"
             android:textSize="16sp"
             android:background="@android:drawable/edit_text" />
 
@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Gramos"
+            android:hint="@string/gramos"
             android:inputType="numberDecimal"
             android:layout_marginStart="8dp"
             android:textSize="16sp"

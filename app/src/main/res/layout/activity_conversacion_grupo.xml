@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Escribe un mensaje..." />
+            android:hint="@string/escribe_un_mensaje" />
 
         <ImageButton
             android:id="@+id/boton_enviar"

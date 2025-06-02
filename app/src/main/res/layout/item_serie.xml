@@ -34,7 +34,7 @@
             android:id="@+id/editRepeticionesid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Repeticiones"
+            android:hint="@string/repeticiones"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,7 +51,7 @@
             android:id="@+id/editPesoid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Peso (kg)"
+            android:hint="@string/peso_kg"
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
