@@ -5,7 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -52,6 +54,12 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         Log.d("AdaptadorPubli", "onBindViewHolder: Cargando post en posición " + position);
 
         holder.NombreUsuarioPostId.setText("Cargando...");
+        if (itemPost.isLeGusta()) {
+            holder.MegustaPostId.setImageResource(R.drawable.icon_corazon_rojo);
+        } else {
+            holder.MegustaPostId.setImageResource(R.drawable.icon_match);
+        }
+
 
         if (itemPost.getUidUsuario() != null && !itemPost.getUidUsuario().isEmpty()) {
             FirebaseFirestore.getInstance()
@@ -146,7 +154,6 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
             Log.e("AdaptadorPubli", "Error al cargar imagen de publicación", e);
         }
 
-        holder.MegustaPostId.setImageResource(R.drawable.icon_match);
         holder.MensajesPostId.setImageResource(R.drawable.icon_comentario);
         holder.RutinaPostId.setImageResource(R.drawable.icon_mancuerna);
         holder.ComidaPostId.setImageResource(R.drawable.icon_cubiertoo);
@@ -195,6 +202,31 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
                 Toast.makeText(context, "No hay comida en esta publicación", Toast.LENGTH_SHORT).show();
             }
         });
+        holder.MegustaPostId.setOnClickListener(v -> {
+            boolean leGustaAntes = itemPost.isLeGusta();
+            boolean leGustaNuevo = !leGustaAntes;
+            itemPost.setLeGusta(leGustaNuevo);
+
+            // Actualizar icono
+            if (leGustaNuevo) {
+                holder.MegustaPostId.setImageResource(R.drawable.icon_corazon_rojo);
+                Toast.makeText(context, "¡Te gusta esta publicación!", Toast.LENGTH_SHORT).show();
+                Log.d("AdaptadorPubli", "Like activado en posición " + holder.getAdapterPosition());
+            } else {
+                holder.MegustaPostId.setImageResource(R.drawable.icon_match);
+                Toast.makeText(context, "Ya no te gusta esta publicación", Toast.LENGTH_SHORT).show();
+                Log.d("AdaptadorPubli", "Like desactivado en posición " + holder.getAdapterPosition());
+            }
+
+            try {
+                int numActual = Integer.parseInt(holder.NumeroMegustaPostId.getText().toString());
+                int nuevoValor = leGustaNuevo ? numActual + 1 : Math.max(0, numActual - 1);
+                holder.NumeroMegustaPostId.setText(String.valueOf(nuevoValor));
+            } catch (NumberFormatException e) {
+                Log.e("AdaptadorPubli", "Error al parsear número de me gustas", e);
+            }
+        });
+
     }
 
     @Override

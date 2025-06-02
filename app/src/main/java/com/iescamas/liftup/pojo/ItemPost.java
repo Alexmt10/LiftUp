@@ -6,7 +6,7 @@ public class ItemPost implements Serializable {
     private String uidUsuario;
 
 
-    private String idUsuario;
+    private String idPost;
     private String nombreUsuario;
     private int imagenUsuario;
     private int imagenPost;
@@ -18,6 +18,16 @@ public class ItemPost implements Serializable {
     private int numero_megusta;
     private String imagenPostUrl;
 
+    private boolean leGusta;
+
+    public boolean isLeGusta() {
+        return leGusta;
+    }
+
+    public void setLeGusta(boolean leGusta) {
+        this.leGusta = leGusta;
+    }
+
 
     public ItemPost(String userName, String descripcion, String userId, ItemEntrenamiento planEntrenamientoSeleccionado, PlanComida planComidaSeleccionado) {
     }
@@ -25,7 +35,17 @@ public class ItemPost implements Serializable {
     public ItemPost() {
     }
 
+    public void setUidUsuario(String uidUsuario) {
+        this.uidUsuario = uidUsuario;
+    }
 
+    public String getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(String idPost) {
+        this.idPost = idPost;
+    }
 
     public ItemPost(String nombreUsuario, String descripcion, String uidUsuario, String imagenPostUrl, ItemEntrenamiento entrenamiento, PlanComida comida) {
         this.nombreUsuario = nombreUsuario;
