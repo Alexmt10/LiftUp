@@ -19,4 +19,107 @@
         <item name="android:textSize">18sp</item>
         <item name="cornerRadius">5dp</item>
     </style>
+    <style name="boton_Check">
+        <item name="android:layout_width">350dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/botones_check</item>
+        <item name="android:textSize">18sp</item>
+        <item name="cornerRadius">35dp</item>
+    </style>
+
+    <style name="textoNormal">
+    </style>
+    <!-- Músculos -->
+    <string-array name="musculos">
+        <item>Pecho</item>
+        <item>Espalda</item>
+        <item>Piernas</item>
+        <item>Hombros</item>
+        <item>Bíceps</item>
+        <item>Tríceps</item>
+    </string-array>
+
+    <!-- Ejercicios por músculo -->
+    <string-array name="ejercicios_pecho">
+        <item>Press banca</item>
+        <item>Press inclinado</item>
+        <item>Press declinado</item>
+        <item>Aperturas con mancuernas</item>
+        <item>Aperturas en máquina</item>
+        <item>Pec deck</item>
+        <item>Fondos en paralelas</item>
+        <item>Flexiones</item>
+        <item>Press con mancuernas</item>
+        <item>Press en polea alta</item>
+        <item>Press en polea baja</item>
+    </string-array>
+
+    <string-array name="ejercicios_espalda">
+        <item>Dominadas</item>
+        <item>Remo con barra</item>
+        <item>Remo en máquina</item>
+        <item>Remo en máquina unilateral</item>
+        <item>Remo con mancuerna</item>
+        <item>Jalón al pecho</item>
+        <item>Jalón al pecho unilateral</item>
+        <item>Jalón tras nuca</item>
+        <item>Peso muerto</item>
+        <item>Pull-over en polea</item>
+        <item>Remo gironda</item>
+    </string-array>
+
+    <string-array name="ejercicios_piernas">
+        <item>Sentadillas</item>
+        <item>Prensa de piernas</item>
+        <item>Extensiones de cuádriceps</item>
+        <item>Curl femoral tumbado</item>
+        <item>Zancadas</item>
+        <item>Elevación de talones</item>
+        <item>Sentadilla hack</item>
+        <item>Peso muerto rumano</item>
+        <item>Hip thrust</item>
+    </string-array>
+
+    <string-array name="ejercicios_hombros">
+        <item>Press militar</item>
+        <item>Elevaciones laterales</item>
+        <item>Elevaciones frontales</item>
+        <item>Pájaros</item>
+        <item>Press Arnold</item>
+        <item>Facepull</item>
+        <item>Encogimientos con mancuernas</item>
+        <item>Press con mancuernas</item>
+        <item>Remo al cuello</item>
+    </string-array>
+
+    <string-array name="ejercicios_biceps">
+        <item>Curl con barra</item>
+        <item>Curl con mancuernas</item>
+        <item>Curl martillo</item>
+        <item>Curl concentrado</item>
+        <item>Curl en banco inclinado</item>
+        <item>Curl en predicador</item>
+        <item>Curl en polea baja</item>
+        <item>Curl araña</item>
+        <item>Curl Z</item>
+        <item>Curl 21</item>
+    </string-array>
+
+    <string-array name="ejercicios_triceps">
+        <item>Fondos</item>
+        <item>Press francés</item>
+        <item>Extensiones con cuerda</item>
+        <item>Jalones en polea</item>
+        <item>Extensión tras nuca con mancuerna</item>
+        <item>Patada de tríceps</item>
+        <item>Extensión en máquina</item>
+        <item>Press cerrado</item>
+        <item>Extensión con barra Z</item>
+    </string-array>
+    <string-array name="sexo_array">
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Otros</item>
+    </string-array>
+
 </resources>

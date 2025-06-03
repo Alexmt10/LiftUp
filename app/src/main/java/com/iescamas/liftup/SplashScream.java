@@ -6,9 +6,11 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import android.os.Handler;
 
-import com.iescamas.liftup.registro_inicio.MainActivity;
+import com.iescamas.liftup.registro_inicio.LoginActivity;
 
 public class SplashScream extends AppCompatActivity {
 
@@ -16,16 +18,18 @@ public class SplashScream extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         setContentView(R.layout.activity_splash_scream);
 
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScream.this, MainActivity.class);
+                Intent intent = new Intent(SplashScream.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 5000);
 
     }
 }

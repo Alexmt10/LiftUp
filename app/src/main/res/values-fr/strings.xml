@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LiftUp</string>
+    <string name="liftup" translatable="false">LiftUp</string>
+    <string name="Usuario_login">utilisateur ou email</string>
+    <string name="usuario_input">Utilisateur</string>
+    <string name="contrasena">Mot de passe</string>
+    <string name="btn_inicio_sesion">Se connecter</string>
+    <string name="txt_crear_nuevo_perfil">Créer un nouveau profil ?</string>
+    <string name="txt_registrarse">¡ inscrire !</string>
+    <string name="he_olvidado_mi_contrasena">ai oublié mon mot de passe</string>
+    <string name="correo_electronico">Email</string>
+    <string name="btn_crear_cuenta">Créer un compte</string>
+    <string name="introduce_tu_correo_para_poder_recuperar_tu_contrase_a">Entrez votre email pour récupérer votre mot de passe</string>
+    <string name="recuperar">Récupérer</string>
+    <string name="seguidoresYo">Abonnés</string>
+    <string name="seguidosYo">Abonnements</string>
+    <string name="publicaciones">Publications</string>
+    <string name="calor_as">Calories</string>
+    <string name="prote_nas">Protéines</string>
+    <string name="grasas">Lipides</string>
+    <string name="seguir">Suivre</string>
+    <string name="desc_foto_perfil">Photo de profil de utilisateur</string>
+    <string name="desc_imagen_publicacion">Image de la publication</string>
+    <string name="desc_icono_megusta" translatable="false">Icono me gusta</string>
+    <string name="desc_icono_mensaje" translatable="false">Icono mensajes</string>
+    <string name="desc_icono_comida" translatable="false">Icono comida</string>
+    <string name="desc_icono_rutina" translatable="false">Icono rutina</string>
+    <string name="guardar_cambios">Enregistrer les modifications</string>
+    <string name="salir_del_perfil">Se déconnecter</string>
+    <string name="seleccionar_gimnasio">Sélectionner une salle de sport</string>
+    <string name="modificar_datos_del_perfil">Modifier les données du profil</string>
+    <string name="nombre_completo">Nom complet</string>
+    <string name="nombre_de_usuario">Nom utilisateur</string>
+    <string name="peso_kg">Poids (kg)</string>
+    <string name="descripci_n">Description</string>
+    <string name="altura">Taille</string>
+    <string name="escribe_un_mensaje">Écrire un message...</string>
+    <string name="nombre_del_entrenamiento">Nom de entraînement</string>
+    <string name="a_adir_ejercicio_al_entrenamiento">Ajouter un exercice à entraînement</string>
+    <string name="guardar_entrenamiento">Enregistrer entraînement</string>
+    <string name="nombre_de_la_comida">Nom du repas</string>
+    <string name="a_adir_alimento">Ajouter un aliment</string>
+    <string name="guardar_alimentos">ENREGISTRER LES ALIMENTS</string>
+    <string name="peso_m_ximo_1rm_en_kg">Poids max (1RM en kg)</string>
+    <string name="guardar_peso">Enregistrer le poids</string>
+    <string name="altura_cm">Taille (cm)</string>
+    <string name="fecha_de_nacimiento">Date de naissance</string>
+    <string name="g_nero">Genre</string>
+    <string name="registrar">inscrire</string>
+    <string name="subiendo_tu_post">Publication en cours...</string>
+    <string name="nombre_del_grupo">Nom du groupe</string>
+    <string name="buscar_usuarios">Rechercher des utilisateurs</string>
+    <string name="s">Oui</string>
+    <string name="a_adir_publicaci_n">Ajouter une publication</string>
+    <string name="alimento">Aliment</string>
+    <string name="gramos">Grammes</string>
+    <string name="entrenamiento">Entraînement</string>
+    <string name="comida">Repas</string>
+    <string name="repeticiones">Répétitions</string>
+    <string name="a_adir_descripci_n">Ajouter une description</string>
+</resources>

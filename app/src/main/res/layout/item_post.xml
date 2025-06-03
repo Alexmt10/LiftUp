@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewPublicacion"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="60dp"
+    app:cardCornerRadius="16dp"
+    android:backgroundTint="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ImgIconoPostId"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/desc_foto_perfil"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txtNombreUsuarioPostId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Alex22m22"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintTop_toTopOf="@id/ImgIconoPostId"
+            app:layout_constraintBottom_toBottomOf="@id/ImgIconoPostId"
+            app:layout_constraintStart_toEndOf="@id/ImgIconoPostId"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/ImgPublicaionPostId"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/desc_imagen_publicacion"
+            app:layout_constraintTop_toBottomOf="@id/ImgIconoPostId"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="H,16:9"  />
+
+        <LinearLayout
+            android:id="@+id/barraAcciones"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/ImgPublicaionPostId"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/iconMegustaPostId"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="@string/desc_icono_megusta"
+                android:padding="4dp"
+                android:src="@drawable/icon_corazon_transparente" />
+
+            <TextView
+                android:id="@+id/txtNumeroMegustaPostId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="12345"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <View
+                android:layout_width="24dp"
+                android:layout_height="0dp" />
+
+            <ImageView
+                android:id="@+id/iconRutinaPostId"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="@string/desc_icono_rutina"
+                android:padding="4dp"
+                android:src="@drawable/icon_mancuerna" />
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="0dp" />
+
+            <ImageView
+                android:id="@+id/iconComidaPostId"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="@string/desc_icono_comida"
+                android:padding="4dp"
+                android:src="@drawable/icon_cubiertos" />
+
+            <View
+                android:layout_width="24dp"
+                android:layout_height="0dp" />
+
+            <ImageView
+                android:id="@+id/iconMensajesPostId"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="@string/desc_icono_mensaje"
+                android:padding="4dp"
+                android:src="@drawable/icon_comentario" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtComentarioPostId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Texto del comentario o descripción de la publicación."
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/barraAcciones"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Divider -->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

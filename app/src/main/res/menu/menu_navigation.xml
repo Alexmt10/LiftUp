@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Inicio"
+        android:icon="@drawable/icon_inicio"
+        android:id="@+id/iconInicioId"/>
+    <item android:title="Match"
+        android:icon="@drawable/icon_match"
+        android:id="@+id/iconMatchId"/>
+    <item android:title="Nueva"
+        android:icon="@drawable/icon_nueva"
+        android:id="@+id/iconNuevaId"/>
+    <item android:title="Grupo"
+        android:icon="@drawable/icon_grupo"
+        android:id="@+id/iconGrupoId"/>
+    <item android:title="Yo"
+        android:icon="@drawable/icon_me"
+        android:id="@+id/iconMeId"/>
+</menu>

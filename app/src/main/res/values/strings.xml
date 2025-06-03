@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">LiftUp</string>
-    <string name="liftup">LiftUp</string>
+    <string name="liftup" translatable="false">LiftUp</string>
     <string name="Usuario_login">Usuario o correo electronico</string>
     <string name="usuario_input">Usuario</string>
     <string name="contrasena">Contraseña</string>
@@ -10,4 +10,52 @@
     <string name="he_olvidado_mi_contrasena">He olvidado mi contraseña</string>
     <string name="correo_electronico">Correo electrónico</string>
     <string name="btn_crear_cuenta">Crear Cuenta</string>
+    <string name="introduce_tu_correo_para_poder_recuperar_tu_contrase_a">Introduce tu correo para poder recuperar tu contraseña</string>
+    <string name="recuperar">recuperar</string>
+    <string name="seguidoresYo">Seguidores</string>
+    <string name="seguidosYo">Seguidos</string>
+    <string name="publicaciones">Publicaciones</string>
+    <string name="calor_as">Calorías</string>
+    <string name="prote_nas">Proteínas</string>
+    <string name="grasas">Grasas</string>
+    <string name="seguir">Seguir</string>
+    <string name="desc_foto_perfil">Foto de perfil del usuario</string>
+    <string name="desc_imagen_publicacion">Imagen de la publicación</string>
+    <string name="desc_icono_megusta" translatable="false">Icono me gusta</string>
+    <string name="desc_icono_mensaje" translatable="false">Icono mensajes</string>
+    <string name="desc_icono_comida" translatable="false">Icono comida</string>
+    <string name="desc_icono_rutina" translatable="false">Icono rutina</string>
+    <string name="guardar_cambios">Guardar cambios</string>
+    <string name="salir_del_perfil">Salir del perfil</string>
+    <string name="seleccionar_gimnasio">Seleccionar gimnasio</string>
+    <string name="modificar_datos_del_perfil">Modificar datos del perfil</string>
+    <string name="nombre_completo">Nombre completo</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="peso_kg">Peso (kg)</string>
+    <string name="descripci_n">Descripción</string>
+    <string name="altura">altura</string>
+    <string name="escribe_un_mensaje">Escribe un mensaje...</string>
+    <string name="nombre_del_entrenamiento">Nombre del entrenamiento</string>
+    <string name="a_adir_ejercicio_al_entrenamiento">Añadir ejercicio al entrenamiento</string>
+    <string name="guardar_entrenamiento">Guardar entrenamiento</string>
+    <string name="nombre_de_la_comida">Nombre de la comida</string>
+    <string name="a_adir_alimento">Añadir alimento</string>
+    <string name="guardar_alimentos">GUARDAR ALIMENTOS</string>
+    <string name="peso_m_ximo_1rm_en_kg">Peso máximo (1RM en kg)</string>
+    <string name="guardar_peso">Guardar peso</string>
+    <string name="altura_cm">Altura (cm)</string>
+    <string name="fecha_de_nacimiento">Fecha de nacimiento</string>
+    <string name="g_nero">género</string>
+    <string name="registrar">Registrar</string>
+    <string name="subiendo_tu_post">Subiendo tu Post...</string>
+    <string name="nombre_del_grupo">Nombre del grupo</string>
+    <string name="buscar_usuarios">Buscar usuarios</string>
+    <string name="s">Sí</string>
+    <string name="a_adir_publicaci_n">Añadir publicación</string>
+    <string name="alimento">Alimento</string>
+    <string name="gramos">Gramos</string>
+    <string name="entrenamiento">entrenamiento</string>
+    <string name="comida">comida</string>
+    <string name="repeticiones">Repeticiones</string>
+    <string name="a_adir_descripci_n">Añadir Descripción</string>
 </resources>

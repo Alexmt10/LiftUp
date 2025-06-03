@@ -2,7 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.OPEN_DOCUMENT" />
+
+            <data android:mimeType="image/*" />
+        </intent>
+    </queries>
+
 
     <application
         android:allowBackup="true"
@@ -13,29 +25,114 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LiftUp"
+        android:screenOrientation="portrait"
         tools:targetApi="31">
         <activity
+            android:name=".tipos.EstadisticasGrupo"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".tipos.ConversacionGrupo"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".tipos.ConversacionUser"
+            android:screenOrientation="portrait"
+
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".tipos.PerfilUsuario"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".tipos.InformacionAdicional"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".tipos.Configuraciones"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".SplashSubirFoto"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".tipos.CrearPlanComida"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".tipos.CrearEntrenamiento"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".tipos.ListaPlanComida"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".tipos.ListaEntrenamiento"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".tipos.Inicio"
+            android:exported="false"
+            android:screenOrientation="portrait"
+
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".registro_inicio.OlvidoContrasenaActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".registro_inicio.RegistrarteActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".SplashScream"
+            android:screenOrientation="portrait"
+
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:windowSoftInputMode="adjustResize" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".registro_inicio.MainActivity"
-            android:exported="true">
-        </activity>
+            android:name=".registro_inicio.LoginActivity"
+            android:screenOrientation="portrait"
+
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+
         <meta-data
             android:name="preloaded_fonts"
+            android:screenOrientation="portrait"
+
             android:resource="@array/preloaded_fonts" />
+
     </application>
+
 
 </manifest>
