@@ -12,7 +12,6 @@
     <string name="btn_crear_cuenta">Crear Cuenta</string>
     <string name="introduce_tu_correo_para_poder_recuperar_tu_contrase_a">Introduce tu correo para poder recuperar tu contraseña</string>
     <string name="recuperar">recuperar</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="seguidoresYo">Seguidores</string>
     <string name="seguidosYo">Seguidos</string>
     <string name="publicaciones">Publicaciones</string>

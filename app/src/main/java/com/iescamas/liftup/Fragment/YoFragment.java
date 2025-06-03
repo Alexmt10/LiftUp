@@ -80,8 +80,8 @@ public class YoFragment extends Fragment {
             TabLayout tabla = view.findViewById(R.id.tabLayoutYoid);
             new TabLayoutMediator(tabla, paginator, (tab, position) -> {
                 switch (position) {
-                    case 0: tab.setText("Publicaciones"); break;
-                    case 1: tab.setText("Guardadas"); break;
+                    case 0: tab.setText("publication"); break;
+                    case 1: tab.setText("save"); break;
                 }
             }).attach();
 

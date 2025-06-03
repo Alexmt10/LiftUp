@@ -52,6 +52,6 @@
     <string name="a_adir_publicaci_n">Add post</string>
     <string name="alimento">Food</string>
     <string name="gramos">Grams</string>
-    <string name="entrenamiento">entrenamiento</string>
+    <string name="entrenamiento">train</string>
     <string name="comida">food</string>
 </resources>

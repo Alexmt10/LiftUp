@@ -69,6 +69,10 @@ dependencies {
     implementation ("com.android.volley:volley:1.2.1")
 
 
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:5.2.0")
+
+
     // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
