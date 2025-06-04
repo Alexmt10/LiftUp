@@ -29,8 +29,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
+/**
+ * Actividad para crear un nuevo entrenamiento.
+ */
 public class CrearEntrenamiento extends AppCompatActivity {
-
     DatabaseReference dbReference;
     EditText tituloentrenamiento;
 
@@ -40,9 +42,14 @@ public class CrearEntrenamiento extends AppCompatActivity {
     FloatingActionButton floatBtnAgregarSerie;
     int numeroSerie = 1;
     Button btnAgregarEjercicio, btnGuardarEnternamiento;
-    List<ItemEntrenoCompleto> listaEjercicios  = new ArrayList<>();
+    List<ItemEntrenoCompleto> listaEjercicios = new ArrayList<>();
     TextView txtMonstrarEjerciciosId;
 
+    /**
+     * Método llamado cuando la actividad es creada.
+     *
+     * @param savedInstanceState Estado previamente guardado de la actividad.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +68,7 @@ public class CrearEntrenamiento extends AppCompatActivity {
         txtMonstrarEjerciciosId = findViewById(R.id.txtMonstrarEjerciciosId);
 
 
-        ArrayAdapter<CharSequence> musculoAdapter = ArrayAdapter.createFromResource( this,
+        ArrayAdapter<CharSequence> musculoAdapter = ArrayAdapter.createFromResource(this,
                 R.array.musculos,
                 android.R.layout.simple_spinner_item
         );
@@ -76,7 +83,8 @@ public class CrearEntrenamiento extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) { }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
         });
 
 
@@ -139,6 +147,11 @@ public class CrearEntrenamiento extends AppCompatActivity {
 
     }
 
+    /**
+     * Actualiza el spinner de ejercicios según el músculo seleccionado.
+     *
+     * @param posicionMusculo Posición del músculo seleccionado en el spinner.
+     */
     private void actualizarSpinnerEjercicios(int posicionMusculo) {
         int idArrayEjercicios;
 
@@ -174,6 +187,9 @@ public class CrearEntrenamiento extends AppCompatActivity {
         spinnerEjercicio.setAdapter(ejerciciosAdapter);
     }
 
+    /**
+     * Agrega una nueva serie al layout de series.
+     */
     private void agregarSerie() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View filaSerie = inflater.inflate(R.layout.item_serie, layoutSeries, false);

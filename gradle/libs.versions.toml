@@ -11,6 +11,8 @@ constraintlayout = "2.2.1"
 materialVersion = "1.11.0"
 firebaseStorage = "21.0.2"
 firebaseMessaging = "24.1.1"
+core = "1.6.1"
+fragmentTesting = "1.8.7"
 
 [libraries]
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
@@ -25,6 +27,8 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 material-v1110 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
+core = { group = "androidx.test", name = "core", version.ref = "core" }
+fragment-testing = { group = "androidx.fragment", name = "fragment-testing", version.ref = "fragmentTesting" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

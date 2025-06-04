@@ -18,6 +18,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.iescamas.liftup.R;
 import com.iescamas.liftup.tipos.Inicio;
 
+/**
+ * Actividad para el inicio de sesión de usuarios.
+ * Permite a los usuarios iniciar sesión con su correo electrónico y contraseña, o con su nombre de usuario y contraseña.
+ * También proporciona opciones para registrarse o recuperar la contraseña.
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editUsuarioo;
@@ -28,6 +33,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    /**
+     * Se llama cuando se crea la actividad.
+     * Inicializa la interfaz de usuario, configura los listeners de los botones y comprueba si hay un usuario actualmente conectado.
+     * @param savedInstanceState Si la actividad se reinicia después de haber sido cerrada previamente, este Bundle contiene los datos que suministró más recientemente en onSaveInstanceState(Bundle). De lo contrario, es nulo.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +84,12 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Intenta iniciar sesión con el correo electrónico y la contraseña proporcionados.
+     * Muestra un mensaje de éxito o error según el resultado del inicio de sesión.
+     * @param email El correo electrónico del usuario.
+     * @param password La contraseña del usuario.
+     */
     private void loginConEmail(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -90,6 +106,12 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Busca el correo electrónico asociado a un nombre de usuario y luego intenta iniciar sesión con ese correo electrónico y la contraseña proporcionada.
+     * Muestra un mensaje si el usuario no se encuentra o si hay un error al buscar.
+     * @param username El nombre de usuario.
+     * @param password La contraseña.
+     */
     private void buscarEmailPorUsernameYLogin(String username, String password) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Usuarios")
@@ -109,19 +131,30 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Se llama cuando la actividad está a punto de hacerse visible.
+     * Comprueba si hay un usuario actualmente conectado.
+     */
     @Override
     protected void onStart() {
         super.onStart();
         checkCurrentUser();
     }
 
+    /**
+     * Comprueba si hay un usuario actualmente conectado.
+     * Si hay un usuario conectado, redirige a la actividad principal.
+     */
     private void checkCurrentUser() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             redirectToMainActivity();
         }
     }
-
+    /**
+     * Redirige al usuario a la actividad principal (Inicio).
+     * Finaliza la actividad actual para que el usuario no pueda volver a ella presionando el botón "atrás".
+     */
     private void redirectToMainActivity() {
         Intent intent = new Intent(this, Inicio.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

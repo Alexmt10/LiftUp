@@ -22,16 +22,39 @@ import com.iescamas.liftup.pojo.ItemAlimento;
 
 import java.util.List;
 
+/**
+ * Adaptador para mostrar las publicaciones del usuario en un RecyclerView.
+ *
+ * Este adaptador se encarga de inflar el diseño de cada elemento de la lista
+ * y vincular los datos de las publicaciones (imágenes, rutinas, comidas)
+ * a las vistas correspondientes.
+ */
 public class AdaptadorYo extends RecyclerView.Adapter<AdaptadorYo.ViewHolder> {
 
     private final List<ItemPost> listaPost;
     private final Context context;
 
+    /**
+     * Constructor del adaptador.
+     *
+     * @param listaPost Lista de objetos {@link ItemPost} que se mostrarán.
+     * @param context   Contexto de la aplicación.
+     */
     public AdaptadorYo(List<ItemPost> listaPost, Context context) {
         this.listaPost = listaPost;
         this.context = context;
     }
 
+    /**
+     * Crea y devuelve un nuevo ViewHolder para un elemento de la lista.
+     *
+     * Este método se llama cuando el RecyclerView necesita un nuevo ViewHolder
+     * para representar un elemento.
+     *
+     * @param parent   El ViewGroup al que se añadirá la nueva vista después de que se enlace a una posición del adaptador.
+     * @param viewType El tipo de vista de la nueva vista.
+     * @return Un nuevo ViewHolder que contiene la vista para el elemento.
+     */
     @NonNull
     @Override
     public AdaptadorYo.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,6 +64,15 @@ public class AdaptadorYo extends RecyclerView.Adapter<AdaptadorYo.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorYo.ViewHolder holder, int position) {
+        /**
+         * Vincula los datos de un elemento de la lista a las vistas del ViewHolder.
+         *
+         * Este método se llama para mostrar los datos en la posición especificada.
+         * Actualiza el contenido de las vistas del ViewHolder para reflejar el elemento
+         * en la posición dada.
+         * @param holder   El ViewHolder que debe actualizarse para representar el contenido del elemento en la posición dada en el conjunto de datos.
+         * @param position La posición del elemento dentro del conjunto de datos del adaptador.
+         */
         ItemPost post = listaPost.get(position);
 
         Log.d("AdaptadorYo", "Cargando post en posición: " + position);
@@ -65,16 +97,10 @@ public class AdaptadorYo extends RecyclerView.Adapter<AdaptadorYo.ViewHolder> {
                 for (ItemEntrenoCompleto ejercicio : post.getEntrenamiento().getEjercicios()) {
                     mensaje.append("- ").append(ejercicio.getEjercicio()).append(":\n");
                     for (ItemSerie serie : ejercicio.getSeries()) {
-                        mensaje.append("   • ")
-                                .append(serie.getRepeticiones()).append(" reps x ")
-                                .append(serie.getPeso()).append(" kg\n");
+                        mensaje.append("   • ").append(serie.getRepeticiones()).append(" reps x ").append(serie.getPeso()).append(" kg\n");
                     }
                 }
-                new AlertDialog.Builder(context)
-                        .setTitle("Rutina: " + post.getEntrenamiento().getNombreEntrenamiento())
-                        .setMessage(mensaje.toString())
-                        .setPositiveButton("Cerrar", null)
-                        .show();
+                new AlertDialog.Builder(context).setTitle("Rutina: " + post.getEntrenamiento().getNombreEntrenamiento()).setMessage(mensaje.toString()).setPositiveButton("Cerrar", null).show();
             } else {
                 Log.w("AdaptadorYo", "No hay rutina en esta publicación");
                 Toast.makeText(context, "No hay rutina en esta publicación", Toast.LENGTH_SHORT).show();
@@ -86,19 +112,10 @@ public class AdaptadorYo extends RecyclerView.Adapter<AdaptadorYo.ViewHolder> {
                 Log.d("AdaptadorYo", "Comida encontrada para el post");
                 StringBuilder mensaje = new StringBuilder();
                 for (ItemAlimento alimento : post.getComida().getAlimentos()) {
-                    mensaje.append("\n• ").append(alimento.getNombre())
-                            .append(" (").append(alimento.getGramos()).append("g)")
-                            .append("\n  Calorías: ").append(alimento.getCalorias()).append(" kcal")
-                            .append("\n  Proteínas: ").append(alimento.getProteinas()).append("g")
-                            .append("\n  Grasas: ").append(alimento.getGrasas()).append("g")
-                            .append("\n  Carbohidratos: ").append(alimento.getCarbohidratos()).append("g\n");
+                    mensaje.append("\n• ").append(alimento.getNombre()).append(" (").append(alimento.getGramos()).append("g)").append("\n  Calorías: ").append(alimento.getCalorias()).append(" kcal").append("\n  Proteínas: ").append(alimento.getProteinas()).append("g").append("\n  Grasas: ").append(alimento.getGrasas()).append("g").append("\n  Carbohidratos: ").append(alimento.getCarbohidratos()).append("g\n");
                 }
 
-                new AlertDialog.Builder(context)
-                        .setTitle("Comida: " + post.getComida().getNombre())
-                        .setMessage(mensaje.toString())
-                        .setPositiveButton("Cerrar", null)
-                        .show();
+                new AlertDialog.Builder(context).setTitle("Comida: " + post.getComida().getNombre()).setMessage(mensaje.toString()).setPositiveButton("Cerrar", null).show();
             } else {
                 Log.w("AdaptadorYo", "No hay comida en esta publicación");
                 Toast.makeText(context, "No hay comida en esta publicación", Toast.LENGTH_SHORT).show();
@@ -106,12 +123,24 @@ public class AdaptadorYo extends RecyclerView.Adapter<AdaptadorYo.ViewHolder> {
         });
     }
 
+    /**
+     * Devuelve el número total de elementos en el conjunto de datos que maneja el adaptador.
+     *
+     * @return El número total de elementos en este adaptador.
+     */
     @Override
     public int getItemCount() {
         Log.d("AdaptadorYo", "Total de publicaciones: " + listaPost.size());
         return listaPost.size();
     }
 
+    /**
+     * Clase ViewHolder que representa cada elemento de la lista.
+     *
+     * Contiene las referencias a las vistas (ImageView, Button)
+     * que se utilizan para mostrar los datos de una publicación.
+     *
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView PublicaionPostId;
         Button RutinaPostId;

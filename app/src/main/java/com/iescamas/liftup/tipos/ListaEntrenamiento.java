@@ -22,6 +22,10 @@ import com.iescamas.liftup.pojo.ItemEntrenamiento;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que representa la lista de entrenamientos.
+ * Esta clase se encarga de mostrar la lista de entrenamientos y permitir al usuario añadir nuevos entrenamientos.
+ */
 public class ListaEntrenamiento extends AppCompatActivity {
 
     private FloatingActionButton floatBtnAnadirEntrenamientoId;
@@ -29,6 +33,12 @@ public class ListaEntrenamiento extends AppCompatActivity {
     private AdapterCrearEntrenamiento adapterCrearEntrenamiento;
     private final List<ItemEntrenamiento> listaEntrenamientos = new ArrayList<>();
 
+    /**
+     * Método que se llama cuando se crea la actividad.
+     * Se encarga de inicializar la interfaz de usuario, cargar los entrenamientos desde Firebase y configurar el botón flotante para añadir nuevos entrenamientos.
+     *
+     * @param savedInstanceState Estado de la instancia guardada.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +58,10 @@ public class ListaEntrenamiento extends AppCompatActivity {
         });
     }
 
+    /**
+     * Método que carga los entrenamientos desde Firebase.
+     * Se encarga de obtener los entrenamientos de la base de datos de Firebase y mostrarlos en la lista.
+     */
     private void cargarEntrenamientosDesdeFirebase() {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("entrenamientos");
 
@@ -70,6 +84,11 @@ public class ListaEntrenamiento extends AppCompatActivity {
                 adapterCrearEntrenamiento.notifyDataSetChanged();
             }
 
+            /**
+             * Método que se llama cuando se cancela la carga de datos desde Firebase.
+             *
+             * @param error Error que se ha producido.
+             */
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(ListaEntrenamiento.this, "Error al cargar: " + error.getMessage(), Toast.LENGTH_SHORT).show();

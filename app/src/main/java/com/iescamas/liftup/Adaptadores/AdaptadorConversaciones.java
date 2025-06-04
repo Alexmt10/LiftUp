@@ -21,19 +21,32 @@ import com.iescamas.liftup.tipos.ConversacionUser;
 
 import java.util.List;
 
+/**
+ * Adaptador para mostrar la lista de conversaciones en un RecyclerView.
+ * Este adaptador maneja la creación de vistas para cada elemento de la lista y el enlace de datos a esas vistas.
+ */
 public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConversaciones.ConversacionViewHolder> {
 
     private Context context;
     private List<Usuario> listaUsuarios;
     private String usuarioActualId;
 
-
+    /**
+     * Constructor del adaptador.
+     *
+     * @param context         El contexto de la aplicación.
+     * @param listaUsuarios   La lista de usuarios con los que se tiene una conversación.
+     * @param usuarioActualId El ID del usuario actualmente logueado.
+     */
     public AdaptadorConversaciones(Context context, List<Usuario> listaUsuarios, String usuarioActualId) {
         this.context = context;
         this.listaUsuarios = listaUsuarios;
         this.usuarioActualId = usuarioActualId;
     }
 
+    /**
+     * Crea nuevas vistas (invocado por el layout manager).
+     */
     @NonNull
     @Override
     public ConversacionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,13 +54,15 @@ public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConve
         return new ConversacionViewHolder(view);
     }
 
+    /**
+     * Reemplaza el contenido de una vista (invocado por el layout manager).
+     */
     @Override
     public void onBindViewHolder(@NonNull ConversacionViewHolder holder, int position) {
         Usuario usuario = listaUsuarios.get(position);
 
 
         holder.textoUsername.setText(usuario.getUsername());
-
 
 
         FirebaseFirestore.getInstance().collection("Usuarios")
@@ -74,18 +89,25 @@ public class AdaptadorConversaciones extends RecyclerView.Adapter<AdaptadorConve
         });
 
 
-
-
     }
 
+    /**
+     * Devuelve el tamaño de tu conjunto de datos (invocado por el layout manager).
+     */
     @Override
     public int getItemCount() {
         return listaUsuarios.size();
     }
 
+    /**
+     * ViewHolder para los elementos de la conversación.
+     * Mantiene las referencias a las vistas de cada elemento.
+     */
     public static class ConversacionViewHolder extends RecyclerView.ViewHolder {
         ImageView imagenPerfil;
         TextView textoUsername;
+
+
 
         public ConversacionViewHolder(@NonNull View itemView) {
             super(itemView);

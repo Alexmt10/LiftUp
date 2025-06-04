@@ -35,18 +35,40 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-
+/**
+ * Fragmento para gestionar los grupos de chat.
+ * Permite crear nuevos grupos, visualizar los grupos existentes y participar en ellos.
+ */
 public class ChatFragmentGupo extends Fragment {
 
+    /**
+     * Botón flotante para añadir un nuevo grupo.
+     */
     FloatingActionButton fatNuevoGrupo;
+    /**
+     * Código de solicitud para seleccionar una imagen.
+     */
     private static final int REQUEST_CODE_IMAGEN = 1001;
+    /**
+     * URI de la imagen seleccionada.
+     */
     private Uri imagenSeleccionadaUri;
+    /**
+     * RecyclerView para mostrar la lista de grupos.
+     */
     private RecyclerView recyclerView;
+    /**
+     * Adaptador para el RecyclerView de grupos.
+     */
     private AdaptadorGrupoChat adaptador;
+    /**
+     * Lista de objetos ItemGrupoChat que representan los grupos.
+     */
     private List<ItemGrupoChat> listaGrupos = new ArrayList<>();
+    /**
+     * ImageView para mostrar el icono del grupo en el diálogo de creación.
+     */
     private ImageView imagenViewDelDialogo;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,13 +85,15 @@ public class ChatFragmentGupo extends Fragment {
         cargarGruposDesdeFirebase();
 
 
-        fatNuevoGrupo.setOnClickListener(v ->  mostrarDialogoCrearGrupo());
+        fatNuevoGrupo.setOnClickListener(v -> mostrarDialogoCrearGrupo());
 
 
         return view;
     }
-
-
+    /**
+     * Muestra un diálogo para crear un nuevo grupo.
+     * Permite al usuario ingresar el nombre del grupo y seleccionar un icono.
+     */
     private void mostrarDialogoCrearGrupo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -77,7 +101,6 @@ public class ChatFragmentGupo extends Fragment {
 
         EditText editTextNombre = dialogView.findViewById(R.id.editTextNombreGrupoId);
         imagenViewDelDialogo = dialogView.findViewById(R.id.imageViewIconoGrupoId);
-
 
 
         imagenViewDelDialogo.setOnClickListener(v -> {
@@ -98,6 +121,12 @@ public class ChatFragmentGupo extends Fragment {
                 .setNegativeButton("Cancelar", null)
                 .show();
     }
+
+    /**
+     * Sube la información del nuevo grupo a Firebase Storage y Firestore.
+     * @param nombreGrupo El nombre del grupo.
+     * @param imagenUri La URI del icono del grupo.
+     */
     private void subirGrupoAFirebase(String nombreGrupo, Uri imagenUri) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -142,8 +171,13 @@ public class ChatFragmentGupo extends Fragment {
                 });
     }
 
-
-
+    /**
+     * Se llama cuando una actividad iniciada por este fragmento devuelve un resultado.
+     * En este caso, se utiliza para manejar la selección de una imagen de la galería.
+     * @param requestCode El código de solicitud original.
+     * @param resultCode El código de resultado devuelto por la actividad.
+     * @param data Los datos devueltos por la actividad (puede ser nulo).
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -151,17 +185,18 @@ public class ChatFragmentGupo extends Fragment {
             imagenSeleccionadaUri = data.getData();
 
 
-
-                if (imagenViewDelDialogo != null && imagenSeleccionadaUri != null) {
-                    Glide.with(getContext())
-                            .load(imagenSeleccionadaUri)
-                            .circleCrop()
-                            .into(imagenViewDelDialogo);
-                }
+            if (imagenViewDelDialogo != null && imagenSeleccionadaUri != null) {
+                Glide.with(getContext())
+                        .load(imagenSeleccionadaUri)
+                        .circleCrop()
+                        .into(imagenViewDelDialogo);
             }
         }
-
-
+    }
+    /**
+     * Carga los grupos desde Firebase Firestore en los que el usuario actual es miembro.
+     * Actualiza el RecyclerView con los grupos cargados.
+     */
     private void cargarGruposDesdeFirebase() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String miId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -185,6 +220,4 @@ public class ChatFragmentGupo extends Fragment {
                     adaptador.notifyDataSetChanged();
                 });
     }
-
-
 }

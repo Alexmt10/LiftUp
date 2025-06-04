@@ -33,7 +33,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * Clase que representa la actividad del perfil de otro usuario.
+ * Muestra la información del usuario, sus publicaciones, seguidores y seguidos.
+ */
 public class PerfilUsuario extends AppCompatActivity {
     private RecyclerView recyclerOtroPerfil;
     private AdapterOtroPerfil adaptadorOtroPerfil;
@@ -52,7 +55,11 @@ public class PerfilUsuario extends AppCompatActivity {
     private String uidUsuarioActual;
     private boolean siguiendoUsuario;
 
-
+    /**
+     * Método llamado cuando se crea la actividad.
+     * Inicializa la interfaz de usuario, carga los datos del usuario y sus publicaciones.
+     * @param savedInstanceState Estado previamente guardado de la actividad.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +109,9 @@ public class PerfilUsuario extends AppCompatActivity {
 
     }
 
+    /**
+     * Comprueba si el usuario actual está siguiendo al usuario del perfil.
+     */
     private void comprobarSiSigueUsuario() {
         DocumentReference docRef = db.collection("seguidos").document(uidUsuarioActual)
                 .collection("usuarios").document(uidUsuario);
@@ -120,6 +130,9 @@ public class PerfilUsuario extends AppCompatActivity {
         });
     }
 
+    /**
+     * Permite al usuario actual seguir al usuario del perfil.
+     */
     private void seguirUsuario() {
         DocumentReference seguidosRef = db.collection("seguidos").document(uidUsuarioActual)
                 .collection("usuarios").document(uidUsuario);
@@ -140,6 +153,9 @@ public class PerfilUsuario extends AppCompatActivity {
         });
     }
 
+    /**
+     * Permite al usuario actual dejar de seguir al usuario del perfil.
+     */
     private void dejarDeSeguirUsuario() {
         DocumentReference seguidosRef = db.collection("seguidos").document(uidUsuarioActual)
                 .collection("usuarios").document(uidUsuario);
@@ -161,14 +177,9 @@ public class PerfilUsuario extends AppCompatActivity {
         });
     }
 
-    private void actualizarContadoresSeguidoresSeguidos(int cambio) {
-        int seguidoresActual = Integer.parseInt(txtSeguidores.getText().toString());
-        txtSeguidores.setText(String.valueOf(seguidoresActual + cambio));
-
-        int seguidosActual = Integer.parseInt(txtSeguidos.getText().toString());
-        txtSeguidos.setText(String.valueOf(seguidosActual + cambio));
-    }
-
+    /**
+     * Carga los datos del usuario del perfil desde Firestore.
+     */
     private void cargarDatosUsuario() {
         Log.d("PerfilUsuario", "Cargando datos usuario UID: " + uidUsuario);
         db.collection("Usuarios").document(uidUsuario)
@@ -202,6 +213,9 @@ public class PerfilUsuario extends AppCompatActivity {
                 .addOnFailureListener(e -> Log.e("PerfilUsuario", "Error cargando datos del usuario", e));
     }
 
+    /**
+     * Carga el número de seguidores del usuario del perfil.
+     */
     private void cargarSeguidores() {
         CollectionReference seguidoresRef = db.collection("seguidores").document(uidUsuario).collection("usuarios");
         seguidoresListener = seguidoresRef.addSnapshotListener((querySnapshot, e) -> {
@@ -217,6 +231,9 @@ public class PerfilUsuario extends AppCompatActivity {
         });
     }
 
+    /**
+     * Carga el número de usuarios seguidos por el usuario del perfil.
+     */
     private void cargarSeguidos() {
         CollectionReference seguidosRef = db.collection("seguidos").document(uidUsuario).collection("usuarios");
         seguidosListener = seguidosRef.addSnapshotListener((querySnapshot, e) -> {
@@ -232,6 +249,9 @@ public class PerfilUsuario extends AppCompatActivity {
         });
     }
 
+    /**
+     * Carga las publicaciones del usuario del perfil desde Firebase Realtime Database.
+     */
     private void cargarPublicacionesUsuario() {
         Log.d("PerfilUsuario", "Cargando publicaciones para UID: " + uidUsuario);
 
@@ -266,8 +286,10 @@ public class PerfilUsuario extends AppCompatActivity {
         });
     }
 
-
-
+    /**
+     * Método llamado cuando la actividad está a punto de ser destruida.
+     * Elimina los listeners de Firestore para evitar fugas de memoria.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

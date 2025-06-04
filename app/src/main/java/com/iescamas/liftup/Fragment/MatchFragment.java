@@ -31,10 +31,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Fragmento que muestra perfiles de otros usuarios del mismo gimnasio
+ * y permite interactuar con ellos mediante "likes".
+ */
 public class MatchFragment extends Fragment {
 
     private static final String TAG = "MatchFragment";
 
+    // Elementos de la interfaz de usuario
+    /**
+     * ImageView para mostrar la foto de perfil del usuario.
+     */
     private ImageView imgPerfil;
     private TextView txtNombre, txtGym;
     private Button btnNoLike, btnLike;
@@ -44,11 +52,21 @@ public class MatchFragment extends Fragment {
     private String currentUserGym;
 
     private List<DocumentSnapshot> userList = new ArrayList<>();
+    /**
+     * Índice del usuario actualmente mostrado en la lista userList.
+     */
     private int currentIndex = 0;
 
+    /**
+     * Constructor vacío requerido para la creación de Fragmentos.
+     */
     public MatchFragment() {
     }
 
+    /**
+     * Método llamado para crear y devolver la jerarquía de vistas asociada con el fragmento.
+     * Infla el layout del fragmento y configura los listeners de los botones.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,6 +134,9 @@ public class MatchFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Carga los usuarios que pertenecen al mismo gimnasio que el usuario actual.
+     */
     private void cargarUsuariosDelMismoGym() {
         Log.d(TAG, "Cargando usuarios del mismo gym: " + currentUserGym);
         db.collection("Usuarios")
@@ -149,6 +170,9 @@ public class MatchFragment extends Fragment {
                 });
     }
 
+    /**
+     * Muestra la información del usuario actual en la interfaz.
+     */
     private void mostrarUsuarioActual() {
         if (userList.isEmpty()) {
             Log.w(TAG, "No hay usuarios disponibles para mostrar");
@@ -178,6 +202,9 @@ public class MatchFragment extends Fragment {
         }
     }
 
+    /**
+     * Avanza al siguiente usuario en la lista y actualiza la interfaz.
+     */
     private void mostrarSiguienteUsuario() {
         if (userList.isEmpty()) {
             Log.w(TAG, "Lista de usuarios vacía, no hay siguiente usuario");
@@ -193,6 +220,10 @@ public class MatchFragment extends Fragment {
         mostrarUsuarioActual();
     }
 
+    /**
+     * Envía una notificación de "like" al usuario seleccionado y registra el like en Firestore.
+     * @param likedUser DocumentSnapshot del usuario al que se le dio "like".
+     */
     private void enviarNotificacionLike(DocumentSnapshot likedUser) {
         String likedUserId = likedUser.getId();
         String likedUserToken = likedUser.getString("fcmToken");
@@ -234,6 +265,10 @@ public class MatchFragment extends Fragment {
         }
     }
 
+    /**
+     * Envía la notificación FCM (Firebase Cloud Messaging) al servidor de FCM.
+     * @param notification Objeto JSON que contiene los datos de la notificación.
+     */
     private void enviarFCM(JSONObject notification) {
         String url = "https://fcm.googleapis.com/fcm/send";
         Log.d(TAG, " Enviando notificación FCM a: " + url);
@@ -256,9 +291,5 @@ public class MatchFragment extends Fragment {
         Log.d(TAG, " Añadiendo solicitud a la cola de Volley");
         queue.add(request);
     }
-
-
-
-
 
 }

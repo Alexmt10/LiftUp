@@ -25,6 +25,10 @@ import com.iescamas.liftup.pojo.ItemPost;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragmento que representa la pantalla de inicio de la aplicación.
+ * Muestra una lista de publicaciones y un icono para acceder a la pantalla de chat.
+ */
 public class InicioFragment extends Fragment {
 
     ImageView iconoMensajes;
@@ -32,6 +36,16 @@ public class InicioFragment extends Fragment {
     AdaptadorPubli adaptadorPubli;
     List<ItemPost> lista_post;
 
+    /**
+     * Se llama para que el fragmento instancie su vista de interfaz de usuario.
+     *
+     * @param inflater           El LayoutInflater que se puede usar para inflar cualquier vista en el fragmento.
+     * @param container          Si no es nulo, esta es la vista principal a la que se debe adjuntar la interfaz de usuario del fragmento.
+     *                           El fragmento no debe agregar la vista por sí mismo, pero puede usarse para generar
+     *                           los LayoutParams de la vista.
+     * @param savedInstanceState Si no es nulo, este fragmento se está reconstruyendo a partir de un estado guardado anterior.
+     * @return Devuelve la Vista para la interfaz de usuario del fragmento, o nulo.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,10 +75,12 @@ public class InicioFragment extends Fragment {
         cargarPublicacionesDesdeFirebase();
 
 
-
         return view;
     }
 
+    /**
+     * Carga las publicaciones desde Firebase Realtime Database y las muestra en el RecyclerView.
+     */
     private void cargarPublicacionesDesdeFirebase() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("publicaciones");
 

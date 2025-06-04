@@ -8,6 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import com.iescamas.liftup.Adaptadores.AdaptadorMensajes;
+import com.iescamas.liftup.pojo.UsuarioChat;
+import com.iescamas.liftup.Fragment.FragmentSecundarios.ChatFragmentGupo;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +28,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Fragmento que muestra la lista de conversaciones del usuario.
+ * Permite al usuario ver las personas con las que ha interactuado y acceder a los chats grupales.
+ */
 
 public class ChatFragment extends Fragment {
 
@@ -34,6 +42,14 @@ public class ChatFragment extends Fragment {
     private FirebaseAuth auth;
     private ImageView grupo;
 
+    /**
+     * Se llama para que el fragmento instancie su vista de interfaz de usuario.
+     *
+     * @param inflater           El LayoutInflater que se puede usar para inflar cualquier vista en el fragmento.
+     * @param container          Si no es nulo, esta es la vista principal a la que se debe adjuntar la interfaz de usuario del fragmento.
+     * @param savedInstanceState Si no es nulo, este fragmento se está reconstruyendo a partir de un estado guardado anteriormente.
+     * @return                   Devuelve la Vista para la interfaz de usuario del fragmento.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,8 +72,6 @@ public class ChatFragment extends Fragment {
         });
 
 
-
-
         String usuarioActualId = auth.getCurrentUser().getUid();
 
         adaptador = new AdaptadorConversaciones(getContext(), listaUsuariosSeguidos, usuarioActualId);
@@ -67,12 +81,14 @@ public class ChatFragment extends Fragment {
         cargarConversaciones();
 
 
-
         return view;
     }
 
     private static final String TAG = "ChatFragment";
 
+    /**
+     * Carga las conversaciones del usuario actual desde Firestore y las muestra en el RecyclerView.
+     */
     private void cargarConversaciones() {
         String miId = auth.getCurrentUser().getUid();
         Log.d(TAG, "Mi ID actual: " + miId);
@@ -137,9 +153,6 @@ public class ChatFragment extends Fragment {
                 })
                 .addOnFailureListener(e -> Log.e(TAG, "Error al obtener mensajes enviados", e));
     }
-
-
-
 
 
 }

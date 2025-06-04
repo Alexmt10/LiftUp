@@ -32,6 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Activity para que los usuarios puedan añadir información adicional a su perfil después de registrarse.
+ * Permite subir una foto de perfil, ingresar nombre completo, sexo, altura, peso, fecha de nacimiento,
+ * descripción y seleccionar un gimnasio.
+ */
 public class InformacionAdicional extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -48,6 +53,12 @@ public class InformacionAdicional extends AppCompatActivity {
     private List<String> listaGimnasios;
     private ArrayAdapter<String> adapterGym;
 
+    /**
+     * Método que se llama cuando se crea la actividad.
+     * Inicializa las vistas, Firebase Auth, Firestore, Storage y configura los listeners para los eventos.
+     * Carga la lista de gimnasios desde Firestore.
+     * @param savedInstanceState Si la actividad se está recreando después de una destrucción previa, este Bundle contiene los datos que suministró más recientemente en onSaveInstanceState(Bundle). De lo contrario, es nulo.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +96,10 @@ public class InformacionAdicional extends AppCompatActivity {
         btnRegistrar.setOnClickListener(v -> registrarUsuario());
     }
 
+    /**
+     * Carga la lista de nombres de gimnasios desde la colección "gimnasios" en Firestore
+     * y actualiza el ArrayAdapter del Spinner de gimnasios.
+     */
     private void cargarGimnasiosDesdeFirestore() {
         db.collection("gimnasios")
                 .get()
@@ -103,6 +118,10 @@ public class InformacionAdicional extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Abre el selector de imágenes para que el usuario pueda elegir una imagen de su galería.
+     * Inicia una actividad para obtener el resultado de la selección de imagen.
+     */
     private void openImageChooser() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
@@ -110,6 +129,10 @@ public class InformacionAdicional extends AppCompatActivity {
     }
 
     private void showDatePickerDialog() {
+        /**
+         * Muestra un DatePickerDialog para que el usuario seleccione su fecha de nacimiento.
+         * Actualiza el campo de texto de fecha de nacimiento con la fecha seleccionada.
+         */
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -122,6 +145,13 @@ public class InformacionAdicional extends AppCompatActivity {
         datePicker.show();
     }
 
+    /**
+     * Método que se llama cuando una actividad que se inició para obtener un resultado finaliza.
+     * En este caso, se utiliza para manejar el resultado de la selección de imagen.
+     * @param requestCode El código de solicitud entero suministrado originalmente a startActivityForResult(), lo que le permite identificar de quién proviene este resultado.
+     * @param resultCode El código de resultado entero devuelto por la actividad secundaria a través de su setResult().
+     * @param data Un Intent, que puede devolver datos de resultado al llamador (varios datos se pueden adjuntar a Intent "extras").
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -138,6 +168,11 @@ public class InformacionAdicional extends AppCompatActivity {
         }
     }
 
+    /**
+     * Recopila la información ingresada por el usuario, valida los campos obligatorios y
+     * procede a registrar los datos en Firestore. Si se seleccionó una imagen de perfil,
+     * primero la sube a Firebase Storage y luego guarda la URL de descarga en Firestore.
+     */
     private void registrarUsuario() {
         String nombre = editNombreCompleto.getText() != null ? editNombreCompleto.getText().toString().trim() : "";
         String gym = editgym.getSelectedItem() != null ? editgym.getSelectedItem().toString().trim() : "";
@@ -183,6 +218,12 @@ public class InformacionAdicional extends AppCompatActivity {
         }
     }
 
+    /**
+     * Guarda los datos del usuario en la colección "Usuarios" de Firestore.
+     * Utiliza el UID del usuario actual como ID del documento.
+     * @param uid El ID único del usuario autenticado.
+     * @param datos Un Map que contiene los datos del usuario a guardar.
+     */
     private void guardarDatosEnFirestore(String uid, Map<String, Object> datos) {
         db.collection("Usuarios").document(uid)
                 .update(datos)

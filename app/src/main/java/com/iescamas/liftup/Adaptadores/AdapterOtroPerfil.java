@@ -22,16 +22,30 @@ import com.iescamas.liftup.pojo.ItemAlimento;
 
 import java.util.List;
 
+/**
+ * AdapterOtroPerfil es un adaptador personalizado para un RecyclerView que muestra
+ * una lista de publicaciones ({@link ItemPost}) de otro perfil.
+ */
 public class AdapterOtroPerfil extends RecyclerView.Adapter<AdapterOtroPerfil.ViewHolder> {
 
     private final List<ItemPost> listaPostOtro;
     private final Context context;
 
+    /**
+     * Constructor para el adaptador.
+     *
+     * @param listaPost Lista de objetos {@link ItemPost} que se mostrarán.
+     * @param context   Contexto de la aplicación.
+     */
     public AdapterOtroPerfil(List<ItemPost> listaPost, Context context) {
         this.listaPostOtro = listaPost;
         this.context = context;
     }
 
+    /**
+     * Crea nuevas vistas (invocado por el layout manager).
+     * @return Nuevo ViewHolder que contiene la vista para cada ítem.
+     */
     @NonNull
     @Override
     public AdapterOtroPerfil.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,6 +53,13 @@ public class AdapterOtroPerfil extends RecyclerView.Adapter<AdapterOtroPerfil.Vi
         return new ViewHolder(view);
     }
 
+    /**
+     * Reemplaza el contenido de una vista (invocado por el layout manager).
+     * Este método actualiza la vista del ViewHolder con los datos del ítem en la posición dada.
+     *
+     * @param holder   El ViewHolder que debe ser actualizado.
+     * @param position La posición del ítem dentro del conjunto de datos del adaptador.
+     */
     @Override
     public void onBindViewHolder(@NonNull AdapterOtroPerfil.ViewHolder holder, int position) {
         ItemPost post = listaPostOtro.get(position);
@@ -105,17 +126,29 @@ public class AdapterOtroPerfil extends RecyclerView.Adapter<AdapterOtroPerfil.Vi
         });
     }
 
+    /**
+     * Devuelve el número total de ítems en el conjunto de datos que tiene el adaptador.
+     *
+     * @return El número total de ítems.
+     */
     @Override
     public int getItemCount() {
         Log.d("AdapterOtroPerfil", "Total de publicaciones: " + listaPostOtro.size());
         return listaPostOtro.size();
     }
 
+    /**
+     * ViewHolder describe una vista de ítem y metadatos sobre su lugar dentro del RecyclerView.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView PublicaionPostId;
         Button RutinaPostId;
         Button ComidaPostId;
 
+        /**
+         * Constructor para el ViewHolder.
+         * @param itemView La vista que representa un solo ítem en la lista.
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             PublicaionPostId = itemView.findViewById(R.id.imgpublicacionPerfilId);

@@ -26,12 +26,27 @@ import com.iescamas.liftup.pojo.ItemPost;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragmento que muestra las publicaciones del usuario actual.
+ */
 public class PublicacionesYoFragment extends Fragment {
 
     RecyclerView recyclerPerfilId;
     AdaptadorYo adaptadorYo;
     List<ItemPost> lista_perfil;
 
+    /**
+     * Se llama para que el fragmento instancie su vista de interfaz de usuario.
+     * Este método infla el diseño del fragmento, inicializa el RecyclerView y su adaptador,
+     * y carga las publicaciones del usuario actual desde Firebase.
+     *
+     * @param inflater El LayoutInflater que se puede usar para inflar cualquier vista en el fragmento.
+     * @param container Si no es nulo, esta es la vista principal a la que se adjuntará la interfaz de usuario del fragmento.
+     *                  El fragmento no debe agregar la vista en sí, pero puede usarse para generar
+     *                  los LayoutParams de la vista.
+     * @param savedInstanceState Si no es nulo, este fragmento se está reconstruyendo a partir de un estado guardado anterior.
+     * @return Devuelve la Vista para la interfaz de usuario del fragmento.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +65,11 @@ public class PublicacionesYoFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Carga las publicaciones del usuario actual desde la base de datos de Firebase.
+     * Obtiene el ID del usuario actual, consulta la base de datos para las publicaciones
+     * que coinciden con ese ID y actualiza el adaptador del RecyclerView.
+     */
     private void cargarMisPublicacionesDesdeFirebase() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {

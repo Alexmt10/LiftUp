@@ -37,6 +37,11 @@ import com.iescamas.liftup.tipos.Configuraciones;
 import com.iescamas.liftup.tipos.ListaEntrenamiento;
 import com.iescamas.liftup.tipos.ListaPlanComida;
 
+/**
+ * Fragmento que muestra el perfil del usuario, sus publicaciones, seguidores,
+ * seguidos y opciones para crear contenido y acceder a la configuración.
+ * Utiliza Firebase para la autenticación y el almacenamiento de datos.
+ */
 public class YoFragment extends Fragment {
 
     FloatingActionButton crearComida;
@@ -49,6 +54,15 @@ public class YoFragment extends Fragment {
     private DatabaseReference dbRefRT;
     private String uidUsuario;
 
+    /**
+     * Se llama cuando el fragmento debe crear su vista.
+     * Infla el layout y inicializa los componentes de la interfaz de usuario,
+     * configura los listeners de los botones y carga los datos del usuario.
+     * @param inflater El LayoutInflater que se puede usar para inflar cualquier vista en el fragmento.
+     * @param container Si no es nulo, esta es la vista principal a la que se debe adjuntar la interfaz de usuario del fragmento.
+     * @param savedInstanceState Si no es nulo, este fragmento se está reconstruyendo a partir de un estado guardado anteriormente.
+     * @return Devuelve la Vista para la interfaz de usuario del fragmento.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_yo, container, false);
@@ -80,8 +94,12 @@ public class YoFragment extends Fragment {
             TabLayout tabla = view.findViewById(R.id.tabLayoutYoid);
             new TabLayoutMediator(tabla, paginator, (tab, position) -> {
                 switch (position) {
-                    case 0: tab.setText("publication"); break;
-                    case 1: tab.setText("save"); break;
+                    case 0:
+                        tab.setText("publication");
+                        break;
+                    case 1:
+                        tab.setText("save");
+                        break;
                 }
             }).attach();
 
@@ -113,24 +131,47 @@ public class YoFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Adaptador para el ViewPager2 que maneja los fragmentos de publicaciones y guardados.
+     */
     private class deslizador extends FragmentStateAdapter {
+        /**
+         * Constructor para el adaptador.
+         * @param fragment El fragmento padre.
+         */
         public deslizador(@NonNull Fragment fragment) {
             super(fragment);
         }
 
+        /**
+         * Crea el fragmento para la posición dada.
+         * @param position La posición del fragmento a crear.
+         * @return El fragmento creado.
+         */
         @NonNull
         @Override
         public Fragment createFragment(int position) {
             if (position == 0) return new PublicacionesYoFragment();
             else return new PubliGuardadasYoFragment();
         }
-
+        /**
+         * Devuelve el número total de fragmentos.
+         * @return El número de fragmentos.
+         */
         @Override
         public int getItemCount() {
             return 2;
         }
     }
 
+    /**
+     * Carga los datos del usuario desde Firestore y actualiza la interfaz de usuario.
+     * Obtiene el nombre de usuario, la descripción y la URL de la imagen de perfil.
+     * Utiliza Glide para cargar la imagen de perfil de forma asíncrona.
+     * Muestra imágenes de placeholder y error en caso de que la carga falle.
+     * Este método se llama después de que el usuario se haya autenticado correctamente.
+     * @see FirebaseFirestore
+     */
     private void cargarDatosUsuario() {
         db.collection("Usuarios").document(uidUsuario)
                 .get()
@@ -154,6 +195,12 @@ public class YoFragment extends Fragment {
                 });
     }
 
+    /**
+     * Carga el número de seguidores del usuario desde Firestore y actualiza el TextView correspondiente.
+     * Escucha los cambios en tiempo real en la colección de seguidores del usuario.
+     * Si ocurre un error durante la carga, no se realiza ninguna acción.
+     * @see FirebaseFirestore
+     */
     private void cargarSeguidores() {
         db.collection("seguidores").document(uidUsuario).collection("usuarios")
                 .addSnapshotListener((querySnapshot, e) -> {
@@ -164,6 +211,12 @@ public class YoFragment extends Fragment {
                 });
     }
 
+    /**
+     * Carga el número de usuarios a los que sigue el usuario actual desde Firestore y actualiza el TextView correspondiente.
+     * Escucha los cambios en tiempo real en la colección de seguidos del usuario.
+     * Si ocurre un error durante la carga, no se realiza ninguna acción.
+     * @see FirebaseFirestore
+     */
     private void cargarSeguidos() {
         db.collection("seguidos").document(uidUsuario).collection("usuarios")
                 .addSnapshotListener((querySnapshot, e) -> {
@@ -174,6 +227,13 @@ public class YoFragment extends Fragment {
                 });
     }
 
+    /**
+     * Carga el número de publicaciones realizadas por el usuario desde Firebase Realtime Database
+     * y actualiza el TextView correspondiente.
+     * Itera sobre todas las publicaciones y cuenta aquellas cuyo UID de usuario coincide con el del usuario actual.
+     * En caso de error al cargar los datos, establece el contador de publicaciones en "0".
+     * @see FirebaseDatabase
+     */
     private void cargarPublicaciones() {
         dbRefRT.child("publicaciones").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

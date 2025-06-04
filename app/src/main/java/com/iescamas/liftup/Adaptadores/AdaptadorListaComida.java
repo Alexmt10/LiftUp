@@ -20,16 +20,33 @@ import com.iescamas.liftup.pojo.PlanComida;
 
 import java.util.List;
 
+/**
+ * Adaptador para mostrar una lista de planes de comida en un RecyclerView.
+ * Permite seleccionar un plan de comida y mostrar sus detalles.
+ */
 public class AdaptadorListaComida extends RecyclerView.Adapter<AdaptadorListaComida.PlanComidaViewHolder> {
 
     private final List<PlanComida> planesComida;
     private final Context context;
 
+    /**
+     * Constructor del adaptador.
+     *
+     * @param planesComida Lista de planes de comida a mostrar.
+     * @param context      Contexto de la aplicación.
+     */
     public AdaptadorListaComida(List<PlanComida> planesComida, Context context) {
         this.planesComida = planesComida;
         this.context = context;
     }
 
+    /**
+     * Crea una nueva vista para un elemento de la lista.
+     *
+     * @param parent   El grupo de vistas al que se adjuntará la nueva vista después de que se enlace a una posición del adaptador.
+     * @param viewType El tipo de vista de la nueva vista.
+     * @return Una nueva instancia de PlanComidaViewHolder que contiene la vista para un elemento de la lista.
+     */
     @NonNull
     @Override
     public PlanComidaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +55,12 @@ public class AdaptadorListaComida extends RecyclerView.Adapter<AdaptadorListaCom
         return new PlanComidaViewHolder(view);
     }
 
+    /**
+     * Vincula los datos de un plan de comida a una vista de elemento de la lista.
+     *
+     * @param holder   El ViewHolder que debe actualizarse para representar el contenido del elemento en la posición dada en el conjunto de datos.
+     * @param position La posición del elemento dentro del conjunto de datos del adaptador.
+     */
     @Override
     public void onBindViewHolder(@NonNull PlanComidaViewHolder holder, int position) {
         PlanComida plan = planesComida.get(position);
@@ -57,7 +80,11 @@ public class AdaptadorListaComida extends RecyclerView.Adapter<AdaptadorListaCom
         });
     }
 
-
+    /**
+     * Muestra los detalles de un plan de comida en un diálogo de alerta.
+     *
+     * @param plan El plan de comida cuyos detalles se mostrarán.
+     */
     private void mostrarDetallePlan(PlanComida plan) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(plan.getNombre());
@@ -77,14 +104,27 @@ public class AdaptadorListaComida extends RecyclerView.Adapter<AdaptadorListaCom
         builder.show();
     }
 
+    /**
+     * Devuelve el número total de elementos en el conjunto de datos que tiene el adaptador.
+     *
+     * @return El número total de elementos en este adaptador.
+     */
     @Override
     public int getItemCount() {
         return planesComida.size();
     }
 
+    /**
+     * ViewHolder para los elementos de la lista de planes de comida.
+     * Contiene las vistas que se mostrarán para cada elemento.
+     */
     public static class PlanComidaViewHolder extends RecyclerView.ViewHolder {
         TextView tvNombrePlan;
 
+        /**
+         * Constructor del ViewHolder.
+         * @param itemView La vista raíz del elemento de la lista.
+         */
         public PlanComidaViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNombrePlan = itemView.findViewById(R.id.tvNombrePlan);

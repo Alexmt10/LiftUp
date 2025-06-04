@@ -45,6 +45,9 @@ import com.iescamas.liftup.pojo.ItemMensajesGrupo;
 
 import java.util.*;
 
+/**
+ * Clase que representa la pantalla de conversación de un grupo.
+ */
 public class ConversacionGrupo extends AppCompatActivity {
 
     private static final String TAG = "ConversacionGrupo";
@@ -65,7 +68,11 @@ public class ConversacionGrupo extends AppCompatActivity {
     private StorageReference storageReference;
 
 
-
+    /**
+     * Método que se llama cuando se crea la actividad.
+     *
+     * @param savedInstanceState Estado guardado de la actividad.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,11 +122,17 @@ public class ConversacionGrupo extends AppCompatActivity {
         View customToolbarView = getLayoutInflater().inflate(R.layout.toolbar_contenido_grupo, toolbar, false);
         toolbar.addView(customToolbarView);
 
-         nombreGrupoTextView = customToolbarView.findViewById(R.id.nombre_grupo_chat);
+        nombreGrupoTextView = customToolbarView.findViewById(R.id.nombre_grupo_chat);
         imagenGrupoImageView = customToolbarView.findViewById(R.id.imagen_grupo_chat);
     }
 
 
+    /**
+     * Método que se llama para crear el menú de opciones de la actividad.
+     *
+     * @param menu Menú de opciones.
+     * @return True si se creó el menú correctamente, false en caso contrario.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_grupo, menu);
@@ -133,6 +146,12 @@ public class ConversacionGrupo extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Método que se llama cuando se selecciona una opción del menú.
+     *
+     * @param item Opción del menú seleccionada.
+     * @return True si se manejó la selección correctamente, false en caso contrario.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -157,8 +176,8 @@ public class ConversacionGrupo extends AppCompatActivity {
 
         }
         if (itemId == R.id.menu_ver_estadisticas) {
-           Intent intent = new Intent(this, EstadisticasGrupo.class);
-           startActivity(intent);
+            Intent intent = new Intent(this, EstadisticasGrupo.class);
+            startActivity(intent);
             return true;
 
         }
@@ -167,6 +186,9 @@ public class ConversacionGrupo extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Método para ver los participantes de un grupo.
+     */
     private void verparticipantes() {
         String idGrupo = getIntent().getStringExtra("idGrupo");
         if (idGrupo == null) {
@@ -225,7 +247,9 @@ public class ConversacionGrupo extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Método para agregar un usuario a un grupo.
+     */
     private void agregarUsuario() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Agregar usuario por username");
@@ -295,9 +319,9 @@ public class ConversacionGrupo extends AppCompatActivity {
     }
 
 
-
-
-
+    /**
+     * Método para editar la foto de un grupo.
+     */
     private void editarFotoGrupo() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -305,6 +329,13 @@ public class ConversacionGrupo extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_CODE_IMAGE_PICK);
     }
 
+    /**
+     * Método que se llama cuando se recibe un resultado de una actividad iniciada.
+     *
+     * @param requestCode Código de solicitud de la actividad.
+     * @param resultCode  Código de resultado de la actividad.
+     * @param data        Datos devueltos por la actividad.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -318,6 +349,11 @@ public class ConversacionGrupo extends AppCompatActivity {
         }
     }
 
+    /**
+     * Método para subir la foto de un grupo a Firebase Storage.
+     *
+     * @param imageUri URI de la imagen a subir.
+     */
     private void subirFotoGrupo(Uri imageUri) {
         String fileName = "grupo_" + grupoId + "_" + System.currentTimeMillis() + ".jpg";
         StorageReference fileRef = storageReference.child(fileName);
@@ -343,7 +379,9 @@ public class ConversacionGrupo extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Método para editar el nombre de un grupo.
+     */
     private void editarNombreGrupo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Editar nombre del grupo");
@@ -374,7 +412,9 @@ public class ConversacionGrupo extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Método para cargar la información de un grupo desde Firestore.
+     */
     private void cargarInfoGrupoDesdeFirestore() {
         db.collection("grupos").document(grupoId)
                 .get()
@@ -401,6 +441,9 @@ public class ConversacionGrupo extends AppCompatActivity {
                 .addOnFailureListener(e -> Log.e(TAG, "Error al cargar información del grupo", e));
     }
 
+    /**
+     * Método para enviar un mensaje a un grupo.
+     */
     private void enviarMensaje() {
         String texto = campoMensaje.getText().toString().trim();
         if (texto.isEmpty()) {
@@ -432,6 +475,9 @@ public class ConversacionGrupo extends AppCompatActivity {
     }
 
 
+    /**
+     * Método para escuchar los mensajes de un grupo en tiempo real.
+     */
     private void escucharMensajes() {
         db.collection("chatsGrupales")
                 .orderBy("fecha", Query.Direction.ASCENDING)

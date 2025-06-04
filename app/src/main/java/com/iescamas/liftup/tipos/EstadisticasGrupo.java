@@ -28,6 +28,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Actividad para mostrar y gestionar las estadísticas de los mejores pesos de los usuarios en diferentes ejercicios.
+ * Permite a los usuarios guardar sus pesos y ver un gráfico con el top 3 de los mejores pesos para cada ejercicio.
+ */
+
 public class EstadisticasGrupo extends AppCompatActivity {
 
     private Spinner spinnerEjercicio;
@@ -40,6 +45,12 @@ public class EstadisticasGrupo extends AppCompatActivity {
 
     private String[] ejercicios = {"Press banca", "Sentadilla", "Peso muerto"};
 
+    /**
+     * Método llamado cuando la actividad es creada.
+     * Inicializa los componentes de la interfaz de usuario, la base de datos Firestore y la autenticación de Firebase.
+     * Configura el Spinner para seleccionar el ejercicio y el botón para guardar el peso.
+     * @param savedInstanceState Estado previamente guardado de la actividad.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +75,8 @@ public class EstadisticasGrupo extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            }
         });
 
         btnGuardar.setOnClickListener(v -> {
@@ -91,6 +103,13 @@ public class EstadisticasGrupo extends AppCompatActivity {
         });
     }
 
+    /**
+     * Guarda el peso del usuario para un ejercicio específico en la base de datos Firestore.
+     * @param ejercicio El ejercicio para el cual se guarda el peso.
+     * @param uid El ID del usuario.
+     * @param username El nombre de usuario.
+     * @param nuevoPeso El nuevo peso a guardar.
+     */
     private void guardarPeso(String ejercicio, String uid, String username, double nuevoPeso) {
         DocumentReference docRef = db.collection("mejores_pesos")
                 .document(ejercicio)
@@ -125,6 +144,10 @@ public class EstadisticasGrupo extends AppCompatActivity {
         });
     }
 
+    /**
+     * Carga y muestra el top 3 de los mejores pesos para un ejercicio seleccionado en un gráfico de barras.
+     * @param ejercicioSeleccionado El ejercicio para el cual se cargan las estadísticas.
+     */
     private void cargarTop3(String ejercicioSeleccionado) {
         db.collection("mejores_pesos")
                 .document(ejercicioSeleccionado)

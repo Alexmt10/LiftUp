@@ -20,13 +20,23 @@ import com.iescamas.liftup.pojo.PlanComida;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Actividad para crear un nuevo plan de comida.
+ * Permite al usuario añadir varios alimentos, especificar sus detalles y guardar el plan.
+ */
 public class CrearPlanComida extends AppCompatActivity {
 
     private LinearLayout containerAlimentos;
     private FloatingActionButton btnAddAlimento;
     private Button btnGuardarAlimento;
+    public static boolean isTestMode = false;
 
     @Override
+    /**
+     * Inicializa la actividad, establece el layout y configura los listeners de los botones.
+     *
+     * @param savedInstanceState Si la actividad se reinicia, este Bundle contiene los datos más recientes.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_plan_comida);
@@ -41,12 +51,18 @@ public class CrearPlanComida extends AppCompatActivity {
         btnGuardarAlimento.setOnClickListener(v -> guardarAlimentos());
     }
 
+    /**
+     * Añade una nueva vista de alimento al layout.
+     * Infla el layout `item_crear_alimento` y lo añade al `containerAlimentos`.
+     */
     private void agregarNuevoAlimento() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View alimentoView = inflater.inflate(R.layout.item_crear_alimento, containerAlimentos, false);
         containerAlimentos.addView(alimentoView);
     }
-
+    /**
+     * Recopila los datos de los alimentos ingresados y guarda el plan de comida en Firebase.
+     */
     private void guardarAlimentos() {
         List<ItemAlimento> listaAlimentos = new ArrayList<>();
 
@@ -85,7 +101,9 @@ public class CrearPlanComida extends AppCompatActivity {
             dbRef.child(id).setValue(plan)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(this, "Plan guardado correctamente", Toast.LENGTH_SHORT).show();
-                        finish();
+                        if (!isTestMode) {
+                            finish();
+                        }
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Error al guardar plan: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -95,10 +113,23 @@ public class CrearPlanComida extends AppCompatActivity {
         }
     }
 
+    /**
+     * Obtiene el texto de un EditText dentro de una vista padre.
+     *
+     * @param parentView La vista padre que contiene el EditText.
+     * @param id El ID del EditText.
+     * @return El texto del EditText.
+     */
     private String getTextFromEditText(View parentView, int id) {
         return ((EditText) parentView.findViewById(id)).getText().toString();
     }
-
+    /**
+     * Obtiene el valor numérico de un EditText.
+     * @param parentView La vista padre que contiene el EditText.
+     * @param id El ID del EditText.
+     * @return El valor numérico.
+     * @throws NumberFormatException Si el texto no es un número válido.
+     */
     private double getDoubleFromEditText(View parentView, int id) throws NumberFormatException {
         String text = getTextFromEditText(parentView, id);
         if (text.isEmpty()) {

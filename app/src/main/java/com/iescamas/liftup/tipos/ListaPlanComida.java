@@ -27,6 +27,12 @@ import com.iescamas.liftup.pojo.PlanComida;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Actividad que muestra una lista de planes de comida.
+ * <p>
+ * Esta actividad recupera los planes de comida desde Firebase Realtime Database y los muestra en un RecyclerView.
+ * También proporciona un botón flotante para añadir nuevos planes de comida.
+ */
 public class ListaPlanComida extends AppCompatActivity {
     FloatingActionButton floatBtnAnadirPlanComidaId;
     private FirebaseFirestore db;
@@ -34,6 +40,12 @@ public class ListaPlanComida extends AppCompatActivity {
     private List<PlanComida> planesComida = new ArrayList<>();
     private RecyclerView recyclerView;
 
+    /**
+     * Se llama cuando la actividad está iniciando.
+     * <p>
+     * Aquí es donde se debe realizar la inicialización, como inflar la interfaz de usuario, inicializar variables y configurar listeners.
+     * @param savedInstanceState Si la actividad se está reiniciando después de haber sido previamente cerrada, este Bundle contiene los datos que suministró más recientemente en {@link #onSaveInstanceState}. De lo contrario, es nulo.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +65,11 @@ public class ListaPlanComida extends AppCompatActivity {
         cargarPlanesDesdeFirebase();
     }
 
-
-
-
-
+    /**
+     * Carga los planes de comida desde Firebase Realtime Database.
+     * <p>
+     * Este método configura un {@link ValueEventListener} para escuchar los cambios en la referencia "planes_comida" en la base de datos. Cuando se producen cambios, actualiza la lista local de planes de comida y notifica al adaptador para que actualice la vista.
+     */
     private void cargarPlanesDesdeFirebase() {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("planes_comida");
 

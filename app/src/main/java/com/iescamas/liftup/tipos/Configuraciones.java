@@ -30,6 +30,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Clase que representa la actividad de configuración de la cuenta de usuario.
+ * Permite al usuario editar su información personal, como nombre, nombre de usuario, peso, altura, descripción y gimnasio.
+ */
 public class Configuraciones extends AppCompatActivity {
 
     private TextInputEditText editNombreCompleto, editUsername, editPeso, editDescripcion, editAlturaid;
@@ -40,29 +44,32 @@ public class Configuraciones extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
-     private FirebaseFirestore db;
-     private String uid;
+    private FirebaseFirestore db;
+    private String uid;
 
-
-
+    /**
+     * Método que se ejecuta al crear la actividad.
+     * Inicializa los componentes de la interfaz de usuario, carga los datos del usuario y los gimnasios.
+     * @param savedInstanceState Estado de la instancia guardado.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_configuraciones);
 
-         mAuth = FirebaseAuth.getInstance();
-         db = FirebaseFirestore.getInstance();
-         uid = mAuth.getCurrentUser().getUid();
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        uid = mAuth.getCurrentUser().getUid();
 
         editNombreCompleto = findViewById(R.id.editNombreCompleto);
-         editUsername = findViewById(R.id.editUsername);
-         editPeso = findViewById(R.id.editPeso);
+        editUsername = findViewById(R.id.editUsername);
+        editPeso = findViewById(R.id.editPeso);
         editAlturaid = findViewById(R.id.editAlturaid);
-         editDescripcion = findViewById(R.id.editDescripcion);
-         spinnerGym = findViewById(R.id.spinnerGym);
-         btnGuardarCambios = findViewById(R.id.btnGuardarCambiosid);
-         btnanadirgym = findViewById(R.id.btnanadirgym);
+        editDescripcion = findViewById(R.id.editDescripcion);
+        spinnerGym = findViewById(R.id.spinnerGym);
+        btnGuardarCambios = findViewById(R.id.btnGuardarCambiosid);
+        btnanadirgym = findViewById(R.id.btnanadirgym);
 
 
         listaGimnasios = new ArrayList<>();
@@ -72,7 +79,7 @@ public class Configuraciones extends AppCompatActivity {
         cargarGimnasiosDesdeFirestore();
         cargarDatosUsuario();
 
-         btnSalir = findViewById(R.id.btnSalirDelPerfilId);
+        btnSalir = findViewById(R.id.btnSalirDelPerfilId);
 
         btnSalir.setOnClickListener(v -> {
             new AlertDialog.Builder(Configuraciones.this)
@@ -117,7 +124,11 @@ public class Configuraciones extends AppCompatActivity {
 
     }
 
-    private void guardarcambios(){
+    /**
+     * Método para guardar los cambios realizados en el perfil del usuario.
+     * Valida los datos ingresados y actualiza la información en Firestore.
+     */
+    private void guardarcambios() {
         String nombre = editNombreCompleto.getText().toString().trim();
         String username = editUsername.getText().toString().trim();
         String pesoStr = editPeso.getText().toString().trim();
@@ -174,6 +185,10 @@ public class Configuraciones extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Método para cargar los datos del usuario desde Firestore.
+     * Recupera la información del usuario y la muestra en los campos correspondientes de la interfaz.
+     */
     private void cargarDatosUsuario() {
         db.collection("Usuarios").document(uid)
                 .get()
@@ -206,6 +221,11 @@ public class Configuraciones extends AppCompatActivity {
                     Toast.makeText(this, "Error al cargar los datos", Toast.LENGTH_SHORT).show();
                 });
     }
+
+    /**
+     * Método para cargar la lista de gimnasios desde Firestore.
+     * Recupera los nombres de los gimnasios y los muestra en el Spinner.
+     */
     private void cargarGimnasiosDesdeFirestore() {
         db.collection("gimnasios")
                 .get()
@@ -223,7 +243,6 @@ public class Configuraciones extends AppCompatActivity {
                     Toast.makeText(this, "Error al cargar gimnasios", Toast.LENGTH_SHORT).show();
                 });
     }
-
 
 
 }

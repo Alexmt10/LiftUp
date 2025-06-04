@@ -1,4 +1,5 @@
 package com.iescamas.liftup.registro_inicio;
+
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.content.Intent;
@@ -25,6 +26,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+/**
+ * Actividad que permite a los usuarios registrarse en la aplicación.
+ * <p>
+ * Esta actividad maneja la creación de nuevas cuentas de usuario, validando la información ingresada y almacenándola en Firebase.
+ */
 public class RegistrarteActivity extends AppCompatActivity {
 
     EditText editUsuarioRegistro, editCorreoRegistro, editContrasenaRegistro, editReptContrasenaRegistro;
@@ -36,6 +42,12 @@ public class RegistrarteActivity extends AppCompatActivity {
 
     private static final String TAG = "RegistroUsuario";
 
+    /**
+     * Método llamado cuando la actividad es creada por primera vez.
+     * <p>
+     * Inicializa la interfaz de usuario, los componentes de Firebase y configura los listeners de eventos.
+     * @param savedInstanceState Si la actividad se está recreando después de haber sido destruida previamente, este Bundle contiene los datos que suministró más recientemente en {@link #onSaveInstanceState}. De lo contrario, es nulo.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +164,13 @@ public class RegistrarteActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Valida si una contraseña cumple con los criterios de seguridad.
+     * <p>
+     * La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número.
+     * @param password La contraseña a validar.
+     * @return {@code true} si la contraseña es válida, {@code false} en caso contrario.
+     */
     private boolean isValidPassword(String password) {
         String regex = "^(?=.*[A-Z])(?=.*\\d).{8,}$";
         boolean valido = Pattern.matches(regex, password);

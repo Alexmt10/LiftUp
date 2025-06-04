@@ -1,12 +1,15 @@
 package com.iescamas.liftup.Fragment;
 
 import android.content.Intent;
+
 import com.google.firebase.storage.StorageReference;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
+
 import com.google.firebase.storage.FirebaseStorage;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -41,6 +44,14 @@ import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 
+/**
+ * Fragmento que permite al usuario crear una nueva publicación.
+ * <p>
+ * Esta clase gestiona la selección de una imagen, la adición de una descripción,
+ * la elección de un plan de entrenamiento y un plan de comidas, y la subida de
+ * la publicación a Firebase.
+ * </p>
+ */
 public class NuevaFragment extends Fragment {
 
     ImageView imgAnadirFoto;
@@ -53,6 +64,10 @@ public class NuevaFragment extends Fragment {
 
     private Uri cropDestinationUri;
 
+    /**
+     * Lanzador de actividad para la biblioteca UCrop, utilizada para recortar imágenes.
+     * Procesa el resultado de la actividad de recorte y actualiza la vista previa de la imagen.
+     */
     private final ActivityResultLauncher<Intent> ucropLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -72,6 +87,11 @@ public class NuevaFragment extends Fragment {
             }
     );
 
+    /**
+     * Lanzador de actividad para la galería de imágenes.
+     * Permite al usuario seleccionar una imagen de la galería, y luego inicia
+     * la actividad de recorte (UCrop) con la imagen seleccionada.
+     */
     private final ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -102,8 +122,21 @@ public class NuevaFragment extends Fragment {
             }
     );
 
+    public static NuevaFragment newInstance(String testUserId) {
+        return new NuevaFragment();
+    }
 
 
+    /**
+     * Se llama para crear la vista del fragmento.
+     * <p>
+     * Infla el diseño del fragmento, inicializa las vistas y configura los listeners.
+     * </p>
+     * @param inflater El LayoutInflater que se puede utilizar para inflar cualquier vista en el fragmento.
+     * @param container Si no es nulo, esta es la vista principal a la que se adjuntará la interfaz de usuario del fragmento.
+     * @param savedInstanceState Si no es nulo, este fragmento se está reconstruyendo a partir de un estado guardado anteriormente como se indica aquí.
+     * @return Devuelve la View para la interfaz de usuario del fragmento, o null.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -121,7 +154,8 @@ public class NuevaFragment extends Fragment {
 
         txtEntrenoElegidoMostrar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -129,12 +163,14 @@ public class NuevaFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         txtComidaElegidaMostrar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -142,7 +178,8 @@ public class NuevaFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
 
 
@@ -159,7 +196,6 @@ public class NuevaFragment extends Fragment {
 
         btnAnadirPublicacion.setOnClickListener(v -> {
             String descripcion = txtAnadirDescripcion.getText().toString();
-
 
 
             if (descripcion.isEmpty()) {
@@ -227,10 +263,14 @@ public class NuevaFragment extends Fragment {
         });
 
 
-
         return view;
     }
 
+    /**
+     * Actualiza el estado visual del botón de añadir entrenamiento.
+     * Cambia el color de fondo del botón si se ha seleccionado un entrenamiento
+     * (es decir, el TextView {@code txtEntrenoElegidoMostrar} no está vacío).
+     */
     private void actualizarEstadoEntreno() {
         if (txtEntrenoElegidoMostrar != null && txtEntrenoElegidoMostrar.getText() != null) {
             String textoEntreno = txtEntrenoElegidoMostrar.getText().toString().trim();
@@ -242,6 +282,12 @@ public class NuevaFragment extends Fragment {
             }
         }
     }
+
+    /**
+     * Actualiza el estado visual del botón de añadir comida.
+     * Cambia el color de fondo del botón si se ha seleccionado un plan de comida
+     * (es decir, el TextView {@code txtComidaElegidaMostrar} no está vacío).
+     */
     private void actualizarEstadoComida() {
         if (txtComidaElegidaMostrar != null && txtComidaElegidaMostrar.getText() != null) {
             String textoEntreno = txtComidaElegidaMostrar.getText().toString().trim();
@@ -254,8 +300,13 @@ public class NuevaFragment extends Fragment {
             }
         }
     }
+
     private PlanComida planComidaSeleccionado;
 
+    /**
+     * Lanzador de actividad para seleccionar un plan de comida.
+     * Procesa el resultado de la actividad {@link ListaPlanComida} y actualiza el plan de comida seleccionado.
+     */
     private final ActivityResultLauncher<Intent> launcherComidaSeleccionada =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
@@ -270,6 +321,10 @@ public class NuevaFragment extends Fragment {
 
     private ItemEntrenamiento planEntrenamientoSeleccionado;
 
+    /**
+     * Lanzador de actividad para seleccionar un plan de entrenamiento.
+     * Procesa el resultado de la actividad {@link ListaEntrenamiento} y actualiza el plan de entrenamiento seleccionado.
+     */
     private final ActivityResultLauncher<Intent> launcherEntrenamientoSeleccionado =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
@@ -283,7 +338,10 @@ public class NuevaFragment extends Fragment {
                     });
 
 
-
+    /**
+     * Abre la galería de imágenes del dispositivo para que el usuario pueda seleccionar una imagen.
+     * Utiliza {@link #galleryLauncher} para iniciar la actividad de selección de imágenes.
+     */
     private void openGallery() {
         try {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -295,8 +353,6 @@ public class NuevaFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
-
 
 
 }

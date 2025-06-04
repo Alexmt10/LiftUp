@@ -29,7 +29,11 @@ import com.iescamas.liftup.pojo.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Fragmento para buscar usuarios en la aplicación.
+ * Permite a los usuarios buscar a otros usuarios por su nombre de usuario.
+ * Muestra los resultados de la búsqueda en una lista y permite interactuar con ellos.
+ */
 public class BuscarFragment extends Fragment {
     private TextInputEditText entradaBusqueda;
     private RecyclerView recyclerUsuarios;
@@ -41,6 +45,16 @@ public class BuscarFragment extends Fragment {
     private AdaptadorBusquedaUsuario adaptadorUsuarios;
     private List<Usuario> listaUsuarios;
 
+    /**
+     * Se llama cuando el fragmento debe crear su vista de usuario.
+     * Infla el diseño del fragmento, inicializa las vistas y configura los listeners.
+     *
+     * @param inflater El LayoutInflater que se puede usar para inflar cualquier vista en el fragmento.
+     * @param container Si no es nulo, este es el grupo de vistas principal al que se debe adjuntar la interfaz de usuario del fragmento.
+     *                  El fragmento no debe agregar la vista en sí, pero esto se puede usar para generar los LayoutParams de la vista.
+     * @param savedInstanceState Si no es nulo, este fragmento se está reconstruyendo a partir de un estado guardado anteriormente.
+     * @return Devuelve la Vista para la interfaz de usuario del fragmento.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,10 +78,15 @@ public class BuscarFragment extends Fragment {
         return vista;
     }
 
+    /**
+     * Configura el listener para el campo de entrada de búsqueda.
+     * Cuando el texto en el campo de entrada cambia, se llama al método {@link #buscarUsuarios(String)}.
+     */
     private void configurarListenerBusqueda() {
         entradaBusqueda.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -75,10 +94,17 @@ public class BuscarFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
+    /**
+     * Busca usuarios en Firestore según el texto de búsqueda proporcionado.
+     * Muestra los resultados en el RecyclerView o un mensaje si no se encuentran usuarios.
+     *
+     * @param textoBusqueda El texto utilizado para buscar usuarios.
+     */
     private void buscarUsuarios(String textoBusqueda) {
         Log.d("BUSQUEDA_USUARIOS", "Texto de búsqueda: " + textoBusqueda);
 

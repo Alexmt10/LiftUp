@@ -31,16 +31,32 @@ import com.iescamas.liftup.pojo.ItemSerie;
 
 import java.util.List;
 
+/**
+ * Adaptador para el RecyclerView que muestra las publicaciones.
+ */
 public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHolder> {
 
     private final List<ItemPost> listaPost;
     private final Context context;
 
+    /**
+     * Constructor del adaptador.
+     *
+     * @param listaPost Lista de publicaciones a mostrar.
+     * @param context   Contexto de la aplicación.
+     */
     public AdaptadorPubli(List<ItemPost> listaPost, Context context) {
         this.listaPost = listaPost;
         this.context = context;
     }
 
+    /**
+     * Crea una nueva vista para un elemento del RecyclerView.
+     *
+     * @param parent   El ViewGroup al que se añadirá la nueva vista después de que se vincule a una posición del adaptador.
+     * @param viewType El tipo de vista de la nueva vista.
+     * @return Un nuevo ViewHolder que contiene la vista para el elemento.
+     */
     @NonNull
     @Override
     public AdaptadorPubli.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,6 +64,12 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         return new ViewHolder(view);
     }
 
+    /**
+     * Vincula los datos de un elemento del RecyclerView con la vista correspondiente.
+     *
+     * @param holder   El ViewHolder que debe ser actualizado para representar el contenido del elemento en la posición dada en el conjunto de datos.
+     * @param position La posición del elemento dentro del conjunto de datos del adaptador.
+     */
     @Override
     public void onBindViewHolder(@NonNull AdaptadorPubli.ViewHolder holder, int position) {
         ItemPost itemPost = listaPost.get(position);
@@ -133,7 +155,6 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         }
 
 
-
         // Imagen de la publicación
         try {
             if (itemPost.getImagenPostUrl() != null && !itemPost.getImagenPostUrl().isEmpty()) {
@@ -157,7 +178,6 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         holder.MensajesPostId.setImageResource(R.drawable.icon_comentario);
         holder.RutinaPostId.setImageResource(R.drawable.icon_mancuerna);
         holder.ComidaPostId.setImageResource(R.drawable.icon_cubiertoo);
-
 
 
         holder.RutinaPostId.setOnClickListener(v -> {
@@ -207,7 +227,6 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
             boolean leGustaNuevo = !leGustaAntes;
             itemPost.setLeGusta(leGustaNuevo);
 
-            // Actualizar icono
             if (leGustaNuevo) {
                 holder.MegustaPostId.setImageResource(R.drawable.icon_corazon_rojo);
                 Toast.makeText(context, "¡Te gusta esta publicación!", Toast.LENGTH_SHORT).show();
@@ -229,11 +248,22 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
 
     }
 
+    /**
+     * Devuelve el número total de elementos en el conjunto de datos que tiene el adaptador.
+     *
+     * @return El número total de elementos en este adaptador.
+     */
     @Override
     public int getItemCount() {
         return listaPost.size();
     }
 
+    /**
+     * ViewHolder para los elementos del RecyclerView.
+     * <p>
+     * Contiene las vistas que se mostrarán para cada publicación.
+     * </p>
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView NombreUsuarioPostId;
@@ -246,6 +276,11 @@ public class AdaptadorPubli extends RecyclerView.Adapter<AdaptadorPubli.ViewHold
         ImageView ComidaPostId;
         TextView DescripcionPostId;
 
+        /**
+         * Constructor del ViewHolder.
+         *
+         * @param itemView La vista del elemento.
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             NombreUsuarioPostId = itemView.findViewById(R.id.txtNombreUsuarioPostId);
